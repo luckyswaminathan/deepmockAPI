@@ -34,7 +34,7 @@ PGPASSWORD=xxxxx psql 'postgresql://xxxxx@localhost:5433/xxxxx' -c 'select 1;'
 Export the SQLAlchemy connection string (psycopg v3):
 
 ```bash
-export DATABASE_URL='postgresql+psycopg://lswamina:deepmock@localhost:5433/deepmock'
+export DATABASE_URL='postgresql+psycopg://xxxxx:xxxxx@localhost:5433/xxxxx'
 ```
 
 Install dependencies and run the API:
@@ -79,7 +79,7 @@ Open `http://localhost:3000` in your browser.
 ```bash
 docker rm -f deepmock-postgres
 docker run --name deepmock-postgres \
-  -e POSTGRES_USER=lswamina \
+  -e POSTGRES_USER=xxxxx \
   -e POSTGRES_PASSWORD=deepmock \
   -e POSTGRES_DB=deepmock \
   -p 5433:5432 \
