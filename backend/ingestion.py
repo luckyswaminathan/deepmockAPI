@@ -3,28 +3,21 @@ from dataclasses import dataclass
 from typing import Any, Dict, Optional
 
 import yaml
-from sqlalchemy import (
-    Boolean,
-    Column,
-    Integer,
-    MetaData,
-    RowMapping,
-    String,
-    Table,
-    Text,
-    select,
-)
-from sqlalchemy.dialects.postgresql import JSONB, insert as pg_insert
+from sqlalchemy import RowMapping, select
+from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.engine import Connection
 from sqlalchemy.exc import SQLAlchemyError
 
-from database import api_registry, component_registry, db_connection, get_engine
+from database import api_registry, component_registry, db_connection
+
+
+VENDOR_PROPERTIES_KEY = "x-deepmock-properties"
 
 
 @dataclass
 class ComponentSummary:
     component_name: str
-    table_name: str
+    storage_key: str
     property_count: int
 
 
@@ -56,7 +49,7 @@ def parse_openapi_spec(raw_spec: str) -> Dict[str, Any]:
     return parsed
 
 
-def _build_table_name(api_slug: str, component_name: str) -> str:
+def _build_storage_key(api_slug: str, component_name: str) -> str:
     base = f"{api_slug}_{slugify(component_name)}"
     # PostgreSQL identifiers are limited to 63 characters.
     return base[:63]
@@ -68,7 +61,7 @@ def _prepare_component_rows(schema: Dict[str, Any]) -> list[Dict[str, Any]]:
     required_set = set(required)
     rows: list[Dict[str, Any]] = []
 
-    for prop_name, definition in properties.items():
+    for idx, (prop_name, definition) in enumerate(properties.items(), start=1):
         if not isinstance(definition, dict):
             definition = {"description": str(definition)}
 
@@ -78,6 +71,7 @@ def _prepare_component_rows(schema: Dict[str, Any]) -> list[Dict[str, Any]]:
 
         rows.append(
             {
+                "position": idx,
                 "property_name": prop_name,
                 "property_type": prop_type,
                 "property_format": definition.get("format"),
@@ -113,16 +107,15 @@ def ingest_openapi_spec(raw_spec: str, *, explicit_name: Optional[str] = None) -
             _persist_api_registry(conn, api_slug, derived_name, original_title, version)
             for component_name, schema in schemas.items():
                 normalized_schema = schema if isinstance(schema, dict) else {"definition": schema}
-                table_name = _build_table_name(api_slug, component_name)
+                storage_key = _build_storage_key(api_slug, component_name)
                 property_rows = _prepare_component_rows(normalized_schema)
-                component_table = _create_component_table(table_name)
-                if property_rows:
-                    conn.execute(component_table.insert(), property_rows)
-                _persist_component_registry(conn, api_slug, component_name, table_name, normalized_schema)
+                enriched_schema = dict(normalized_schema)
+                enriched_schema[VENDOR_PROPERTIES_KEY] = property_rows
+                _persist_component_registry(conn, api_slug, component_name, storage_key, enriched_schema)
                 summaries.append(
                     ComponentSummary(
                         component_name=component_name,
-                        table_name=table_name,
+                        storage_key=storage_key,
                         property_count=len(property_rows),
                     )
                 )
@@ -135,6 +128,15 @@ def ingest_openapi_spec(raw_spec: str, *, explicit_name: Optional[str] = None) -
         version=version,
         components=summaries,
     )
+
+
+def _extract_properties_from_schema(schema: Any) -> list[Dict[str, Any]]:
+    if isinstance(schema, dict):
+        properties = schema.get(VENDOR_PROPERTIES_KEY)
+        if isinstance(properties, list):
+            return properties
+        return _prepare_component_rows(schema)
+    return []
 
 
 def _persist_api_registry(
@@ -165,52 +167,23 @@ def _persist_component_registry(
     conn: Connection,
     api_slug: str,
     component_name: str,
-    table_name: str,
+    storage_key: str,
     schema: Any,
 ) -> None:
     stmt = pg_insert(component_registry).values(
         api_slug=api_slug,
         component_name=component_name,
-        table_name=table_name,
+        table_name=storage_key,
         schema=schema,
     )
     stmt = stmt.on_conflict_do_update(
         constraint="uq_component_registry_slug_component",
         set_={
-            "table_name": table_name,
+            "table_name": storage_key,
             "schema": schema,
         },
     )
     conn.execute(stmt)
-
-
-def _create_component_table(table_name: str) -> Table:
-    """Drop and (re)create the component table using autocommit DDL.
-
-    Executing DDL outside the main ingestion transaction avoids exhausting
-    Postgres max_locks_per_transaction when many components are processed.
-    """
-    metadata = MetaData()
-    component_table = Table(
-        table_name,
-        metadata,
-        Column("id", Integer, primary_key=True),
-        Column("property_name", String(200), nullable=False),
-        Column("property_type", String(100)),
-        Column("property_format", String(100)),
-        Column("is_required", Boolean, nullable=False, default=False),
-        Column("description", Text),
-        Column("example", JSONB),
-        Column("reference", String(255)),
-    )
-
-    engine = get_engine()
-    # Perform DDL in autocommit to prevent accumulating locks in one tx
-    with engine.connect().execution_options(isolation_level="AUTOCOMMIT") as ddl_conn:
-        component_table.drop(bind=ddl_conn, checkfirst=True)
-        component_table.create(bind=ddl_conn)
-
-    return component_table
 
 
 def list_apis() -> list[Dict[str, Any]]:
@@ -233,21 +206,23 @@ def list_components(api_slug: str) -> list[Dict[str, Any]]:
             select(
                 component_registry.c.component_name,
                 component_registry.c.table_name,
+                component_registry.c.schema,
                 component_registry.c.created_at,
             )
             .where(component_registry.c.api_slug == api_slug)
             .order_by(component_registry.c.component_name.asc())
         )
-        return [dict(row._mapping) for row in result.fetchall()]
-
-
-def fetch_component_rows(table_name: str) -> list[Dict[str, Any]]:
-    engine = get_engine()
-    metadata = MetaData()
-    component_table = Table(table_name, metadata, autoload_with=engine)
-    with db_connection() as conn:
-        result = conn.execute(select(component_table).order_by(component_table.c.property_name.asc())).fetchall()
-    return [dict(row._mapping) for row in result]
+        components: list[Dict[str, Any]] = []
+        for row in result.fetchall():
+            mapping = dict(row._mapping)
+            storage_key = mapping.pop("table_name", None)
+            if storage_key is not None:
+                mapping["storage_key"] = storage_key
+            properties = _extract_properties_from_schema(mapping.get("schema"))
+            mapping["property_count"] = len(properties)
+            mapping.pop("schema", None)
+            components.append(mapping)
+        return components
 
 
 def get_component_entry(api_slug: str, component_name: str) -> Optional[Dict[str, Any]]:
@@ -261,4 +236,13 @@ def get_component_entry(api_slug: str, component_name: str) -> Optional[Dict[str
     if not result:
         return None
     mapping: RowMapping = result._mapping
-    return dict(mapping)
+    entry = dict(mapping)
+    storage_key = entry.get("table_name")
+    if storage_key is not None:
+        entry["storage_key"] = storage_key
+    return entry
+
+
+def get_component_properties(entry: Dict[str, Any]) -> list[Dict[str, Any]]:
+    schema = entry.get("schema")
+    return _extract_properties_from_schema(schema)

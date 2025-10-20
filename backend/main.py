@@ -13,8 +13,8 @@ from pydantic import BaseModel
 from database import init_core_tables
 from ingestion import (
     IngestionResult,
-    fetch_component_rows,
     get_component_entry,
+    get_component_properties,
     ingest_openapi_spec,
     list_apis as fetch_api_registry,
     list_components as fetch_component_registry,
@@ -39,7 +39,7 @@ templates = Jinja2Templates(directory=str(Path(__file__).parent / "templates"))
 
 class ComponentResponse(BaseModel):
     component_name: str
-    table_name: str
+    storage_key: str
     property_count: int
 
 
@@ -60,12 +60,13 @@ class ApiSummary(BaseModel):
 
 class ComponentMeta(BaseModel):
     component_name: str
-    table_name: str
+    storage_key: str
+    property_count: int
     created_at: datetime
 
 
 class PropertyRow(BaseModel):
-    id: int
+    position: Optional[int] = None
     property_name: str
     property_type: Optional[str] = None
     property_format: Optional[str] = None
@@ -77,7 +78,8 @@ class PropertyRow(BaseModel):
 
 class ComponentDetail(BaseModel):
     component_name: str
-    table_name: str
+    storage_key: Optional[str] = None
+    component_schema: Dict[str, Any]
     properties: list[PropertyRow]
 
 
@@ -129,7 +131,7 @@ async def upload_openapi_spec(
         components=[
             ComponentResponse(
                 component_name=component.component_name,
-                table_name=component.table_name,
+                storage_key=component.storage_key,
                 property_count=component.property_count,
             )
             for component in result.components
@@ -165,15 +167,13 @@ def get_component_details(api_slug: str, component_name: str) -> ComponentDetail
     if not entry:
         raise HTTPException(status_code=404, detail="Component not found.")
 
-    try:
-        rows = fetch_component_rows(entry["table_name"])
-    except RuntimeError as exc:
-        raise HTTPException(status_code=500, detail=str(exc)) from exc
-
+    properties = get_component_properties(entry)
+    schema: Dict[str, Any] = entry.get("schema") or {}
     return ComponentDetail(
         component_name=component_name,
-        table_name=entry["table_name"],
-        properties=[PropertyRow(**row) for row in rows],
+        storage_key=entry.get("storage_key"),
+        component_schema=schema,
+        properties=[PropertyRow(**row) for row in properties],
     )
 
 
@@ -218,10 +218,7 @@ def view_component_page(request: Request, api_slug: str, component_name: str) ->
     if not entry:
         raise HTTPException(status_code=404, detail="Component not found.")
 
-    try:
-        rows = fetch_component_rows(entry["table_name"])
-    except RuntimeError as exc:
-        return JSONResponse(status_code=500, content={"detail": str(exc)})
+    rows = get_component_properties(entry)
 
     return templates.TemplateResponse(
         "component.html",
@@ -229,7 +226,8 @@ def view_component_page(request: Request, api_slug: str, component_name: str) ->
             "request": request,
             "api_slug": api_slug,
             "component_name": component_name,
-            "table_name": entry["table_name"],
+            "storage_key": entry.get("storage_key"),
+            "component_schema": entry.get("schema") or {},
             "rows": rows,
         },
     )

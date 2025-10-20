@@ -47,12 +47,13 @@
   <body>
     <a href="/">← Back to dashboard</a>
     <h1>{{ component_name }}</h1>
-    <p>API: <strong>{{ api_slug }}</strong> | Table: <code>{{ table_name }}</code></p>
+    <p>API: <strong>{{ api_slug }}</strong> | Storage key: <code>{{ storage_key }}</code></p>
 
     {% if rows %}
     <table>
       <thead>
         <tr>
+          <th>#</th>
           <th>Property</th>
           <th>Type</th>
           <th>Format</th>
@@ -65,6 +66,7 @@
       <tbody>
         {% for row in rows %}
         <tr>
+          <td>{{ row.position or loop.index }}</td>
           <td>{{ row.property_name }}</td>
           <td>{{ row.property_type or "n/a" }}</td>
           <td>{{ row.property_format or "n/a" }}</td>
@@ -85,5 +87,10 @@
     {% else %}
     <p class="empty-state">This component does not define any properties.</p>
     {% endif %}
+
+    <details style="margin-top: 1.5rem;">
+      <summary>Raw schema (with vendor metadata)</summary>
+<pre>{{ schema | tojson(indent=2) }}</pre>
+    </details>
   </body>
 </html>

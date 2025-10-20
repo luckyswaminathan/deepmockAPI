@@ -96,7 +96,7 @@
     {% if apis %}
       {% for api in apis %}
       <section class="api-card">
-        <h2>{{ api.api_name }} <small>({{ api.api_slug }})</small></h2>
+      <h2>{{ api.api_name }} <small>({{ api.api_slug }})</small></h2>
         <p>Spec title: {{ api.title }} | Version: {{ api.version or "n/a" }} | Ingested: {{ api.created_at }}</p>
 
         {% set components = api_components.get(api.api_slug) %}
@@ -105,7 +105,8 @@
           <thead>
             <tr>
               <th>Component</th>
-              <th>Table Name</th>
+              <th>Properties</th>
+              <th>Storage Key</th>
               <th>View</th>
             </tr>
           </thead>
@@ -113,7 +114,8 @@
             {% for component in components %}
             <tr>
               <td>{{ component.component_name }}</td>
-              <td><code>{{ component.table_name }}</code></td>
+              <td>{{ component.property_count }}</td>
+              <td><code>{{ component.storage_key }}</code></td>
               <td>
                 <a href="/apis/{{ api.api_slug }}/components/{{ component.component_name }}/view">
                   View Properties

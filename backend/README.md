@@ -46,15 +46,15 @@ OpenAPI Workflow
 ----------------
 1. Visit `http://localhost:8000/` for the dashboard.
 2. Upload an OpenAPI JSON or YAML file. Optionally provide a display name.
-3. The backend parses `components.schemas` and creates one PostgreSQL table per component
-   (named `<api-slug>_<component-name>`). Properties (field name, type, description, required, etc.)
-   are stored as rows in the generated table.
-4. Browse the ingested APIs and their component tables directly from the dashboard. You can also
+3. The backend parses `components.schemas` and stores each component in PostgreSQL as a JSONB record,
+   attaching a vendor field `x-deepmock-properties` that captures the derived property summary. No
+   per-component tables are created, so large specs remain lightweight.
+4. Browse the ingested APIs and their component summaries directly from the dashboard. You can also
    query the REST endpoints:
    - `POST /apis/upload` – ingest a specification.
    - `GET /apis` – list registered APIs.
-   - `GET /apis/{api_slug}/components` – list component tables for an API.
-   - `GET /apis/{api_slug}/components/{component_name}` – view properties for a component.
+   - `GET /apis/{api_slug}/components` – list stored components for an API (property counts included).
+   - `GET /apis/{api_slug}/components/{component_name}` – view the JSON schema snapshot and property table.
 
 Visit
 -----
