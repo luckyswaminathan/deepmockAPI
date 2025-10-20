@@ -1,11 +1,238 @@
-from fastapi import FastAPI
+from __future__ import annotations
 
-app = FastAPI()
+from datetime import datetime
+from pathlib import Path
+from typing import Any, Dict, Optional
+
+from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.templating import Jinja2Templates
+from pydantic import BaseModel
+
+from database import init_core_tables
+from ingestion import (
+    IngestionResult,
+    fetch_component_rows,
+    get_component_entry,
+    ingest_openapi_spec,
+    list_apis as fetch_api_registry,
+    list_components as fetch_component_registry,
+)
+
+app = FastAPI(title="DeepMock API Backend")
+
+# CORS: allow local Next.js frontend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+templates = Jinja2Templates(directory=str(Path(__file__).parent / "templates"))
 
 
-@app.get("/")
-def read_root():
-    return {"status": "ok", "message": "DeepMock API is running"}
+class ComponentResponse(BaseModel):
+    component_name: str
+    table_name: str
+    property_count: int
+
+
+class IngestionResponse(BaseModel):
+    api_slug: str
+    api_name: str
+    version: Optional[str]
+    components: list[ComponentResponse]
+
+
+class ApiSummary(BaseModel):
+    api_slug: str
+    api_name: str
+    title: str
+    version: Optional[str] = None
+    created_at: datetime
+
+
+class ComponentMeta(BaseModel):
+    component_name: str
+    table_name: str
+    created_at: datetime
+
+
+class PropertyRow(BaseModel):
+    id: int
+    property_name: str
+    property_type: Optional[str] = None
+    property_format: Optional[str] = None
+    is_required: bool
+    description: Optional[str] = None
+    example: Optional[Any] = None
+    reference: Optional[str] = None
+
+
+class ComponentDetail(BaseModel):
+    component_name: str
+    table_name: str
+    properties: list[PropertyRow]
+
+
+@app.on_event("startup")
+def on_startup() -> None:
+    try:
+        init_core_tables()
+    except RuntimeError as exc:
+        raise RuntimeError(
+            "Failed to initialize database connection. "
+            "Ensure DATABASE_URL is set to a valid PostgreSQL connection string."
+        ) from exc
+
+
+@app.get("/health")
+def healthcheck() -> Dict[str, str]:
+    return {"status": "ok"}
+
+
+@app.post("/apis/upload", response_model=IngestionResponse)
+async def upload_openapi_spec(
+    spec_file: UploadFile = File(...),
+    api_name: Optional[str] = Form(None),
+) -> IngestionResponse:
+    try:
+        raw_bytes = await spec_file.read()
+    finally:
+        await spec_file.close()
+
+    if not raw_bytes:
+        raise HTTPException(status_code=400, detail="Uploaded file is empty.")
+
+    try:
+        raw_text = raw_bytes.decode("utf-8")
+    except UnicodeDecodeError as exc:
+        raise HTTPException(status_code=400, detail="OpenAPI spec must be UTF-8 encoded.") from exc
+
+    try:
+        result: IngestionResult = ingest_openapi_spec(raw_text, explicit_name=api_name)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except RuntimeError as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+    return IngestionResponse(
+        api_slug=result.api_slug,
+        api_name=result.api_name,
+        version=result.version,
+        components=[
+            ComponentResponse(
+                component_name=component.component_name,
+                table_name=component.table_name,
+                property_count=component.property_count,
+            )
+            for component in result.components
+        ],
+    )
+
+
+@app.get("/apis", response_model=list[ApiSummary])
+def list_apis_endpoint() -> list[ApiSummary]:
+    try:
+        apis = fetch_api_registry()
+    except RuntimeError as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+    return [ApiSummary(**api) for api in apis]
+
+
+@app.get("/apis/{api_slug}/components", response_model=list[ComponentMeta])
+def list_components_endpoint(api_slug: str) -> list[ComponentMeta]:
+    try:
+        components = fetch_component_registry(api_slug)
+    except RuntimeError as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+    return [ComponentMeta(**component) for component in components]
+
+
+@app.get("/apis/{api_slug}/components/{component_name}", response_model=ComponentDetail)
+def get_component_details(api_slug: str, component_name: str) -> ComponentDetail:
+    try:
+        entry = get_component_entry(api_slug, component_name)
+    except RuntimeError as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+    if not entry:
+        raise HTTPException(status_code=404, detail="Component not found.")
+
+    try:
+        rows = fetch_component_rows(entry["table_name"])
+    except RuntimeError as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+    return ComponentDetail(
+        component_name=component_name,
+        table_name=entry["table_name"],
+        properties=[PropertyRow(**row) for row in rows],
+    )
+
+
+@app.get("/", response_class=HTMLResponse)
+def index(request: Request) -> HTMLResponse:
+    error: Optional[str] = None
+    try:
+        apis = fetch_api_registry()
+    except RuntimeError as exc:
+        apis = []
+        error = str(exc)
+
+    api_components: Dict[str, list[Dict[str, Any]]] = {}
+    for api in apis:
+        try:
+            api_components[api["api_slug"]] = fetch_component_registry(api["api_slug"])
+        except RuntimeError as exc:  # pragma: no cover - defensive logging
+            api_components[api["api_slug"]] = []
+            error = str(exc)
+
+    return templates.TemplateResponse(
+        "index.html",
+        {
+            "request": request,
+            "apis": apis,
+            "api_components": api_components,
+            "error": error,
+        },
+    )
+
+
+@app.get(
+    "/apis/{api_slug}/components/{component_name}/view",
+    response_class=HTMLResponse,
+)
+def view_component_page(request: Request, api_slug: str, component_name: str) -> HTMLResponse:
+    try:
+        entry = get_component_entry(api_slug, component_name)
+    except RuntimeError as exc:
+        return JSONResponse(status_code=500, content={"detail": str(exc)})
+
+    if not entry:
+        raise HTTPException(status_code=404, detail="Component not found.")
+
+    try:
+        rows = fetch_component_rows(entry["table_name"])
+    except RuntimeError as exc:
+        return JSONResponse(status_code=500, content={"detail": str(exc)})
+
+    return templates.TemplateResponse(
+        "component.html",
+        {
+            "request": request,
+            "api_slug": api_slug,
+            "component_name": component_name,
+            "table_name": entry["table_name"],
+            "rows": rows,
+        },
+    )
 
 
 if __name__ == "__main__":
