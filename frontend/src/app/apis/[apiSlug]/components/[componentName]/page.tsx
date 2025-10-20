@@ -17,7 +17,7 @@ export default async function ComponentDetailPage({
           Back
         </Link>
       </div>
-      <p className="text-sm text-gray-600">Table: {detail.table_name}</p>
+      <p className="text-sm text-gray-600">Storage key: {detail.storage_key ?? "n/a"}</p>
       <div className="overflow-x-auto">
         <table className="min-w-full border rounded">
           <thead>

@@ -18,7 +18,7 @@ export default async function ApiComponents({ params }: { params: { apiSlug: str
             <li key={c.component_name} className="p-4 flex items-center justify-between">
               <div>
                 <div className="font-medium">{c.component_name}</div>
-                <div className="text-sm text-gray-600">{c.table_name}</div>
+                <div className="text-sm text-gray-600">{c.storage_key} • {c.property_count} properties</div>
               </div>
               <Link
                 className="text-blue-600 hover:underline"

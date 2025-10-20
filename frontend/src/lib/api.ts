@@ -10,7 +10,8 @@ export type ApiSummary = {
 
 export type ComponentMeta = {
   component_name: string;
-  table_name: string;
+  storage_key: string;
+  property_count: number;
   created_at: string;
 };
 
@@ -27,7 +28,8 @@ export type PropertyRow = {
 
 export type ComponentDetail = {
   component_name: string;
-  table_name: string;
+  storage_key?: string | null;
+  component_schema: Record<string, unknown>;
   properties: PropertyRow[];
 };
 
