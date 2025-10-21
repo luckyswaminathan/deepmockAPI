@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { listComponents } from "@/lib/api";
+import ComponentsFilterList from "./ComponentsFilterList";
 
 export default async function ApiComponents({ params }: { params: { apiSlug: string } }) {
   const { apiSlug } = params;
@@ -13,22 +14,7 @@ export default async function ApiComponents({ params }: { params: { apiSlug: str
       {components.length === 0 ? (
         <p className="text-gray-600">No components found.</p>
       ) : (
-        <ul className="divide-y divide-gray-200 rounded border">
-          {components.map((c) => (
-            <li key={c.component_name} className="p-4 flex items-center justify-between">
-              <div>
-                <div className="font-medium">{c.component_name}</div>
-                <div className="text-sm text-gray-600">{c.storage_key} • {c.property_count} properties</div>
-              </div>
-              <Link
-                className="text-blue-600 hover:underline"
-                href={`/apis/${encodeURIComponent(apiSlug)}/components/${encodeURIComponent(c.component_name)}`}
-              >
-                View details
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <ComponentsFilterList components={components} apiSlug={apiSlug} />
       )}
     </main>
   );
