@@ -22,9 +22,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 @lru_cache(maxsize=1)
 def get_database_url() -> str:
-    url = os.getenv("_DATABASE_URL")
+    url = os.getenv("DATABASE_URL")
     if not url:
         raise RuntimeError(
             "DATABASE_URL environment variable is required (e.g., "
@@ -53,7 +54,8 @@ api_registry = Table(
     Column("api_name", String(200), nullable=False),
     Column("title", String(255), nullable=False),
     Column("version", String(50), nullable=True),
-    Column("created_at", DateTime(timezone=True), server_default=func.now(), nullable=False),
+    Column("created_at", DateTime(timezone=True),
+           server_default=func.now(), nullable=False),
 )
 
 component_registry = Table(
@@ -64,8 +66,10 @@ component_registry = Table(
     Column("component_name", String(200), nullable=False),
     Column("table_name", String(255), nullable=False),
     Column("schema", JSONB, nullable=False),
-    Column("created_at", DateTime(timezone=True), server_default=func.now(), nullable=False),
-    UniqueConstraint("api_slug", "component_name", name="uq_component_registry_slug_component"),
+    Column("created_at", DateTime(timezone=True),
+           server_default=func.now(), nullable=False),
+    UniqueConstraint("api_slug", "component_name",
+                     name="uq_component_registry_slug_component"),
 )
 
 
