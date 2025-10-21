@@ -3,12 +3,10 @@ from dataclasses import dataclass
 from typing import Any, Dict, Optional
 
 import yaml
-from sqlalchemy import RowMapping, select
-from sqlalchemy.dialects.postgresql import insert as pg_insert
-from sqlalchemy.engine import Connection
 from sqlalchemy.exc import SQLAlchemyError
+from sqlmodel import Session, select
 
-from database import api_registry, component_registry, db_connection
+from database import ApiRegistry, ComponentRegistry, db_session
 
 
 VENDOR_PROPERTIES_KEY = "x-deepmock-properties"
@@ -102,16 +100,16 @@ def ingest_openapi_spec(raw_spec: str, *, explicit_name: Optional[str] = None) -
 
     summaries: list[ComponentSummary] = []
     try:
-        with db_connection() as conn:
+        with db_session() as session:
             original_title = info.get("title") or derived_name
-            _persist_api_registry(conn, api_slug, derived_name, original_title, version)
+            _persist_api_registry(session, api_slug, derived_name, original_title, version)
             for component_name, schema in schemas.items():
                 normalized_schema = schema if isinstance(schema, dict) else {"definition": schema}
                 storage_key = _build_storage_key(api_slug, component_name)
                 property_rows = _prepare_component_rows(normalized_schema)
                 enriched_schema = dict(normalized_schema)
                 enriched_schema[VENDOR_PROPERTIES_KEY] = property_rows
-                _persist_component_registry(conn, api_slug, component_name, storage_key, enriched_schema)
+                _persist_component_registry(session, api_slug, component_name, storage_key, enriched_schema)
                 summaries.append(
                     ComponentSummary(
                         component_name=component_name,
@@ -140,107 +138,112 @@ def _extract_properties_from_schema(schema: Any) -> list[Dict[str, Any]]:
 
 
 def _persist_api_registry(
-    conn: Connection,
+    session: Session,
     api_slug: str,
     api_name: str,
     title: str,
     version: Optional[str],
 ) -> None:
-    stmt = pg_insert(api_registry).values(
-        api_slug=api_slug,
-        api_name=api_name,
-        title=title,
-        version=version,
-    )
-    stmt = stmt.on_conflict_do_update(
-        index_elements=[api_registry.c.api_slug],
-        set_={
-            "api_name": api_name,
-            "title": title,
-            "version": version,
-        },
-    )
-    conn.execute(stmt)
+    existing = session.exec(
+        select(ApiRegistry).where(ApiRegistry.api_slug == api_slug)
+    ).first()
+    if existing:
+        existing.api_name = api_name
+        existing.title = title
+        existing.version = version
+    else:
+        session.add(
+            ApiRegistry(
+                api_slug=api_slug,
+                api_name=api_name,
+                title=title,
+                version=version,
+            )
+        )
 
 
 def _persist_component_registry(
-    conn: Connection,
+    session: Session,
     api_slug: str,
     component_name: str,
     storage_key: str,
     schema: Any,
 ) -> None:
-    stmt = pg_insert(component_registry).values(
-        api_slug=api_slug,
-        component_name=component_name,
-        table_name=storage_key,
-        schema=schema,
-    )
-    stmt = stmt.on_conflict_do_update(
-        constraint="uq_component_registry_slug_component",
-        set_={
-            "table_name": storage_key,
-            "schema": schema,
-        },
-    )
-    conn.execute(stmt)
+    existing = session.exec(
+        select(ComponentRegistry)
+        .where(ComponentRegistry.api_slug == api_slug)
+        .where(ComponentRegistry.component_name == component_name)
+    ).first()
+    if existing:
+        existing.table_name = storage_key
+        existing.schema = schema
+    else:
+        session.add(
+            ComponentRegistry(
+                api_slug=api_slug,
+                component_name=component_name,
+                table_name=storage_key,
+                schema=schema,
+            )
+        )
 
 
 def list_apis() -> list[Dict[str, Any]]:
-    with db_connection() as conn:
-        result = conn.execute(
-            select(
-                api_registry.c.api_slug,
-                api_registry.c.api_name,
-                api_registry.c.title,
-                api_registry.c.version,
-                api_registry.c.created_at,
-            ).order_by(api_registry.c.api_name.asc())
-        )
-        return [dict(row._mapping) for row in result.fetchall()]
+    with db_session() as session:
+        apis = session.exec(
+            select(ApiRegistry).order_by(ApiRegistry.api_name.asc())
+        ).all()
+        return [
+            {
+                "api_slug": api.api_slug,
+                "api_name": api.api_name,
+                "title": api.title,
+                "version": api.version,
+                "created_at": api.created_at,
+            }
+            for api in apis
+        ]
 
 
 def list_components(api_slug: str) -> list[Dict[str, Any]]:
-    with db_connection() as conn:
-        result = conn.execute(
-            select(
-                component_registry.c.component_name,
-                component_registry.c.table_name,
-                component_registry.c.schema,
-                component_registry.c.created_at,
-            )
-            .where(component_registry.c.api_slug == api_slug)
-            .order_by(component_registry.c.component_name.asc())
-        )
+    with db_session() as session:
+        records = session.exec(
+            select(ComponentRegistry)
+            .where(ComponentRegistry.api_slug == api_slug)
+            .order_by(ComponentRegistry.component_name.asc())
+        ).all()
         components: list[Dict[str, Any]] = []
-        for row in result.fetchall():
-            mapping = dict(row._mapping)
-            storage_key = mapping.pop("table_name", None)
-            if storage_key is not None:
-                mapping["storage_key"] = storage_key
-            properties = _extract_properties_from_schema(mapping.get("schema"))
-            mapping["property_count"] = len(properties)
-            mapping.pop("schema", None)
-            components.append(mapping)
+        for record in records:
+            properties = _extract_properties_from_schema(record.schema)
+            components.append(
+                {
+                    "component_name": record.component_name,
+                    "storage_key": record.table_name,
+                    "created_at": record.created_at,
+                    "property_count": len(properties),
+                }
+            )
         return components
 
 
 def get_component_entry(api_slug: str, component_name: str) -> Optional[Dict[str, Any]]:
-    with db_connection() as conn:
-        result = conn.execute(
-            select(component_registry)
-            .where(component_registry.c.api_slug == api_slug)
-            .where(component_registry.c.component_name == component_name)
+    with db_session() as session:
+        record = session.exec(
+            select(ComponentRegistry)
+            .where(ComponentRegistry.api_slug == api_slug)
+            .where(ComponentRegistry.component_name == component_name)
         ).first()
 
-    if not result:
+    if not record:
         return None
-    mapping: RowMapping = result._mapping
-    entry = dict(mapping)
-    storage_key = entry.get("table_name")
-    if storage_key is not None:
-        entry["storage_key"] = storage_key
-    return entry
+    return {
+        "api_slug": record.api_slug,
+        "component_name": record.component_name,
+        "table_name": record.table_name,
+        "storage_key": record.table_name,
+        "schema": record.schema,
+        "created_at": record.created_at,
+    }
 
 
 def get_component_properties(entry: Dict[str, Any]) -> list[Dict[str, Any]]:
