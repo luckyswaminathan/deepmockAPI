@@ -33,9 +33,36 @@ export type ComponentDetail = {
   properties: PropertyRow[];
 };
 
+export type ComponentGraphNode = {
+  component_name: string;
+  storage_key: string;
+  created_at: string;
+  property_count: number;
+  references: string[];
+  dependent_count: number;
+};
+
+export type ComponentGraphEdge = {
+  source: string;
+  target: string;
+};
+
+export type ComponentGraph = {
+  nodes: ComponentGraphNode[];
+  edges: ComponentGraphEdge[];
+};
+
 export async function listApis(): Promise<ApiSummary[]> {
   const res = await fetch(`${BACKEND_URL}/apis`, { next: { revalidate: 0 } });
   if (!res.ok) throw new Error(`Failed to list APIs: ${res.status}`);
+  return res.json();
+}
+
+export async function getComponentGraph(apiSlug: string): Promise<ComponentGraph> {
+  const res = await fetch(`${BACKEND_URL}/apis/${encodeURIComponent(apiSlug)}/graph`, {
+    next: { revalidate: 0 },
+  });
+  if (!res.ok) throw new Error(`Failed to load component graph: ${res.status}`);
   return res.json();
 }
 
@@ -70,5 +97,4 @@ export async function uploadOpenApiSpec(formData: FormData) {
   }
   return res.json();
 }
-
 

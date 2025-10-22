@@ -38,7 +38,7 @@ class ComponentRegistry(SQLModel, table=True):
     api_slug: str = Field(sa_column=Column(String(100), nullable=False))
     component_name: str = Field(sa_column=Column(String(200), nullable=False))
     table_name: str = Field(sa_column=Column(String(255), nullable=False))
-    schema: dict[str, Any] = Field(sa_column=Column(JSONB, nullable=False))
+    schema_payload: dict[str, Any] = Field(sa_column=Column("schema", JSONB, nullable=False))
     created_at: Optional[datetime] = Field(
         default=None,
         sa_column=Column(DateTime(timezone=True), server_default=func.now(), nullable=False),

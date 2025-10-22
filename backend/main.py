@@ -15,6 +15,7 @@ from ingestion import (
     IngestionResult,
     get_component_entry,
     get_component_properties,
+    construct_component_graph,
     ingest_openapi_spec,
     list_apis as fetch_api_registry,
     list_components as fetch_component_registry,
@@ -81,6 +82,25 @@ class ComponentDetail(BaseModel):
     storage_key: Optional[str] = None
     component_schema: Dict[str, Any]
     properties: list[PropertyRow]
+
+
+class ComponentGraphNode(BaseModel):
+    component_name: str
+    storage_key: str
+    created_at: datetime
+    property_count: int
+    references: list[str]
+    dependent_count: int
+
+
+class ComponentGraphEdge(BaseModel):
+    source: str
+    target: str
+
+
+class ComponentGraph(BaseModel):
+    nodes: list[ComponentGraphNode]
+    edges: list[ComponentGraphEdge]
 
 
 @app.on_event("startup")
@@ -175,6 +195,17 @@ def get_component_details(api_slug: str, component_name: str) -> ComponentDetail
         component_schema=schema,
         properties=[PropertyRow(**row) for row in properties],
     )
+
+
+@app.get("/apis/{api_slug}/graph", response_model=ComponentGraph)
+def get_component_graph(api_slug: str) -> ComponentGraph:
+    try:
+        graph = construct_component_graph(api_slug)
+    except ValueError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except RuntimeError as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+    return ComponentGraph(**graph)
 
 
 @app.get("/", response_class=HTMLResponse)

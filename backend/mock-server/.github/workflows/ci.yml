@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mock-server
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      - name: Install Spectral
+        run: npm install -g @stoplight/spectral-cli
+        working-directory: .
+
+      - name: Install Python dependencies
+        run: pip install --no-cache-dir -r requirements.txt
+
+      - name: Spectral lint
+        run: npx @stoplight/spectral-cli lint openapi.yaml
+
+      - name: Run unit tests
+        run: pytest tests/unit
+
+      - name: Run contract tests
+        run: pytest tests/contract

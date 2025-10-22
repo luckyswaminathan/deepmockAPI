@@ -1,6 +1,6 @@
 from collections.abc import Iterable
 from dataclasses import dataclass
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Set
 
 import yaml
 from sqlalchemy.exc import SQLAlchemyError
@@ -176,14 +176,14 @@ def _persist_component_registry(
     ).first()
     if existing:
         existing.table_name = storage_key
-        existing.schema = schema
+        existing.schema_payload = schema
     else:
         session.add(
             ComponentRegistry(
                 api_slug=api_slug,
                 component_name=component_name,
                 table_name=storage_key,
-                schema=schema,
+                schema_payload=schema,
             )
         )
 
@@ -214,7 +214,7 @@ def list_components(api_slug: str) -> list[Dict[str, Any]]:
         ).all()
         components: list[Dict[str, Any]] = []
         for record in records:
-            properties = _extract_properties_from_schema(record.schema)
+            properties = _extract_properties_from_schema(record.schema_payload)
             components.append(
                 {
                     "component_name": record.component_name,
@@ -241,7 +241,7 @@ def get_component_entry(api_slug: str, component_name: str) -> Optional[Dict[str
         "component_name": record.component_name,
         "table_name": record.table_name,
         "storage_key": record.table_name,
-        "schema": record.schema,
+        "schema": record.schema_payload,
         "created_at": record.created_at,
     }
 
@@ -249,3 +249,75 @@ def get_component_entry(api_slug: str, component_name: str) -> Optional[Dict[str
 def get_component_properties(entry: Dict[str, Any]) -> list[Dict[str, Any]]:
     schema = entry.get("schema")
     return _extract_properties_from_schema(schema)
+
+
+def construct_component_graph(api_slug: str) -> Dict[str, Any]:
+    with db_session() as session:
+        records = session.exec(
+            select(ComponentRegistry)
+            .where(ComponentRegistry.api_slug == api_slug)
+        ).all()
+
+    if not records:
+        raise ValueError("API not found or has no components.")
+
+    component_names = {record.component_name for record in records}
+    adjacency: Dict[str, Set[str]] = {name: set() for name in component_names}
+    nodes: list[Dict[str, Any]] = []
+
+    for record in records:
+        schema = record.schema_payload if isinstance(record.schema_payload, dict) else {}
+        properties = _extract_properties_from_schema(schema)
+        refs = _collect_component_refs(schema)
+        filtered_refs = {ref for ref in refs if ref in component_names and ref != record.component_name}
+        adjacency[record.component_name].update(filtered_refs)
+        nodes.append(
+            {
+                "component_name": record.component_name,
+                "storage_key": record.table_name,
+                "created_at": record.created_at,
+                "property_count": len(properties),
+            }
+        )
+
+    edges: list[Dict[str, str]] = []
+    dependents: Dict[str, int] = {name: 0 for name in component_names}
+    for source, targets in adjacency.items():
+        for target in sorted(targets):
+            edges.append({"source": source, "target": target})
+            dependents[target] += 1
+
+    for node in nodes:
+        name = node["component_name"]
+        node["references"] = sorted(adjacency.get(name, set()))
+        node["dependent_count"] = dependents.get(name, 0)
+
+    return {
+        "nodes": nodes,
+        "edges": edges,
+    }
+
+
+def _collect_component_refs(payload: Any) -> Set[str]:
+    refs: Set[str] = set()
+    if isinstance(payload, dict):
+        ref_value = payload.get("$ref")
+        if isinstance(ref_value, str):
+            resolved = _normalise_schema_ref(ref_value)
+            if resolved:
+                refs.add(resolved)
+        for value in payload.values():
+            refs.update(_collect_component_refs(value))
+    elif isinstance(payload, list):
+        for item in payload:
+            refs.update(_collect_component_refs(item))
+    return refs
+
+
+def _normalise_schema_ref(ref: str) -> Optional[str]:
+    if not isinstance(ref, str):
+        return None
+    if ref.startswith("#/components/schemas/"):
+        return ref.split("/")[-1]
+    # Ignore external refs or other component categories for now.
+    return None
