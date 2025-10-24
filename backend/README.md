@@ -61,3 +61,7 @@ Visit
 - Dashboard & health: `http://localhost:8000/`
 - Interactive docs (Swagger): `http://localhost:8000/docs`
 - Alternative docs (ReDoc): `http://localhost:8000/redoc`
+
+Mock Server
+-----------
+The Stripe-derived mock server lives under `backend/mock-server`. Follow the README inside that directory for setup, testing, and Docker/CI instructions.
