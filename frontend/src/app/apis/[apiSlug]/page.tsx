@@ -10,6 +10,9 @@ export default async function ApiComponents({ params }: { params: { apiSlug: str
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold">Components for {apiSlug}</h1>
         <div className="flex items-center gap-4 text-sm">
+          <Link href={`/apis/${encodeURIComponent(apiSlug)}/routes`} className="text-blue-600 hover:underline">
+            Route explorer
+          </Link>
           <Link href={`/apis/${encodeURIComponent(apiSlug)}/graph`} className="text-blue-600 hover:underline">
             View graph
           </Link>
@@ -24,4 +27,3 @@ export default async function ApiComponents({ params }: { params: { apiSlug: str
     </main>
   );
 }
-

@@ -52,6 +52,18 @@ export type ComponentGraph = {
   edges: ComponentGraphEdge[];
 };
 
+export type RouteInventoryEntry = {
+  method: string;
+  path: string;
+  operation_id?: string | null;
+  summary?: string | null;
+  tags: string[];
+  request_body_ref?: string | null;
+  response_body_ref?: string | null;
+  path_parameters: string[];
+  query_parameters: string[];
+};
+
 export async function listApis(): Promise<ApiSummary[]> {
   const res = await fetch(`${BACKEND_URL}/apis`, { next: { revalidate: 0 } });
   if (!res.ok) throw new Error(`Failed to list APIs: ${res.status}`);
@@ -71,6 +83,14 @@ export async function listComponents(apiSlug: string): Promise<ComponentMeta[]> 
     next: { revalidate: 0 },
   });
   if (!res.ok) throw new Error(`Failed to list components: ${res.status}`);
+  return res.json();
+}
+
+export async function listRoutes(apiSlug: string): Promise<RouteInventoryEntry[]> {
+  const res = await fetch(`${BACKEND_URL}/apis/${encodeURIComponent(apiSlug)}/routes`, {
+    next: { revalidate: 0 },
+  });
+  if (!res.ok) throw new Error(`Failed to list routes: ${res.status}`);
   return res.json();
 }
 
@@ -97,4 +117,3 @@ export async function uploadOpenApiSpec(formData: FormData) {
   }
   return res.json();
 }
-

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Optional
 
@@ -20,6 +20,24 @@ from ingestion import (
     list_apis as fetch_api_registry,
     list_components as fetch_component_registry,
 )
+from reverse import (
+    data_synthesizer as reverse_data_synthesizer,
+    generator as reverse_generator,
+    runtime as reverse_runtime,
+    package_manager as reverse_package_manager,
+    planner as reverse_planner,
+    preview as reverse_preview,
+    spec_loader as reverse_spec_loader,
+    validator as reverse_validator,
+)
+from reverse.models import (
+    GenerationReport,
+    PreviewResponse,
+    ReversePlan,
+    RouteInventoryEntry,
+)
+from reverse.storage import remove_generated_folder, write_json, api_root
+from reverse.planner import load_route_inventory
 
 app = FastAPI(title="DeepMock API Backend")
 
@@ -103,6 +121,57 @@ class ComponentGraph(BaseModel):
     edges: list[ComponentGraphEdge]
 
 
+class ReverseIngestRequest(BaseModel):
+    spec: Dict[str, Any]
+    api_name: Optional[str] = None
+
+
+class ReverseIngestResponse(BaseModel):
+    api_slug: str
+    api_name: str
+    version: Optional[str]
+    route_count: int
+    route_inventory: list[RouteInventoryEntry]
+
+
+class ReversePlanRequest(BaseModel):
+    api_slug: str
+
+
+class ReverseGenerateRequest(BaseModel):
+    api_slug: str
+
+
+class ReverseApplyRequest(BaseModel):
+    api_slug: str
+    paths: Optional[list[str]] = None
+
+
+class ReverseApplyResponse(BaseModel):
+    applied: bool
+    message: str
+
+
+class ReverseCleanupRequest(BaseModel):
+    api_slug: str
+
+
+class ReverseCleanupResponse(BaseModel):
+    removed: bool
+
+
+class GenerateDataRequest(BaseModel):
+    api_slug: str
+    counts: Optional[Dict[str, int]] = None
+    seed: int = 1337
+
+
+class GenerateDataResponse(BaseModel):
+    api_slug: str
+    generated_at: datetime
+    dataset: Dict[str, list[Dict[str, Any]]]
+
+
 @app.on_event("startup")
 def on_startup() -> None:
     try:
@@ -143,6 +212,13 @@ async def upload_openapi_spec(
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     except RuntimeError as exc:
         raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+    try:
+        reverse_spec_loader.ingest_spec(raw_text, explicit_name=result.api_name)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=f"Failed to stage routes: {exc}") from exc
+    except (RuntimeError, TypeError) as exc:
+        raise HTTPException(status_code=500, detail=f"Failed to stage routes: {exc}") from exc
 
     return IngestionResponse(
         api_slug=result.api_slug,
@@ -206,6 +282,124 @@ def get_component_graph(api_slug: str) -> ComponentGraph:
     except RuntimeError as exc:
         raise HTTPException(status_code=500, detail=str(exc)) from exc
     return ComponentGraph(**graph)
+
+
+@app.get("/apis/{api_slug}/routes", response_model=list[RouteInventoryEntry])
+def list_routes(api_slug: str) -> list[RouteInventoryEntry]:
+    try:
+        routes = load_route_inventory(api_slug)
+    except FileNotFoundError:
+        return []
+    except ValueError as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+    return routes
+
+
+@app.post("/reverse/ingest_spec", response_model=ReverseIngestResponse)
+def reverse_ingest_spec(payload: ReverseIngestRequest) -> ReverseIngestResponse:
+    try:
+        result = reverse_spec_loader.ingest_spec(payload.spec, explicit_name=payload.api_name)
+    except (ValueError, TypeError) as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+    return ReverseIngestResponse(
+        api_slug=result.api_slug,
+        api_name=result.api_name,
+        version=result.version,
+        route_count=len(result.route_inventory),
+        route_inventory=result.route_inventory,
+    )
+
+
+@app.post("/reverse/plan", response_model=ReversePlan)
+def reverse_plan_endpoint(payload: ReversePlanRequest) -> ReversePlan:
+    try:
+        plan = reverse_planner.build_plan(payload.api_slug)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    reverse_validator.validate_plan(plan)
+    write_json(api_root(payload.api_slug) / "plan" / "plan.json", plan.dict())
+    return plan
+
+
+@app.post("/reverse/generate", response_model=GenerationReport)
+def reverse_generate_endpoint(payload: ReverseGenerateRequest) -> GenerationReport:
+    try:
+        plan = reverse_planner.build_plan(payload.api_slug)
+    except FileNotFoundError:
+        plan = None
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+    if plan:
+        reverse_validator.validate_plan(plan)
+        write_json(api_root(payload.api_slug) / "plan" / "plan.json", plan.dict())
+
+    try:
+        report = reverse_generator.generate(plan, payload.api_slug)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    return report
+
+
+@app.get("/reverse/preview", response_model=PreviewResponse)
+def reverse_preview_endpoint(api_slug: str) -> PreviewResponse:
+    return reverse_preview.preview(api_slug)
+
+
+@app.post("/reverse/apply", response_model=ReverseApplyResponse)
+def reverse_apply_endpoint(payload: ReverseApplyRequest) -> ReverseApplyResponse:
+    try:
+        plan = reverse_planner.build_plan(payload.api_slug)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+    reverse_validator.validate_plan(plan)
+    write_json(api_root(payload.api_slug) / "plan" / "plan.json", plan.dict())
+
+    report = reverse_generator.generate(plan, payload.api_slug)
+    dataset = reverse_data_synthesizer.synthesize(plan)
+    reverse_runtime.replace_dataset(payload.api_slug, dataset)
+    package_path = reverse_package_manager.sync_generated_package(payload.api_slug)
+    reverse_runtime.mount_generated_routes(app, payload.api_slug, prefix=f"/generated/{payload.api_slug}")
+
+    return ReverseApplyResponse(
+        applied=True,
+        message=(
+            f"Generated assets for '{payload.api_slug}' applied. "
+            f"Routes available under /generated/{payload.api_slug}. "
+            f"Package synced to {package_path}."
+        ),
+    )
+
+
+@app.post("/reverse/cleanup", response_model=ReverseCleanupResponse)
+def reverse_cleanup_endpoint(payload: ReverseCleanupRequest) -> ReverseCleanupResponse:
+    reverse_runtime.remove_dataset(payload.api_slug)
+    reverse_package_manager.remove_generated_package(payload.api_slug)
+    remove_generated_folder(payload.api_slug)
+    return ReverseCleanupResponse(removed=True)
+
+
+@app.post("/reverse/generate_data", response_model=GenerateDataResponse)
+def reverse_generate_data(payload: GenerateDataRequest) -> GenerateDataResponse:
+    try:
+        plan = reverse_planner.build_plan(payload.api_slug)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+    dataset = reverse_data_synthesizer.synthesize(plan, payload.counts, payload.seed)
+    return GenerateDataResponse(
+        api_slug=payload.api_slug,
+        generated_at=datetime.now(timezone.utc),
+        dataset=dataset,
+    )
 
 
 @app.get("/", response_class=HTMLResponse)

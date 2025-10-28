@@ -23,17 +23,26 @@ export default async function Home() {
         ) : (
           <ul className="divide-y divide-gray-200 rounded border">
             {apis.map((api) => (
-              <li key={api.api_slug} className="p-4 flex items-center justify-between">
+              <li key={api.api_slug} className="p-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <div className="font-medium">{api.api_name || api.title}</div>
                   <div className="text-sm text-gray-600">{api.api_slug}{api.version ? ` • v${api.version}` : ""}</div>
                 </div>
-                <Link
-                  className="text-blue-600 hover:underline"
-                  href={`/apis/${encodeURIComponent(api.api_slug)}`}
-                >
-                  View components
-                </Link>
+                <div className="flex items-center gap-3 text-sm">
+                  <Link
+                    className="text-blue-600 hover:underline"
+                    href={`/apis/${encodeURIComponent(api.api_slug)}`}
+                  >
+                    View components
+                  </Link>
+                  <span className="text-gray-300">|</span>
+                  <Link
+                    className="text-blue-600 hover:underline"
+                    href={`/apis/${encodeURIComponent(api.api_slug)}/routes`}
+                  >
+                    Route explorer
+                  </Link>
+                </div>
               </li>
             ))}
           </ul>
