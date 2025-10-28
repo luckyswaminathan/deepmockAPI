@@ -3,13 +3,13 @@ import { listRoutes } from "@/lib/api";
 import RoutePlayground from "./RoutePlayground";
 
 type PageProps = {
-  params: {
+  params: Promise<{
     apiSlug: string;
-  };
+  }>;
 };
 
 export default async function ApiRoutesPage({ params }: PageProps) {
-  const { apiSlug } = params;
+  const { apiSlug } = await params;
   const routes = await listRoutes(apiSlug);
 
   return (

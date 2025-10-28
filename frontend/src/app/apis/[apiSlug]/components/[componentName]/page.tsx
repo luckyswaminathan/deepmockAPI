@@ -4,9 +4,9 @@ import { getComponentDetail } from "@/lib/api";
 export default async function ComponentDetailPage({
   params,
 }: {
-  params: { apiSlug: string; componentName: string };
+  params: Promise<{ apiSlug: string; componentName: string }>;
 }) {
-  const { apiSlug, componentName } = params;
+  const { apiSlug, componentName } = await params;
   const detail = await getComponentDetail(apiSlug, componentName);
 
   return (

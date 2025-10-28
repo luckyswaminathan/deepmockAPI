@@ -4,11 +4,11 @@ import { getComponentGraph } from "@/lib/api";
 import DependencyGraph from "./DependencyGraph";
 
 type PageProps = {
-  params: { apiSlug: string };
+  params: Promise<{ apiSlug: string }>;
 };
 
 export default async function ComponentGraphPage({ params }: PageProps) {
-  const { apiSlug } = params;
+  const { apiSlug } = await params;
   let graph;
   try {
     graph = await getComponentGraph(apiSlug);

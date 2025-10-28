@@ -2,8 +2,8 @@ import Link from "next/link";
 import { listComponents } from "@/lib/api";
 import ComponentsFilterList from "./ComponentsFilterList";
 
-export default async function ApiComponents({ params }: { params: { apiSlug: string } }) {
-  const { apiSlug } = params;
+export default async function ApiComponents({ params }: { params: Promise<{ apiSlug: string }> }) {
+  const { apiSlug } = await params;
   const components = await listComponents(apiSlug);
   return (
     <main className="mx-auto max-w-5xl p-8 space-y-6">
