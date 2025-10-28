@@ -14,3 +14,9 @@ dependencies = [
     "jinja2>=3.1.0",
     "python-multipart>=0.0.5",
 ]
+
+[project.scripts]
+deepmock-run-generated-tests = "generated_apis.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["backend", "reverse", "generated_apis"]

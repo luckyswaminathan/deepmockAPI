@@ -8,10 +8,18 @@ from dotenv import load_dotenv
 from sqlalchemy import Column, DateTime, Integer, String, UniqueConstraint, func
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.engine import Engine
+from sqlalchemy.types import JSON
 from sqlmodel import Field, Session, SQLModel, create_engine
 
 
 load_dotenv()
+
+
+def _schema_type() -> Any:
+    url = os.getenv("_DATABASE_URL") or ""
+    if url.startswith("sqlite"):
+        return JSON
+    return JSONB
 
 
 class ApiRegistry(SQLModel, table=True):
@@ -38,7 +46,29 @@ class ComponentRegistry(SQLModel, table=True):
     api_slug: str = Field(sa_column=Column(String(100), nullable=False))
     component_name: str = Field(sa_column=Column(String(200), nullable=False))
     table_name: str = Field(sa_column=Column(String(255), nullable=False))
-    schema_payload: dict[str, Any] = Field(sa_column=Column("schema", JSONB, nullable=False))
+    schema_payload: dict[str, Any] = Field(sa_column=Column("schema", _schema_type(), nullable=False))
+    created_at: Optional[datetime] = Field(
+        default=None,
+        sa_column=Column(DateTime(timezone=True), server_default=func.now(), nullable=False),
+    )
+
+
+class GeneratedRecord(SQLModel, table=True):
+    __tablename__ = "generated_records"
+    __table_args__ = (
+        UniqueConstraint(
+            "api_slug",
+            "component_name",
+            "record_key",
+            name="uq_generated_records_slug_component_key",
+        ),
+    )
+
+    id: Optional[int] = Field(default=None, primary_key=True)
+    api_slug: str = Field(sa_column=Column(String(100), nullable=False))
+    component_name: str = Field(sa_column=Column(String(200), nullable=False))
+    record_key: str = Field(sa_column=Column(String(255), nullable=False))
+    payload: dict[str, Any] = Field(sa_column=Column(_schema_type(), nullable=False))
     created_at: Optional[datetime] = Field(
         default=None,
         sa_column=Column(DateTime(timezone=True), server_default=func.now(), nullable=False),
