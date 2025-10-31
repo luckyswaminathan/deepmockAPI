@@ -25,8 +25,9 @@ from ingestion import (
     list_components as fetch_component_registry,
 )
 from reverse.models import RouteInventoryEntry
-from reverse.planner import load_route_inventory
+from reverse.planner import build_plan, load_route_inventory
 from reverse.spec_loader import ingest_spec as reverse_ingest_spec
+from reverse import validator
 
 router = APIRouter(prefix="/apis", tags=["apis"])
 
@@ -62,6 +63,15 @@ async def upload_openapi_spec(
         raise HTTPException(status_code=400, detail=f"Failed to stage routes: {exc}") from exc
     except (RuntimeError, TypeError) as exc:
         raise HTTPException(status_code=500, detail=f"Failed to stage routes: {exc}") from exc
+
+    # Automatically generate plan after upload
+    try:
+        plan = build_plan(result.api_slug)
+        validator.validate_plan(plan)
+    except Exception as exc:
+        # Log but don't fail the upload if plan generation fails
+        # The plan can be generated later via /reverse/plan endpoint
+        pass
 
     return IngestionResponse(
         api_slug=result.api_slug,

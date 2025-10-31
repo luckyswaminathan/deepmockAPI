@@ -5,6 +5,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 
 from fastapi import APIRouter, HTTPException, Request
+from fastapi.responses import PlainTextResponse
 
 from ..schemas.reverse import (
     GenerateDataRequest,
@@ -28,8 +29,8 @@ from reverse import (
     spec_loader,
     validator,
 )
-from reverse.models import GenerationReport, PreviewResponse, ReversePlan
-from reverse.storage import api_root, remove_generated_folder, write_json
+from reverse.models import GenerationReport, PreviewResponse
+from reverse.storage import remove_generated_folder
 
 router = APIRouter(prefix="/reverse", tags=["reverse"])
 
@@ -50,8 +51,8 @@ def reverse_ingest_spec(payload: ReverseIngestRequest) -> ReverseIngestResponse:
     )
 
 
-@router.post("/plan", response_model=ReversePlan)
-def reverse_plan_endpoint(payload: ReversePlanRequest) -> ReversePlan:
+@router.post("/plan", response_class=PlainTextResponse)
+def reverse_plan_endpoint(payload: ReversePlanRequest) -> PlainTextResponse:
     try:
         plan = planner.build_plan(payload.api_slug)
     except FileNotFoundError as exc:
@@ -60,8 +61,8 @@ def reverse_plan_endpoint(payload: ReversePlanRequest) -> ReversePlan:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
     validator.validate_plan(plan)
-    write_json(api_root(payload.api_slug) / "plan" / "plan.json", plan.dict())
-    return plan
+    markdown = planner.render_plan_markdown(plan)
+    return PlainTextResponse(content=markdown, media_type="text/markdown")
 
 
 @router.post("/generate", response_model=GenerationReport)
@@ -75,7 +76,6 @@ def reverse_generate_endpoint(payload: ReverseGenerateRequest) -> GenerationRepo
 
     if plan:
         validator.validate_plan(plan)
-        write_json(api_root(payload.api_slug) / "plan" / "plan.json", plan.dict())
 
     try:
         report = generator.generate(plan, payload.api_slug)
@@ -99,7 +99,6 @@ def reverse_apply_endpoint(payload: ReverseApplyRequest, request: Request) -> Re
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
     validator.validate_plan(plan)
-    write_json(api_root(payload.api_slug) / "plan" / "plan.json", plan.dict())
 
     report = generator.generate(plan, payload.api_slug)
     dataset = data_synthesizer.synthesize(plan)

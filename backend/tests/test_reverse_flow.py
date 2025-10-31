@@ -125,8 +125,21 @@ def test_reverse_engineering_flow(client: TestClient) -> None:
 
     plan_response = client.post("/reverse/plan", json={"api_slug": api_slug})
     assert plan_response.status_code == 200
-    plan_data = plan_response.json()
-    assert plan_data["routes"], "Expected routes in plan response"
+    content_type = plan_response.headers.get("content-type", "")
+    assert content_type.startswith("text/markdown"), "Plan response should be Markdown"
+    plan_markdown = plan_response.text
+    assert "Reverse Engineering Plan" in plan_markdown
+    assert "GET /orders" in plan_markdown
+
+    plan_md_path = (
+        Path(__file__).resolve().parents[1]
+        / "reverse"
+        / "generated"
+        / api_slug
+        / "plan"
+        / "plan.md"
+    )
+    assert plan_md_path.exists(), "Expected plan markdown file to be written"
 
     generate_response = client.post("/reverse/generate", json={"api_slug": api_slug})
     assert generate_response.status_code == 200

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Iterable, Optional, Tuple
@@ -30,6 +31,7 @@ def generate(plan: ReversePlan | None, api_slug: str) -> GenerationReport:
     files_written.extend(_write_tests(root, resolved_plan))
     files_written.extend(_write_data(root, resolved_plan))
     files_written.extend(_write_prompts(root, resolved_plan))
+    files_written.extend(_write_routes_documentation(root, resolved_plan))
 
     # Re-write plan.json to ensure latest timestamp.
     write_json(root / "plan" / "plan.json", resolved_plan.dict())
@@ -52,15 +54,18 @@ def _write_readme(root: Path, plan: ReversePlan) -> list[str]:
             "",
             "## Contents",
             "- `plan/plan.json` — machine-readable plan.",
+            "- `plan/plan.md` — human-readable plan documentation.",
+            f"- `{plan.api_slug}.md` — API routes documentation.",
             "- `code/` — FastAPI router stubs.",
             "- `tests/` — pytest scaffolding.",
             "- `data/` — deterministic data generators and seeds.",
             "- `prompts/` — prompt transcripts placeholders.",
             "",
             "## Next steps",
-            "1. Review `plan/plan.json` for correctness.",
-            "2. Flesh out generated route handlers and services.",
-            "3. Run `pytest` against generated tests once implemented.",
+            f"1. Review `plan/plan.md` and `{plan.api_slug}.md` for API documentation.",
+            "2. Review `plan/plan.json` for machine-readable plan details.",
+            "3. Flesh out generated route handlers and services.",
+            "4. Run `pytest` against generated tests once implemented.",
         ]
     )
     write_text(readme, content)
@@ -333,3 +338,101 @@ def _write_prompts(root: Path, plan: ReversePlan) -> list[str]:
         str(plan_prompt.relative_to(root)),
         str(validation_prompt.relative_to(root)),
     ]
+
+
+def _write_routes_documentation(root: Path, plan: ReversePlan) -> list[str]:
+    """Generate markdown documentation for all generated routes."""
+    doc_path = root / f"{plan.api_slug}.md"
+    content = _render_routes_documentation(plan)
+    write_text(doc_path, content)
+    return [str(doc_path.relative_to(root))]
+
+
+def _render_routes_documentation(plan: ReversePlan) -> str:
+    """Render markdown documentation for generated API routes."""
+    lines: list[str] = []
+    lines.append(f"# Generated API Routes for `{plan.api_slug}`")
+    lines.append("")
+    lines.append(f"**Generated at:** {plan.generated_at.isoformat()}")
+    lines.append("")
+    lines.append("This document describes all generated API routes and their operations.")
+    lines.append("")
+
+    if plan.validation.errors or plan.validation.warnings:
+        lines.append("## Validation Status")
+        if plan.validation.errors:
+            lines.append("### Errors")
+            for error in plan.validation.errors:
+                lines.append(f"- ⚠️ {error}")
+            lines.append("")
+        if plan.validation.warnings:
+            lines.append("### Warnings")
+            for warning in plan.validation.warnings:
+                lines.append(f"- ⚠️ {warning}")
+            lines.append("")
+
+    # Group routes by component
+    component_routes: dict[str | None, list[RoutePlan]] = defaultdict(list)
+    for route in plan.routes:
+        component_routes[route.component].append(route)
+
+    lines.append("## Routes by Component")
+    lines.append("")
+
+    for component in sorted(component_routes.keys(), key=lambda x: x or "zzz_unmapped"):
+        if component:
+            lines.append(f"### Component: `{component}`")
+        else:
+            lines.append("### Unmapped Routes")
+        lines.append("")
+
+        routes = component_routes[component]
+        for route in sorted(routes, key=lambda r: (r.method, r.path)):
+            lines.append(f"#### `{route.method} {route.path}`")
+            
+            if route.summary:
+                lines.append(f"**Summary:** {route.summary}")
+            
+            lines.append(f"**Status:** {route.status}")
+            lines.append("")
+
+            if route.operations:
+                lines.append("**Operations:**")
+                for operation in route.operations:
+                    lines.append(f"- **{operation.type}**")
+                    if operation.component:
+                        lines.append(f"  - Component: `{operation.component}`")
+                    
+                    if operation.filters:
+                        lines.append("  - Filters:")
+                        for filt in operation.filters:
+                            lines.append(f"    - `{filt.field}` {filt.operator} `{filt.value_source}`")
+                    
+                    if operation.notes:
+                        lines.append("  - Notes:")
+                        for note in operation.notes:
+                            lines.append(f"    - {note}")
+            else:
+                lines.append("**Operations:** None")
+            
+            if route.warnings:
+                lines.append("**Warnings:**")
+                for warning in route.warnings:
+                    lines.append(f"- {warning}")
+            
+            lines.append("")
+
+    # Add route summary table
+    lines.append("## Route Summary")
+    lines.append("")
+    lines.append("| Method | Path | Component | Status | Operations |")
+    lines.append("|--------|------|-----------|--------|------------|")
+    
+    for route in sorted(plan.routes, key=lambda r: (r.method, r.path)):
+        component = route.component or "Unmapped"
+        operations = ", ".join([op.type for op in route.operations]) if route.operations else "None"
+        lines.append(f"| {route.method} | `{route.path}` | {component} | {route.status} | {operations} |")
+    
+    lines.append("")
+
+    return "\n".join(lines)
