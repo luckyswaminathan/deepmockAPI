@@ -44,29 +44,49 @@ Run
 
 Containerised Generation Workflow
 ---------------------------------
-1. Build the backend image (contains the generator runtime and CLI tools):
+1. Start your backend server (required for component ingestion):
+   
+   ```bash
+   export DATABASE_URL="postgresql+psycopg://user:password@localhost:5432/deepmock"
+   python backend/main.py
+   ```
+
+2. Upload OpenAPI spec to ingest components:
+   
+   ```bash
+   curl -X POST "http://localhost:8000/apis/upload" \
+     -F "spec_file=@path/to/openapi.json" \
+     -F "api_name=Your API"
+   ```
+
+3. Build the backend image (contains the generator runtime and CLI tools):
    
    ```bash
    docker build -t deepmock-backend:latest backend
    ```
 
-2. Launch a per-API generation job. The helper script provisions an isolated Docker network,
-   starts a transient PostgreSQL container, runs the generator image, and cleans everything up:
-
+4. Generate API with Docker (uses your existing database with components):
+   
    ```bash
+   # Export your database URL so Docker can use it
+   export _DATABASE_URL="postgresql+psycopg://user:password@localhost:5432/deepmock"
+   
+   # Run generation job
    python3 backend/scripts/run_generation_job.py \
-  --api-slug stripe \
-  --manifest backend/reverse/generated/stripe/plan/plan.json \
-  --output-dir ./generated_output
+     --api-slug stripe \
+     --manifest backend/reverse/generated/stripe/plan/plan.json \
+     --output-dir ./generated_output
    ```
 
-   - The script uses `reverse-generate --api-slug <slug>` by default; pass a custom command after
-     `--` if you need a different entrypoint.
-   - All generated records already include `api_slug` columns (`api_registry`, `component_registry`,
-     and `generated_records` tables), so a shared PostgreSQL instance can host multiple API slugs
-     without data collisions.
-   - To reuse an external database instead of the transient PostgreSQL container, provide
-     `--shared-database-url postgresql+psycopg://user:pass@host:5432/dbname`.
+   **Note:** The script automatically detects `_DATABASE_URL` or `DATABASE_URL` from your environment
+   and uses your existing database (with `localhost` converted to `host.docker.internal` for Docker).
+   If no database URL is set, it creates a transient empty PostgreSQL container.
+   
+   **What happens:**
+   - Generates code (routes, tests, services)
+   - Automatically generates data for ALL components using dependency graph
+   - Stores data in `generated_records` table
+   - Syncs to `generated_output/{api_slug}/` with standalone API files
 
 OpenAPI Ingestion Workflow
 ---------------------------
@@ -117,13 +137,26 @@ Files:
 
 ### Step 3: Generate Code, Tests, and Data
 
-Generate the complete implementation:
+**Via API (recommended):**
 
 ```bash
 curl -X POST "http://localhost:8000/reverse/generate" \
   -H "Content-Type: application/json" \
   -d '{"api_slug": "stripe"}'
 ```
+
+**Or via Docker CLI:**
+
+```bash
+export _DATABASE_URL="postgresql+psycopg://user:password@localhost:5432/deepmock"
+
+python3 backend/scripts/run_generation_job.py \
+  --api-slug stripe \
+  --manifest backend/reverse/generated/stripe/plan/plan.json \
+  --output-dir ./generated_output
+```
+
+**Note:** Both methods automatically generate data for ALL components and store in `generated_records` table.
 
 **Output Structure:**
 ```
@@ -159,13 +192,13 @@ curl -X POST "http://localhost:8000/reverse/apply" \
   -d '{"api_slug": "stripe"}'
 ```
 
-This:
+This automatically:
 - Validates the plan
-- Runs code generation if needed
-- Synthesizes sample data
-- Syncs package to `generated_output/{api_slug}/`
+- Generates code (routes, tests, services)
+- Generates data for ALL components using dependency graph
+- Stores data in `generated_records` table
+- Syncs package to `generated_output/{api_slug}/` with standalone API (`main.py`, `runtime.py`)
 - Mounts routes at `/generated/{api_slug}/*`
-- Seeds the database with sample data
 
 **Routes become available at:**
 - `http://localhost:8000/generated/stripe/v1/...`
