@@ -12,6 +12,10 @@ _storage: Dict[str, list[Dict[str, Any]]] = {}
 # Use this for endpoints that are account-scoped (like balance)
 _account_storage: Dict[str, Dict[str, list[Dict[str, Any]]]] = {}
 
+# Track which accounts belong to which auth tokens
+# Format: {auth_token: [account_id1, account_id2, ...]}
+_auth_token_accounts: Dict[str, list[str]] = {}
+
 
 def fetch_component_records(api_slug: str, component_name: str) -> list[dict[str, Any]]:
     """Fetch all records for a component."""
@@ -157,9 +161,30 @@ def insert_account_component_record(
 
 def remove_dataset(api_slug: str) -> None:
     """Clear all data for an API."""
-    global _storage, _account_storage
+    global _storage, _account_storage, _auth_token_accounts
     _storage.clear()
     _account_storage.clear()
+    _auth_token_accounts.clear()
+
+
+def link_account_to_auth_token(auth_token: str, account_id: str) -> None:
+    """Link an account created by an auth token to that token."""
+    if auth_token not in _auth_token_accounts:
+        _auth_token_accounts[auth_token] = []
+    
+    if account_id not in _auth_token_accounts[auth_token]:
+        _auth_token_accounts[auth_token].append(account_id)
+
+
+def get_accounts_for_auth_token(auth_token: str) -> list[str]:
+    """Get all account IDs linked to an auth token."""
+    return _auth_token_accounts.get(auth_token, []).copy()
+
+
+def get_primary_account_for_auth_token(auth_token: str) -> Optional[str]:
+    """Get the primary (first) account for an auth token, or None."""
+    accounts = get_accounts_for_auth_token(auth_token)
+    return accounts[0] if accounts else None
 
 
 def _derive_record_key(payload: dict[str, Any]) -> str:

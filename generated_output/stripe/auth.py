@@ -54,7 +54,7 @@ def get_auth_context(
     """
     # Try Authorization header first
     token = None
-    if authorization:
+    if authorization and hasattr(authorization, 'credentials'):
         token = authorization.credentials
     
     # Fall back to Stripe-Api-Key header
@@ -73,7 +73,43 @@ def get_auth_context(
         # For mock, return default context
         auth_context = _MOCK_API_KEYS[_DEFAULT_KEY]
     
+    # Get or create linked accounts for this auth token
+    if token not in _MOCK_API_KEYS:
+        _MOCK_API_KEYS[token] = auth_context
+    
     return auth_context.copy()
+
+
+def get_auth_context_from_request(request) -> tuple[dict[str, str], str]:
+    """
+    Extract auth context directly from request object (for manual calls).
+    Use this when you can't use FastAPI dependency injection.
+    
+    Returns:
+        Tuple of (auth_context, auth_token)
+    """
+    token = None
+    
+    # Try Authorization header
+    auth_header = request.headers.get("Authorization", "")
+    if auth_header.startswith("Bearer "):
+        token = auth_header[7:]
+    
+    # Try Stripe-Api-Key header
+    if not token:
+        token = request.headers.get("Stripe-Api-Key")
+    
+    # Default for development
+    if not token:
+        token = _DEFAULT_KEY
+    
+    # Look up auth context
+    auth_context = _MOCK_API_KEYS.get(token)
+    
+    if not auth_context:
+        auth_context = _MOCK_API_KEYS[_DEFAULT_KEY]
+    
+    return auth_context.copy(), token
 
 
 def require_auth(
