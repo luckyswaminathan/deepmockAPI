@@ -26,27 +26,55 @@ def mount_generated_routes(app: FastAPI, api_slug: str, *, prefix: Optional[str]
 
 
 def replace_dataset(api_slug: str, dataset: Dict[str, list[dict[str, Any]]]) -> None:
-    with db_session() as session:
-        session.exec(delete(GeneratedRecord).where(GeneratedRecord.api_slug == api_slug))
-        for component_name, records in dataset.items():
-            session.exec(
-                delete(GeneratedRecord)
-                .where(GeneratedRecord.api_slug == api_slug)
-                .where(GeneratedRecord.component_name == component_name)
-            )
-            for record in records:
-                key = _derive_record_key(record)
-                payload = dict(record)
-                if "id" not in payload:
-                    payload["id"] = key
-                session.add(
-                    GeneratedRecord(
-                        api_slug=api_slug,
-                        component_name=component_name,
-                        record_key=key,
-                        payload=payload,
+    """
+    Replace all generated records for an API in the GeneratedRecord table.
+    
+    This clears existing records and inserts all new records from the dataset.
+    """
+    import sys
+    
+    if not dataset:
+        print(f"[runtime.replace_dataset] WARNING: Empty dataset for {api_slug}", file=sys.stderr)
+        return
+    
+    print(f"[runtime.replace_dataset] Starting store for {api_slug} with {len(dataset)} components", file=sys.stderr)
+    
+    try:
+        with db_session() as session:
+            # Clear all existing records for this API
+            deleted = session.exec(delete(GeneratedRecord).where(GeneratedRecord.api_slug == api_slug))
+            print(f"[runtime.replace_dataset] Cleared existing records for {api_slug}", file=sys.stderr)
+            
+            # Add all new records from dataset
+            total_added = 0
+            for component_name, records in dataset.items():
+                if not records:
+                    continue
+                component_count = len(records)
+                for record in records:
+                    key = _derive_record_key(record)
+                    payload = dict(record)
+                    if "id" not in payload:
+                        payload["id"] = key
+                    session.add(
+                        GeneratedRecord(
+                            api_slug=api_slug,
+                            component_name=component_name,
+                            record_key=key,
+                            payload=payload,
+                        )
                     )
-                )
+                    total_added += 1
+                print(f"[runtime.replace_dataset] Added {component_count} records for component '{component_name}'", file=sys.stderr)
+            
+            # Explicit flush to ensure writes happen
+            session.flush()
+            print(f"[runtime.replace_dataset] Successfully stored {total_added} total records for {api_slug}", file=sys.stderr)
+    except Exception as e:
+        import traceback
+        print(f"[runtime.replace_dataset] ERROR storing data for {api_slug}: {e}", file=sys.stderr)
+        traceback.print_exc(file=sys.stderr)
+        raise
 
 ## TODO - need to update GeneratedRecord type doesn't seem right
 def fetch_component_records(api_slug: str, component_name: str) -> list[dict[str, Any]]:

@@ -1,6 +1,6 @@
 # Generated API Routes for `stripe`
 
-**Generated at:** 2025-11-03T21:50:48.015858+00:00
+**Generated at:** 2025-11-03T22:56:29.861246+00:00
 
 This document describes all generated API routes and their operations.
 
@@ -170,7 +170,7 @@ This document describes all generated API routes and their operations.
 - **delete**
   - Component: `account`
   - Filters:
-    - `id` eq `path.account`
+    - `account` eq `path.account`
   - Notes:
     - Query parameters: account
 
@@ -200,7 +200,7 @@ This document describes all generated API routes and their operations.
 - **read_one**
   - Component: `account`
   - Filters:
-    - `id` eq `path.account`
+    - `account` eq `path.account`
   - Notes:
     - Response body references #/components/schemas/account
     - Query parameters: expand
@@ -230,7 +230,7 @@ This document describes all generated API routes and their operations.
 - **create**
   - Component: `account`
   - Filters:
-    - `id` eq `path.account`
+    - `account` eq `path.account`
   - Notes:
     - Response body references #/components/schemas/account
     - Query parameters: account
@@ -242,7 +242,7 @@ This document describes all generated API routes and their operations.
 - **create**
   - Component: `account`
   - Filters:
-    - `external_accounts` eq `path.account`
+    - `account` eq `path.account`
   - Notes:
     - Response body references #/components/schemas/account
     - Query parameters: account
@@ -1598,7 +1598,7 @@ This document describes all generated API routes and their operations.
 - **delete**
   - Component: `ephemeral_key`
   - Filters:
-    - `key` eq `path.key`
+    - `id` eq `path.key`
   - Notes:
     - Response body references #/components/schemas/ephemeral_key
     - Query parameters: key
@@ -1884,7 +1884,7 @@ This document describes all generated API routes and their operations.
 - **read_one**
   - Component: `financial_connections.account`
   - Filters:
-    - `account_holder` eq `path.account`
+    - `account` eq `path.account`
   - Notes:
     - Response body references #/components/schemas/financial_connections.account
     - Query parameters: expand
@@ -1896,7 +1896,7 @@ This document describes all generated API routes and their operations.
 - **read_one**
   - Component: `financial_connections.account`
   - Filters:
-    - `account_holder` eq `path.account`
+    - `account` eq `path.account`
   - Notes:
     - Response body references #/components/schemas/financial_connections.account
     - Query parameters: expand
@@ -1908,7 +1908,7 @@ This document describes all generated API routes and their operations.
 - **create**
   - Component: `financial_connections.account`
   - Filters:
-    - `account_holder` eq `path.account`
+    - `account` eq `path.account`
   - Notes:
     - Response body references #/components/schemas/financial_connections.account
     - Query parameters: account
@@ -1920,7 +1920,7 @@ This document describes all generated API routes and their operations.
 - **create**
   - Component: `financial_connections.account`
   - Filters:
-    - `account_holder` eq `path.account`
+    - `account` eq `path.account`
   - Notes:
     - Response body references #/components/schemas/financial_connections.account
     - Query parameters: account
@@ -1932,7 +1932,7 @@ This document describes all generated API routes and their operations.
 - **create**
   - Component: `financial_connections.account`
   - Filters:
-    - `account_holder` eq `path.account`
+    - `account` eq `path.account`
   - Notes:
     - Response body references #/components/schemas/financial_connections.account
     - Query parameters: account
@@ -1944,7 +1944,7 @@ This document describes all generated API routes and their operations.
 - **create**
   - Component: `financial_connections.account`
   - Filters:
-    - `account_holder` eq `path.account`
+    - `account` eq `path.account`
   - Notes:
     - Response body references #/components/schemas/financial_connections.account
     - Query parameters: account
@@ -1956,7 +1956,7 @@ This document describes all generated API routes and their operations.
 - **create**
   - Component: `financial_connections.account`
   - Filters:
-    - `account_holder` eq `path.account`
+    - `account` eq `path.account`
   - Notes:
     - Response body references #/components/schemas/financial_connections.account
     - Query parameters: account
@@ -1968,7 +1968,7 @@ This document describes all generated API routes and their operations.
 - **create**
   - Component: `financial_connections.account`
   - Filters:
-    - `account_holder` eq `path.account`
+    - `account` eq `path.account`
   - Notes:
     - Response body references #/components/schemas/financial_connections.account
     - Query parameters: account

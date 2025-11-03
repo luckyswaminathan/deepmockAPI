@@ -79,6 +79,24 @@ def reverse_generate_endpoint(payload: ReverseGenerateRequest) -> GenerationRepo
 
     try:
         report = generator.generate(plan, payload.api_slug)
+        
+        # Automatically generate data for ALL components after code generation
+        # This uses graph-based generation to create data for every component
+        try:
+            dataset = data_synthesizer.synthesize_all_components(
+                payload.api_slug,
+                count_per_component=None,  # Uses default of 3 per component
+                store_in_db=False,  # We'll use replace_dataset to store all at once
+            )
+            
+            # Store all generated records in GeneratedRecord database table
+            if dataset:
+                runtime.replace_dataset(payload.api_slug, dataset)
+        except Exception as e:
+            # Don't fail code generation if data generation fails
+            # Just log it (could add proper logging here)
+            print(f"Warning: Data generation failed for {payload.api_slug}: {e}")
+        
     except FileNotFoundError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
     return report
@@ -100,10 +118,29 @@ def reverse_apply_endpoint(payload: ReverseApplyRequest, request: Request) -> Re
 
     validator.validate_plan(plan)
 
+    # Generate code
     report = generator.generate(plan, payload.api_slug)
-    dataset = data_synthesizer.synthesize(plan)
-    runtime.replace_dataset(payload.api_slug, dataset)
+    
+    # Generate data for ALL components using dependency graph
+    # This uses graph-based generation to create data for every component
+    # store_adb=False because we'll use replace_dataset to store everything at once
+    dataset = data_synthesizer.synthesize_all_components(
+        payload.api_slug,
+        count_per_component=None,  # Uses default of 3 per component
+        store_in_db=False,  # We'll use replace_dataset to store all at once
+    )
+    
+    # Store all generated records in GeneratedRecord database table
+    if dataset:
+        runtime.replace_dataset(payload.api_slug, dataset)
+    
+    # Sync to generated_apis (for import in main backend)
     package_path = package_manager.sync_generated_package(payload.api_slug)
+    
+    # Sync to generated_output (standalone API with main.py, runtime.py, etc.)
+    standalone_path = package_manager.sync_standalone_api(payload.api_slug)
+    
+    # Mount routes in main backend
     runtime.mount_generated_routes(request.app, payload.api_slug, prefix=f"/generated/{payload.api_slug}")
 
     return ReverseApplyResponse(
@@ -111,7 +148,8 @@ def reverse_apply_endpoint(payload: ReverseApplyRequest, request: Request) -> Re
         message=(
             f"Generated assets for '{payload.api_slug}' applied. "
             f"Routes available under /generated/{payload.api_slug}. "
-            f"Package synced to {package_path}."
+            f"Package synced to {package_path}. "
+            f"Standalone API synced to {standalone_path}."
         ),
     )
 
@@ -133,7 +171,18 @@ def reverse_generate_data(payload: GenerateDataRequest) -> GenerateDataResponse:
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
-    dataset = data_synthesizer.synthesize(plan, payload.counts, payload.seed)
+    if payload.use_graph:
+        # Generate data for ALL components using dependency graph
+        # OpenAI API key is read from OPENAI_API_KEY environment variable
+        dataset = data_synthesizer.synthesize_all_components(
+            payload.api_slug,
+            payload.counts,
+            seed_account_id=payload.seed_account_id,
+        )
+    else:
+        # Original route-based generation
+        dataset = data_synthesizer.synthesize(plan, payload.counts, payload.seed)
+    
     return GenerateDataResponse(
         api_slug=payload.api_slug,
         generated_at=datetime.now(timezone.utc),

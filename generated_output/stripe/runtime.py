@@ -8,6 +8,10 @@ from uuid import uuid4
 # In-memory storage: {component_name: [records]}
 _storage: Dict[str, list[Dict[str, Any]]] = {}
 
+# Per-account storage: {account_id: {component_name: [records]}}
+# Use this for endpoints that are account-scoped (like balance)
+_account_storage: Dict[str, Dict[str, list[Dict[str, Any]]]] = {}
+
 
 def fetch_component_records(api_slug: str, component_name: str) -> list[dict[str, Any]]:
     """Fetch all records for a component."""
@@ -99,10 +103,63 @@ def replace_dataset(api_slug: str, dataset: Dict[str, list[dict[str, Any]]]) -> 
                 for component_name, records in dataset.items()}
 
 
+# Account-scoped data operations (for auth-dependent endpoints)
+
+def fetch_account_component_records(
+    account_id: str, component_name: str
+) -> list[dict[str, Any]]:
+    """
+    Fetch records for a component scoped to a specific account.
+    
+    Useful for endpoints like /v1/balance that depend on authentication.
+    """
+    account_data = _account_storage.get(account_id, {})
+    return account_data.get(component_name, []).copy()
+
+
+def fetch_account_component_record(
+    account_id: str, component_name: str, field: str, value: Any
+) -> Optional[dict[str, Any]]:
+    """Fetch a single account-scoped record."""
+    records = fetch_account_component_records(account_id, component_name)
+    for record in records:
+        if str(record.get(field)) == str(value):
+            return record.copy()
+        if str(record.get("id")) == str(value):
+            return record.copy()
+    return None
+
+
+def insert_account_component_record(
+    account_id: str, component_name: str, payload: dict[str, Any]
+) -> dict[str, Any]:
+    """Insert or update an account-scoped record."""
+    if account_id not in _account_storage:
+        _account_storage[account_id] = {}
+    
+    if component_name not in _account_storage[account_id]:
+        _account_storage[account_id][component_name] = []
+    
+    record = dict(payload)
+    key = _derive_record_key(record)
+    record.setdefault("id", key)
+    
+    records = _account_storage[account_id][component_name]
+    for i, existing_record in enumerate(records):
+        existing_key = existing_record.get("id") or _derive_record_key(existing_record)
+        if existing_key == key:
+            records[i] = record
+            return record.copy()
+    
+    records.append(record)
+    return record.copy()
+
+
 def remove_dataset(api_slug: str) -> None:
     """Clear all data for an API."""
-    global _storage
+    global _storage, _account_storage
     _storage.clear()
+    _account_storage.clear()
 
 
 def _derive_record_key(payload: dict[str, Any]) -> str:

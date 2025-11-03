@@ -234,8 +234,16 @@ def main(argv: list[str] | None = None) -> int:
                 f"Docker daemon may be unavailable or there may be permission issues."
             )
 
-        database_url = args.shared_database_url
+        # Check for _DATABASE_URL or DATABASE_URL environment variable first
+        # Prioritize: --shared-database-url > _DATABASE_URL > DATABASE_URL
+        env_db_url = os.getenv("_DATABASE_URL") or os.getenv("DATABASE_URL")
+        database_url = args.shared_database_url or env_db_url
+        
+        if env_db_url:
+            print(f"[run_generation_job] Found database URL in environment: {'_DATABASE_URL' if os.getenv('_DATABASE_URL') else 'DATABASE_URL'}")
+        
         if not database_url:
+            print(f"[run_generation_job] No database URL provided. Creating transient PostgreSQL container...")
             _start_postgres(
                 container_name=pg_container,
                 network=network_name,
@@ -258,6 +266,24 @@ def main(argv: list[str] | None = None) -> int:
                 f"postgresql+psycopg://{args.postgres_user}:{args.postgres_password}"
                 f"@{pg_container}:{pg_port}/{pg_db_name}"
             )
+        else:
+            # For Docker containers, localhost needs to be replaced with host.docker.internal (Mac/Windows)
+            # or the actual host IP
+            if database_url and ("localhost" in database_url or "127.0.0.1" in database_url):
+                # Replace localhost with host.docker.internal for Mac/Windows
+                # For Linux, might need to use host gateway IP or host network mode
+                import platform
+                if platform.system() in ("Darwin", "Windows"):
+                    database_url = database_url.replace("localhost", "host.docker.internal").replace("127.0.0.1", "host.docker.internal")
+                    print(f"[run_generation_job] Updated database URL to use host.docker.internal for Docker networking")
+            
+            db_info = database_url.split('@')[-1] if '@' in database_url else database_url
+            print(f"[run_generation_job] Using existing database: {db_info}")
+            env_db_url = os.getenv("_DATABASE_URL") or os.getenv("DATABASE_URL")
+            if env_db_url:
+                print(f"[run_generation_job] Source: Environment variable ({'DATABASE_URL' if os.getenv('DATABASE_URL') else '_DATABASE_URL'})")
+            elif args.shared_database_url:
+                print(f"[run_generation_job] Source: --shared-database-url argument")
 
         command = args.command or []
         if command[:1] == ["--"]:

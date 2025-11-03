@@ -36,6 +36,48 @@ def generate(plan: ReversePlan | None, api_slug: str) -> GenerationReport:
     # Re-write plan.json to ensure latest timestamp.
     write_json(root / "plan" / "plan.json", resolved_plan.dict())
 
+    # Automatically generate data for ALL components after code generation
+    # This uses graph-based generation to create data for every component
+    try:
+        from reverse import runtime
+        
+        import sys
+        print(f"[generator] Starting data generation for {api_slug}...", file=sys.stderr)
+        
+        dataset = data_synthesizer.synthesize_all_components(
+            api_slug,
+            count_per_component=None,  # Uses default of 3 per component
+            store_in_db=False,  # We'll use replace_dataset to store all at once
+        )
+        
+        print(f"[generator] Generated dataset with {len(dataset)} components", file=sys.stderr)
+        
+        # Store all generated records in GeneratedRecord database table
+        if dataset:
+            total_records = sum(len(records) for records in dataset.values())
+            print(f"[generator] Storing {total_records} total records in database...", file=sys.stderr)
+            runtime.replace_dataset(api_slug, dataset)
+            print(f"[generator] Successfully stored {total_records} records for {api_slug}", file=sys.stderr)
+        else:
+            print(f"[generator] WARNING: Dataset is empty for {api_slug}", file=sys.stderr)
+    except ValueError as e:
+        # API not found or has no components - skip data generation gracefully
+        import sys
+        error_msg = str(e).lower()
+        if "not found" in error_msg or "no components" in error_msg:
+            print(f"[generator] SKIP: {e}", file=sys.stderr)
+            print(f"[generator] Hint: Upload OpenAPI spec via /apis/upload before generating data.", file=sys.stderr)
+        else:
+            # Re-raise if it's a different ValueError
+            raise
+    except Exception as e:
+        # Don't fail code generation if data generation fails
+        # But log the full error for debugging
+        import sys
+        import traceback
+        print(f"[generator] ERROR: Data generation failed for {api_slug}: {e}", file=sys.stderr)
+        traceback.print_exc(file=sys.stderr)
+
     return GenerationReport(
         api_slug=resolved_plan.api_slug,
         output_dir=str(root),
@@ -101,7 +143,16 @@ def _render_routes_module(plan: ReversePlan) -> str:
         "",
         "from fastapi import APIRouter, HTTPException",
         "",
-        "from reverse import runtime as generated_runtime",
+        "# Import local runtime module from parent directory",
+        "import sys",
+        "from pathlib import Path",
+        "",
+        "# Add parent directory to Python path to import runtime",
+        "parent_dir = str(Path(__file__).parent.parent)",
+        "if parent_dir not in sys.path:",
+        "    sys.path.insert(0, parent_dir)",
+        "",
+        "import runtime as generated_runtime",
         "",
         f'API_SLUG = "{plan.api_slug}"',
         "",

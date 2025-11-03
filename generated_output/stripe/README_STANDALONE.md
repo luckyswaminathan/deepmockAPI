@@ -163,12 +163,28 @@ cd generated_output/stripe
 python -m uvicorn main:app --host 0.0.0.0 --port 8000
 ```
 
+## Authentication & Auth-Dependent Endpoints
+
+Some endpoints (like `/v1/balance`) depend on authentication context. The generated code provides:
+
+- **`auth.py`** - Mock authentication helpers
+- **Account-scoped storage** - Per-account data isolation via `runtime.py`
+- **Examples** - See `examples_balance_endpoint.py` for auth handling patterns
+
+**Default Behavior:**
+- Optional auth (for development/testing)
+- Defaults to mock API key `sk_test_mock_default` if no auth provided
+- Supports both Bearer tokens and `Stripe-Api-Key` header
+
+**See `AUTH_GUIDE.md`** for complete documentation on handling auth-dependent endpoints.
+
 ## Customization
 
 Customize the generated API by editing:
 
 - **Routes**: `code/routes.py` - Add business logic to handlers
-- **Storage**: `runtime.py` - Modify data persistence
+- **Auth**: `auth.py` - Customize authentication logic
+- **Storage**: `runtime.py` - Modify data persistence (includes account-scoped ops)
 - **Services**: `code/services.py` - Implement service methods
 - **CORS**: `main.py` - Adjust allowed origins
 - **Docs**: `main.py` - Update title/description

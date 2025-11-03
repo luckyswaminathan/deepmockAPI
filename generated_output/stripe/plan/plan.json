@@ -1,6 +1,6 @@
 {
   "api_slug": "stripe",
-  "generated_at": "2025-11-03T21:50:48.015858+00:00",
+  "generated_at": "2025-11-03T22:56:29.861246+00:00",
   "routes": [
     {
       "component": "account",
@@ -106,7 +106,7 @@
           "component": "account",
           "filters": [
             {
-              "field": "id",
+              "field": "account",
               "operator": "eq",
               "value_source": "path.account"
             }
@@ -131,7 +131,7 @@
           "component": "account",
           "filters": [
             {
-              "field": "id",
+              "field": "account",
               "operator": "eq",
               "value_source": "path.account"
             }
@@ -157,7 +157,7 @@
           "component": "account",
           "filters": [
             {
-              "field": "id",
+              "field": "account",
               "operator": "eq",
               "value_source": "path.account"
             }
@@ -810,7 +810,7 @@
           "component": "account",
           "filters": [
             {
-              "field": "external_accounts",
+              "field": "account",
               "operator": "eq",
               "value_source": "path.account"
             }
@@ -4402,7 +4402,7 @@
           "component": "ephemeral_key",
           "filters": [
             {
-              "field": "key",
+              "field": "id",
               "operator": "eq",
               "value_source": "path.key"
             }
@@ -4691,7 +4691,7 @@
           "component": "financial_connections.account",
           "filters": [
             {
-              "field": "account_holder",
+              "field": "account",
               "operator": "eq",
               "value_source": "path.account"
             }
@@ -4717,7 +4717,7 @@
           "component": "financial_connections.account",
           "filters": [
             {
-              "field": "account_holder",
+              "field": "account",
               "operator": "eq",
               "value_source": "path.account"
             }
@@ -4754,7 +4754,7 @@
           "component": "financial_connections.account",
           "filters": [
             {
-              "field": "account_holder",
+              "field": "account",
               "operator": "eq",
               "value_source": "path.account"
             }
@@ -4780,7 +4780,7 @@
           "component": "financial_connections.account",
           "filters": [
             {
-              "field": "account_holder",
+              "field": "account",
               "operator": "eq",
               "value_source": "path.account"
             }
@@ -4806,7 +4806,7 @@
           "component": "financial_connections.account",
           "filters": [
             {
-              "field": "account_holder",
+              "field": "account",
               "operator": "eq",
               "value_source": "path.account"
             }
@@ -6543,7 +6543,7 @@
           "component": "financial_connections.account",
           "filters": [
             {
-              "field": "account_holder",
+              "field": "account",
               "operator": "eq",
               "value_source": "path.account"
             }
@@ -6569,7 +6569,7 @@
           "component": "financial_connections.account",
           "filters": [
             {
-              "field": "account_holder",
+              "field": "account",
               "operator": "eq",
               "value_source": "path.account"
             }
@@ -6606,7 +6606,7 @@
           "component": "financial_connections.account",
           "filters": [
             {
-              "field": "account_holder",
+              "field": "account",
               "operator": "eq",
               "value_source": "path.account"
             }

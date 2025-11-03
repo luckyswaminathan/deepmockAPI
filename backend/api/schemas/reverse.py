@@ -52,6 +52,9 @@ class GenerateDataRequest(BaseModel):
     api_slug: str
     counts: Optional[Dict[str, int]] = None
     seed: int = 1337
+    use_graph: bool = False  # If True, generate data for ALL components using dependency graph
+    seed_account_id: Optional[str] = None  # Optional account ID to associate data with
+    # Note: OpenAI API key is read from OPENAI_API_KEY environment variable
 
 
 class GenerateDataResponse(BaseModel):

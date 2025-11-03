@@ -253,14 +253,49 @@ def get_component_properties(entry: Dict[str, Any]) -> list[Dict[str, Any]]:
 
 
 def construct_component_graph(api_slug: str) -> Dict[str, Any]:
+    import sys
+    import os
+    
     with db_session() as session:
+        # Debug: Print database connection info
+        db_url = os.getenv("_DATABASE_URL", "NOT SET")
+        db_info = db_url.split('@')[-1] if '@' in db_url else db_url
+        print(f"[construct_component_graph] Connecting to database: {db_info}", file=sys.stderr)
+        
+        # Debug: Print all component records to see what's in THIS database
+        all_records = session.exec(select(ComponentRegistry)).all()
+        api_slugs = {record.api_slug for record in all_records}
+        print(f"[construct_component_graph] ComponentRegistry contains {len(all_records)} total records", file=sys.stderr)
+        print(f"[construct_component_graph] API slugs in ComponentRegistry: {api_slugs}", file=sys.stderr)
+        
+        if not api_slugs:
+            print(f"[construct_component_graph] WARNING: ComponentRegistry is EMPTY in this database!", file=sys.stderr)
+            print(f"[construct_component_graph] This database ({db_info}) doesn't have components.", file=sys.stderr)
+            print(f"[construct_component_graph] Use --shared-database-url to point to your main database.", file=sys.stderr)
+        
+        # Query for specific API slug
         records = session.exec(
             select(ComponentRegistry)
             .where(ComponentRegistry.api_slug == api_slug)
         ).all()
-
+        
+        print(f"[construct_component_graph] Query for api_slug='{api_slug}': found {len(records)} records", file=sys.stderr)
     if not records:
-        raise ValueError("API not found or has no components.")
+        # Check if API exists in api_registry but has no components
+        from database import ApiRegistry
+        with db_session() as check_session:
+            api_exists = check_session.exec(
+                select(ApiRegistry).where(ApiRegistry.api_slug == api_slug)
+            ).first()
+        
+        if api_exists:
+            raise ValueError(
+                f"API '{api_slug}' exists in registry but has no components. "
+                f"Components must be loaded via /apis/upload. "
+                f"The OpenAPI spec must include a 'components.schemas' section."
+            )
+        else:
+            raise ValueError(f"API '{api_slug}' not found. Upload OpenAPI spec via /apis/upload first.")
 
     component_names = {record.component_name for record in records}
     adjacency: Dict[str, Set[str]] = {name: set() for name in component_names}
