@@ -68,8 +68,8 @@ Containerised Generation Workflow
    - To reuse an external database instead of the transient PostgreSQL container, provide
      `--shared-database-url postgresql+psycopg://user:pass@host:5432/dbname`.
 
-OpenAPI Workflow
-----------------
+OpenAPI Ingestion Workflow
+---------------------------
 1. Visit `http://localhost:8000/` for the dashboard.
 2. Upload an OpenAPI JSON or YAML file. Optionally provide a display name.
 3. The backend parses `components.schemas` and stores each component in PostgreSQL as a JSONB record,
@@ -81,6 +81,139 @@ OpenAPI Workflow
    - `GET /apis` – list registered APIs.
    - `GET /apis/{api_slug}/components` – list stored components for an API (property counts included).
    - `GET /apis/{api_slug}/components/{component_name}` – view the JSON schema snapshot and property table.
+
+Reverse Engineering & Code Generation Pipeline
+-----------------------------------------------
+The reverse engineering system can generate a complete mock API implementation from an uploaded OpenAPI spec.
+
+### Step 1: Upload (Automatic Plan Generation)
+
+When you upload an OpenAPI spec via `POST /apis/upload`, the system:
+- Ingests components into the registry
+- Generates a route inventory from the OpenAPI paths
+- Automatically creates an initial generation plan using LLM inference
+
+The plan is stored at `backend/reverse/generated/{api_slug}/plan/plan.json`
+
+### Step 2: Review Plan (Optional)
+
+Review the generated plan before code generation:
+
+```bash
+# View human-readable plan
+curl -X POST "http://localhost:8000/reverse/plan" \
+  -H "Content-Type: application/json" \
+  -d '{"api_slug": "stripe"}'
+```
+
+The plan describes:
+- Inferred database operations (CRUD) per route
+- Component relationships and dependencies
+- Data flow and transformations
+
+Files:
+- `plan/plan.json` - Machine-readable plan
+- `plan/plan.md` - Human-readable documentation
+
+### Step 3: Generate Code, Tests, and Data
+
+Generate the complete implementation:
+
+```bash
+curl -X POST "http://localhost:8000/reverse/generate" \
+  -H "Content-Type: application/json" \
+  -d '{"api_slug": "stripe"}'
+```
+
+**Output Structure:**
+```
+backend/reverse/generated/{api_slug}/
+├── code/
+│   ├── routes.py      # FastAPI route handlers
+│   └── services.py    # Business logic
+├── tests/
+│   └── test_routes.py # Pytest test stubs
+├── data/
+│   ├── generators/    # Deterministic data generators
+│   └── seeds/         # Sample JSON fixtures
+├── prompts/           # LLM prompt transcripts
+├── plan/              # Generation plan (from step 1-2)
+└── README.md          # Generated documentation
+```
+
+### Step 4: Preview (Optional)
+
+Preview generated assets before applying:
+
+```bash
+curl "http://localhost:8000/reverse/preview?api_slug=stripe"
+```
+
+### Step 5: Apply to Main Backend (Optional)
+
+Mount generated routes in the running FastAPI app:
+
+```bash
+curl -X POST "http://localhost:8000/reverse/apply" \
+  -H "Content-Type: application/json" \
+  -d '{"api_slug": "stripe"}'
+```
+
+This:
+- Validates the plan
+- Runs code generation if needed
+- Synthesizes sample data
+- Syncs package to `generated_output/{api_slug}/`
+- Mounts routes at `/generated/{api_slug}/*`
+- Seeds the database with sample data
+
+**Routes become available at:**
+- `http://localhost:8000/generated/stripe/v1/...`
+
+### Step 6: Standalone API (Recommended)
+
+For a completely isolated deployment, run the standalone version:
+
+```bash
+cd generated_output/stripe
+pip install -r requirements.txt
+python main.py
+```
+
+**Benefits:**
+- No database required (in-memory storage)
+- Self-contained FastAPI application
+- Easy to deploy independently
+- Perfect for development and testing
+
+See `generated_output/{api_slug}/README_STANDALONE.md` for details.
+
+### Additional Endpoints
+
+- `POST /reverse/generate_data` - Generate sample data only (with custom counts/seed)
+- `POST /reverse/cleanup` - Remove all generated assets for an API
+- `GET /reverse/preview?api_slug={slug}` - Preview generated code structure
+
+### Generation Process Details
+
+**Planner (`reverse/planner.py`):**
+- Uses LLM to infer CRUD operations from OpenAPI routes
+- Maps request/response schemas to component registry
+- Builds operation plan with validation
+
+**Generator (`reverse/generator.py`):**
+- Renders FastAPI route handlers from plan
+- Generates route stubs with proper HTTP methods and path parameters
+- Creates service layer scaffolding
+
+**Data Synthesizer (`reverse/data_synthesizer.py`):**
+- Generates deterministic sample data
+- Follows component dependency graph (leaves first)
+- Creates coherent fixture datasets
+
+**Package Manager (`reverse/package_manager.py`):**
+- Syncs generated code to `generated_output/`
+- Creates standalone API structure with `main.py` and `runtime.py`
 
 Visit
 -----
