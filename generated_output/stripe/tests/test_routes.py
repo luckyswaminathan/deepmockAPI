@@ -2,4 +2,4 @@ import pytest
 
 
 def test_stub_generated_routes() -> None:
-    assert 559 >= 0
+    assert 484 >= 0

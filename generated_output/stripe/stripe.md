@@ -1,12 +1,178 @@
 # Generated API Routes for `stripe`
 
-**Generated at:** 2025-11-01T20:16:47.085860+00:00
+**Generated at:** 2025-11-03T21:50:48.015858+00:00
 
 This document describes all generated API routes and their operations.
+
+## Validation Status
+### Errors
+- ⚠️ Missing component mapping for GET /v1/accounts/{account}/people.
+- ⚠️ Missing component mapping for DELETE /v1/accounts/{account}/people/{person}.
+- ⚠️ Missing component mapping for GET /v1/apple_pay/domains.
+- ⚠️ Missing component mapping for DELETE /v1/apple_pay/domains/{domain}.
+- ⚠️ Missing component mapping for GET /v1/apps/secrets.
+- ⚠️ Missing component mapping for GET /v1/balance/history.
+- ⚠️ Missing component mapping for GET /v1/billing/alerts.
+- ⚠️ Missing component mapping for GET /v1/billing/credit_balance_transactions.
+- ⚠️ Missing component mapping for GET /v1/billing/credit_grants.
+- ⚠️ Missing component mapping for GET /v1/billing/meters.
+- ⚠️ Missing component mapping for GET /v1/billing/meters/{id}/event_summaries.
+- ⚠️ Missing component mapping for GET /v1/billing_portal/configurations.
+- ⚠️ Missing component mapping for GET /v1/charges/search.
+- ⚠️ Missing component mapping for GET /v1/checkout/sessions.
+- ⚠️ Missing component mapping for GET /v1/climate/orders.
+- ⚠️ Missing component mapping for GET /v1/climate/suppliers.
+- ⚠️ Missing component mapping for GET /v1/credit_notes/preview/lines.
+- ⚠️ Missing component mapping for GET /v1/credit_notes/{credit_note}/lines.
+- ⚠️ Missing component mapping for GET /v1/customers/search.
+- ⚠️ Missing component mapping for GET /v1/customers/{customer}/cash_balance_transactions.
+- ⚠️ Missing component mapping for GET /v1/entitlements/active_entitlements.
+- ⚠️ Missing component mapping for GET /v1/entitlements/features.
+- ⚠️ Missing component mapping for GET /v1/financial_connections/accounts/{account}/owners.
+- ⚠️ Missing component mapping for GET /v1/financial_connections/transactions.
+- ⚠️ Missing component mapping for GET /v1/forwarding/requests.
+- ⚠️ Missing component mapping for GET /v1/identity/verification_reports.
+- ⚠️ Missing component mapping for GET /v1/identity/verification_sessions.
+- ⚠️ Missing component mapping for GET /v1/invoices/search.
+- ⚠️ Missing component mapping for GET /v1/invoices/upcoming/lines.
+- ⚠️ Missing component mapping for GET /v1/invoices/{invoice}/lines.
+- ⚠️ Missing component mapping for GET /v1/issuing/authorizations.
+- ⚠️ Missing component mapping for GET /v1/issuing/cardholders.
+- ⚠️ Missing component mapping for GET /v1/issuing/personalization_designs.
+- ⚠️ Missing component mapping for GET /v1/issuing/physical_bundles.
+- ⚠️ Missing component mapping for GET /v1/issuing/transactions.
+- ⚠️ Missing component mapping for GET /v1/linked_accounts.
+- ⚠️ Missing component mapping for GET /v1/linked_accounts/{account}/owners.
+- ⚠️ Missing component mapping for GET /v1/payment_intents/search.
+- ⚠️ Missing component mapping for GET /v1/prices/search.
+- ⚠️ Missing component mapping for GET /v1/products/search.
+- ⚠️ Missing component mapping for GET /v1/products/{product}/features.
+- ⚠️ Missing component mapping for DELETE /v1/products/{product}/features/{id}.
+- ⚠️ Missing component mapping for GET /v1/quotes/{quote}/computed_upfront_line_items.
+- ⚠️ Missing component mapping for GET /v1/quotes/{quote}/pdf.
+- ⚠️ Missing component mapping for GET /v1/radar/early_fraud_warnings.
+- ⚠️ Missing component mapping for GET /v1/radar/value_list_items.
+- ⚠️ Missing component mapping for DELETE /v1/radar/value_list_items/{item}.
+- ⚠️ Missing component mapping for GET /v1/radar/value_lists.
+- ⚠️ Missing component mapping for DELETE /v1/radar/value_lists/{value_list}.
+- ⚠️ Missing component mapping for GET /v1/reporting/report_runs.
+- ⚠️ Missing component mapping for GET /v1/reporting/report_types.
+- ⚠️ Missing component mapping for GET /v1/subscriptions/search.
+- ⚠️ Missing component mapping for GET /v1/tax/registrations.
+- ⚠️ Missing component mapping for GET /v1/terminal/configurations.
+- ⚠️ Missing component mapping for DELETE /v1/terminal/configurations/{configuration}.
+- ⚠️ Missing component mapping for GET /v1/terminal/configurations/{configuration}.
+- ⚠️ Missing component mapping for POST /v1/terminal/configurations/{configuration}.
+- ⚠️ Missing component mapping for GET /v1/terminal/locations.
+- ⚠️ Missing component mapping for DELETE /v1/terminal/locations/{location}.
+- ⚠️ Missing component mapping for GET /v1/terminal/locations/{location}.
+- ⚠️ Missing component mapping for POST /v1/terminal/locations/{location}.
+- ⚠️ Missing component mapping for GET /v1/terminal/readers.
+- ⚠️ Missing component mapping for DELETE /v1/terminal/readers/{reader}.
+- ⚠️ Missing component mapping for GET /v1/terminal/readers/{reader}.
+- ⚠️ Missing component mapping for POST /v1/terminal/readers/{reader}.
+- ⚠️ Missing component mapping for GET /v1/test_helpers/test_clocks.
+- ⚠️ Missing component mapping for DELETE /v1/test_helpers/test_clocks/{test_clock}.
+- ⚠️ Missing component mapping for GET /v1/transfers/{id}/reversals.
+- ⚠️ Missing component mapping for GET /v1/treasury/credit_reversals.
+- ⚠️ Missing component mapping for GET /v1/treasury/debit_reversals.
+- ⚠️ Missing component mapping for GET /v1/treasury/financial_accounts.
+- ⚠️ Missing component mapping for GET /v1/treasury/received_credits.
+- ⚠️ Missing component mapping for GET /v1/treasury/received_debits.
+- ⚠️ Missing component mapping for GET /v1/treasury/transaction_entries.
+- ⚠️ Missing component mapping for GET /v1/treasury/transactions.
+
+### Warnings
+- ⚠️ No component mapping found for GET /v1/accounts/{account}/people.
+- ⚠️ No component mapping found for DELETE /v1/accounts/{account}/people/{person}.
+- ⚠️ No component mapping found for GET /v1/apple_pay/domains.
+- ⚠️ No component mapping found for DELETE /v1/apple_pay/domains/{domain}.
+- ⚠️ No component mapping found for GET /v1/apps/secrets.
+- ⚠️ No component mapping found for GET /v1/balance/history.
+- ⚠️ No component mapping found for GET /v1/billing/alerts.
+- ⚠️ No component mapping found for GET /v1/billing/credit_balance_transactions.
+- ⚠️ No component mapping found for GET /v1/billing/credit_grants.
+- ⚠️ No component mapping found for GET /v1/billing/meters.
+- ⚠️ No component mapping found for GET /v1/billing/meters/{id}/event_summaries.
+- ⚠️ No component mapping found for GET /v1/billing_portal/configurations.
+- ⚠️ No component mapping found for GET /v1/charges/search.
+- ⚠️ No component mapping found for GET /v1/checkout/sessions.
+- ⚠️ No component mapping found for GET /v1/climate/orders.
+- ⚠️ No component mapping found for GET /v1/climate/suppliers.
+- ⚠️ No component mapping found for GET /v1/credit_notes/preview/lines.
+- ⚠️ No component mapping found for GET /v1/credit_notes/{credit_note}/lines.
+- ⚠️ No component mapping found for GET /v1/customers/search.
+- ⚠️ No component mapping found for GET /v1/customers/{customer}/cash_balance_transactions.
+- ⚠️ No component mapping found for GET /v1/entitlements/active_entitlements.
+- ⚠️ No component mapping found for GET /v1/entitlements/features.
+- ⚠️ No component mapping found for GET /v1/financial_connections/accounts/{account}/owners.
+- ⚠️ No component mapping found for GET /v1/financial_connections/transactions.
+- ⚠️ No component mapping found for GET /v1/forwarding/requests.
+- ⚠️ No component mapping found for GET /v1/identity/verification_reports.
+- ⚠️ No component mapping found for GET /v1/identity/verification_sessions.
+- ⚠️ No component mapping found for GET /v1/invoices/search.
+- ⚠️ No component mapping found for GET /v1/invoices/upcoming/lines.
+- ⚠️ No component mapping found for GET /v1/invoices/{invoice}/lines.
+- ⚠️ No component mapping found for GET /v1/issuing/authorizations.
+- ⚠️ No component mapping found for GET /v1/issuing/cardholders.
+- ⚠️ No component mapping found for GET /v1/issuing/personalization_designs.
+- ⚠️ No component mapping found for GET /v1/issuing/physical_bundles.
+- ⚠️ No component mapping found for GET /v1/issuing/transactions.
+- ⚠️ No component mapping found for GET /v1/linked_accounts.
+- ⚠️ No component mapping found for GET /v1/linked_accounts/{account}/owners.
+- ⚠️ No component mapping found for GET /v1/payment_intents/search.
+- ⚠️ No component mapping found for GET /v1/prices/search.
+- ⚠️ No component mapping found for GET /v1/products/search.
+- ⚠️ No component mapping found for GET /v1/products/{product}/features.
+- ⚠️ No component mapping found for DELETE /v1/products/{product}/features/{id}.
+- ⚠️ No component mapping found for GET /v1/quotes/{quote}/computed_upfront_line_items.
+- ⚠️ No component mapping found for GET /v1/quotes/{quote}/pdf.
+- ⚠️ No component mapping found for GET /v1/radar/early_fraud_warnings.
+- ⚠️ No component mapping found for GET /v1/radar/value_list_items.
+- ⚠️ No component mapping found for DELETE /v1/radar/value_list_items/{item}.
+- ⚠️ No component mapping found for GET /v1/radar/value_lists.
+- ⚠️ No component mapping found for DELETE /v1/radar/value_lists/{value_list}.
+- ⚠️ No component mapping found for GET /v1/reporting/report_runs.
+- ⚠️ No component mapping found for GET /v1/reporting/report_types.
+- ⚠️ No component mapping found for GET /v1/subscriptions/search.
+- ⚠️ No component mapping found for GET /v1/tax/registrations.
+- ⚠️ No component mapping found for GET /v1/terminal/configurations.
+- ⚠️ No component mapping found for DELETE /v1/terminal/configurations/{configuration}.
+- ⚠️ No component mapping found for GET /v1/terminal/configurations/{configuration}.
+- ⚠️ No component mapping found for POST /v1/terminal/configurations/{configuration}.
+- ⚠️ No component mapping found for GET /v1/terminal/locations.
+- ⚠️ No component mapping found for DELETE /v1/terminal/locations/{location}.
+- ⚠️ No component mapping found for GET /v1/terminal/locations/{location}.
+- ⚠️ No component mapping found for POST /v1/terminal/locations/{location}.
+- ⚠️ No component mapping found for GET /v1/terminal/readers.
+- ⚠️ No component mapping found for DELETE /v1/terminal/readers/{reader}.
+- ⚠️ No component mapping found for GET /v1/terminal/readers/{reader}.
+- ⚠️ No component mapping found for POST /v1/terminal/readers/{reader}.
+- ⚠️ No component mapping found for GET /v1/test_helpers/test_clocks.
+- ⚠️ No component mapping found for DELETE /v1/test_helpers/test_clocks/{test_clock}.
+- ⚠️ No component mapping found for GET /v1/transfers/{id}/reversals.
+- ⚠️ No component mapping found for GET /v1/treasury/credit_reversals.
+- ⚠️ No component mapping found for GET /v1/treasury/debit_reversals.
+- ⚠️ No component mapping found for GET /v1/treasury/financial_accounts.
+- ⚠️ No component mapping found for GET /v1/treasury/received_credits.
+- ⚠️ No component mapping found for GET /v1/treasury/received_debits.
+- ⚠️ No component mapping found for GET /v1/treasury/transaction_entries.
+- ⚠️ No component mapping found for GET /v1/treasury/transactions.
 
 ## Routes by Component
 
 ### Component: `account`
+
+#### `DELETE /v1/accounts/{account}`
+**Status:** planned
+
+**Operations:**
+- **delete**
+  - Component: `account`
+  - Filters:
+    - `id` eq `path.account`
+  - Notes:
+    - Query parameters: account
 
 #### `GET /v1/account`
 **Status:** planned
@@ -18,6 +184,15 @@ This document describes all generated API routes and their operations.
     - Response body references #/components/schemas/account
     - Query parameters: expand
 
+#### `GET /v1/accounts`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `account`
+  - Notes:
+    - Query parameters: created, ending_before, expand, limit, starting_after
+
 #### `GET /v1/accounts/{account}`
 **Status:** planned
 
@@ -25,10 +200,19 @@ This document describes all generated API routes and their operations.
 - **read_one**
   - Component: `account`
   - Filters:
-    - `external_accounts` eq `path.account`
+    - `id` eq `path.account`
   - Notes:
     - Response body references #/components/schemas/account
     - Query parameters: expand
+
+#### `GET /v1/financial_connections/accounts`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `account`
+  - Notes:
+    - Query parameters: account_holder, ending_before, expand, limit, session, starting_after
 
 #### `POST /v1/accounts`
 **Status:** planned
@@ -46,7 +230,7 @@ This document describes all generated API routes and their operations.
 - **create**
   - Component: `account`
   - Filters:
-    - `external_accounts` eq `path.account`
+    - `id` eq `path.account`
   - Notes:
     - Response body references #/components/schemas/account
     - Query parameters: account
@@ -109,6 +293,15 @@ This document describes all generated API routes and their operations.
     - Response body references #/components/schemas/apple_pay_domain
 
 ### Component: `application_fee`
+
+#### `GET /v1/application_fees`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `application_fee`
+  - Notes:
+    - Query parameters: charge, created, ending_before, expand, limit, starting_after
 
 #### `GET /v1/application_fees/{id}`
 **Status:** planned
@@ -190,6 +383,15 @@ This document describes all generated API routes and their operations.
     - Response body references #/components/schemas/balance_transaction
     - Query parameters: expand
 
+#### `GET /v1/balance_transactions`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `balance_transaction`
+  - Notes:
+    - Query parameters: created, currency, ending_before, expand, limit, payout, source, starting_after, type
+
 #### `GET /v1/balance_transactions/{id}`
 **Status:** planned
 
@@ -202,7 +404,53 @@ This document describes all generated API routes and their operations.
     - Response body references #/components/schemas/balance_transaction
     - Query parameters: expand
 
+#### `GET /v1/customers/{customer}/balance_transactions`
+**Status:** planned
+
+**Operations:**
+- **read_one**
+  - Component: `balance_transaction`
+  - Filters:
+    - `customer` eq `path.customer`
+  - Notes:
+    - Query parameters: ending_before, expand, limit, starting_after
+
 ### Component: `bank_account`
+
+#### `DELETE /v1/accounts/{account}/bank_accounts/{id}`
+**Status:** planned
+
+**Operations:**
+- **delete**
+  - Component: `bank_account`
+  - Filters:
+    - `account` eq `path.account`
+    - `id` eq `path.id`
+  - Notes:
+    - Query parameters: account, id
+
+#### `DELETE /v1/customers/{customer}/bank_accounts/{id}`
+**Status:** planned
+
+**Operations:**
+- **delete**
+  - Component: `bank_account`
+  - Filters:
+    - `customer` eq `path.customer`
+    - `id` eq `path.id`
+  - Notes:
+    - Query parameters: customer, id
+
+#### `GET /v1/customers/{customer}/bank_accounts`
+**Status:** planned
+
+**Operations:**
+- **read_one**
+  - Component: `bank_account`
+  - Filters:
+    - `customer` eq `path.customer`
+  - Notes:
+    - Query parameters: ending_before, expand, limit, starting_after
 
 #### `GET /v1/customers/{customer}/bank_accounts/{id}`
 **Status:** planned
@@ -216,6 +464,18 @@ This document describes all generated API routes and their operations.
   - Notes:
     - Response body references #/components/schemas/bank_account
     - Query parameters: expand
+
+#### `POST /v1/customers/{customer}/bank_accounts/{id}`
+**Status:** planned
+
+**Operations:**
+- **create**
+  - Component: `bank_account`
+  - Filters:
+    - `customer` eq `path.customer`
+    - `id` eq `path.id`
+  - Notes:
+    - Query parameters: customer, id
 
 #### `POST /v1/customers/{customer}/bank_accounts/{id}/verify`
 **Status:** planned
@@ -516,6 +776,17 @@ This document describes all generated API routes and their operations.
 
 ### Component: `capability`
 
+#### `GET /v1/accounts/{account}/capabilities`
+**Status:** planned
+
+**Operations:**
+- **read_one**
+  - Component: `capability`
+  - Filters:
+    - `account` eq `path.account`
+  - Notes:
+    - Query parameters: expand
+
 #### `GET /v1/accounts/{account}/capabilities/{capability}`
 **Status:** planned
 
@@ -544,6 +815,29 @@ This document describes all generated API routes and their operations.
 
 ### Component: `card`
 
+#### `DELETE /v1/customers/{customer}/cards/{id}`
+**Status:** planned
+
+**Operations:**
+- **delete**
+  - Component: `card`
+  - Filters:
+    - `customer` eq `path.customer`
+    - `id` eq `path.id`
+  - Notes:
+    - Query parameters: customer, id
+
+#### `GET /v1/customers/{customer}/cards`
+**Status:** planned
+
+**Operations:**
+- **read_one**
+  - Component: `card`
+  - Filters:
+    - `customer` eq `path.customer`
+  - Notes:
+    - Query parameters: ending_before, expand, limit, starting_after
+
 #### `GET /v1/customers/{customer}/cards/{id}`
 **Status:** planned
 
@@ -556,6 +850,27 @@ This document describes all generated API routes and their operations.
   - Notes:
     - Response body references #/components/schemas/card
     - Query parameters: expand
+
+#### `GET /v1/issuing/cards`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `card`
+  - Notes:
+    - Query parameters: cardholder, created, ending_before, exp_month, exp_year, expand, last4, limit, personalization_design, starting_after, status, type
+
+#### `POST /v1/customers/{customer}/cards/{id}`
+**Status:** planned
+
+**Operations:**
+- **create**
+  - Component: `card`
+  - Filters:
+    - `customer` eq `path.customer`
+    - `id` eq `path.id`
+  - Notes:
+    - Query parameters: customer, id
 
 ### Component: `cash_balance`
 
@@ -584,6 +899,15 @@ This document describes all generated API routes and their operations.
     - Query parameters: customer
 
 ### Component: `charge`
+
+#### `GET /v1/charges`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `charge`
+  - Notes:
+    - Query parameters: created, customer, ending_before, expand, limit, payment_intent, starting_after, transfer_group
 
 #### `GET /v1/charges/{charge}`
 **Status:** planned
@@ -789,6 +1113,15 @@ This document describes all generated API routes and their operations.
 
 ### Component: `country_spec`
 
+#### `GET /v1/country_specs`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `country_spec`
+  - Notes:
+    - Query parameters: ending_before, expand, limit, starting_after
+
 #### `GET /v1/country_specs/{country}`
 **Status:** planned
 
@@ -802,6 +1135,26 @@ This document describes all generated API routes and their operations.
     - Query parameters: expand
 
 ### Component: `coupon`
+
+#### `DELETE /v1/coupons/{coupon}`
+**Status:** planned
+
+**Operations:**
+- **delete**
+  - Component: `coupon`
+  - Filters:
+    - `coupon` eq `path.coupon`
+  - Notes:
+    - Query parameters: coupon
+
+#### `GET /v1/coupons`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `coupon`
+  - Notes:
+    - Query parameters: created, ending_before, expand, limit, starting_after
 
 #### `GET /v1/coupons/{coupon}`
 **Status:** planned
@@ -837,6 +1190,15 @@ This document describes all generated API routes and their operations.
     - Query parameters: coupon
 
 ### Component: `credit_note`
+
+#### `GET /v1/credit_notes`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `credit_note`
+  - Notes:
+    - Query parameters: created, customer, ending_before, expand, invoice, limit, starting_after
 
 #### `GET /v1/credit_notes/preview`
 **Status:** planned
@@ -894,6 +1256,37 @@ This document describes all generated API routes and their operations.
     - Query parameters: id
 
 ### Component: `customer`
+
+#### `DELETE /v1/customers/{customer}`
+**Status:** planned
+
+**Operations:**
+- **delete**
+  - Component: `customer`
+  - Filters:
+    - `customer` eq `path.customer`
+  - Notes:
+    - Query parameters: customer
+
+#### `GET /v1/customers`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `customer`
+  - Notes:
+    - Query parameters: created, email, ending_before, expand, limit, starting_after, test_clock
+
+#### `GET /v1/customers/{customer}`
+**Status:** planned
+
+**Operations:**
+- **read_one**
+  - Component: `customer`
+  - Filters:
+    - `customer` eq `path.customer`
+  - Notes:
+    - Query parameters: expand
 
 #### `POST /v1/customers`
 **Status:** planned
@@ -994,74 +1387,17 @@ This document describes all generated API routes and their operations.
   - Notes:
     - Response body references #/components/schemas/customer_session
 
-### Component: `deleted_account`
-
-#### `DELETE /v1/accounts/{account}`
-**Status:** planned
-
-**Operations:**
-- **delete**
-  - Component: `deleted_account`
-  - Filters:
-    - `account` eq `path.account`
-  - Notes:
-    - Response body references #/components/schemas/deleted_account
-    - Query parameters: account
-
-### Component: `deleted_apple_pay_domain`
-
-#### `DELETE /v1/apple_pay/domains/{domain}`
-**Status:** planned
-
-**Operations:**
-- **delete**
-  - Component: `deleted_apple_pay_domain`
-  - Filters:
-    - `domain` eq `path.domain`
-  - Notes:
-    - Response body references #/components/schemas/deleted_apple_pay_domain
-    - Query parameters: domain
-
-### Component: `deleted_coupon`
-
-#### `DELETE /v1/coupons/{coupon}`
-**Status:** planned
-
-**Operations:**
-- **delete**
-  - Component: `deleted_coupon`
-  - Filters:
-    - `coupon` eq `path.coupon`
-  - Notes:
-    - Response body references #/components/schemas/deleted_coupon
-    - Query parameters: coupon
-
-### Component: `deleted_customer`
-
-#### `DELETE /v1/customers/{customer}`
-**Status:** planned
-
-**Operations:**
-- **delete**
-  - Component: `deleted_customer`
-  - Filters:
-    - `customer` eq `path.customer`
-  - Notes:
-    - Response body references #/components/schemas/deleted_customer
-    - Query parameters: customer
-
-### Component: `deleted_discount`
+### Component: `discount`
 
 #### `DELETE /v1/customers/{customer}/discount`
 **Status:** planned
 
 **Operations:**
 - **delete**
-  - Component: `deleted_discount`
+  - Component: `discount`
   - Filters:
     - `customer` eq `path.customer`
   - Notes:
-    - Response body references #/components/schemas/deleted_discount
     - Query parameters: customer
 
 #### `DELETE /v1/customers/{customer}/subscriptions/{subscription_exposed_id}/discount`
@@ -1069,12 +1405,11 @@ This document describes all generated API routes and their operations.
 
 **Operations:**
 - **delete**
-  - Component: `deleted_discount`
+  - Component: `discount`
   - Filters:
     - `customer` eq `path.customer`
     - `subscription_exposed_id` eq `path.subscription_exposed_id`
   - Notes:
-    - Response body references #/components/schemas/deleted_discount
     - Query parameters: customer, subscription_exposed_id
 
 #### `DELETE /v1/subscriptions/{subscription_exposed_id}/discount`
@@ -1082,280 +1417,11 @@ This document describes all generated API routes and their operations.
 
 **Operations:**
 - **delete**
-  - Component: `deleted_discount`
+  - Component: `discount`
   - Filters:
     - `subscription_exposed_id` eq `path.subscription_exposed_id`
   - Notes:
-    - Response body references #/components/schemas/deleted_discount
     - Query parameters: subscription_exposed_id
-
-### Component: `deleted_external_account`
-
-#### `DELETE /v1/accounts/{account}/bank_accounts/{id}`
-**Status:** planned
-
-**Operations:**
-- **delete**
-  - Component: `deleted_external_account`
-  - Filters:
-    - `account` eq `path.account`
-    - `id` eq `path.id`
-  - Notes:
-    - Response body references #/components/schemas/deleted_external_account
-    - Query parameters: account, id
-
-#### `DELETE /v1/accounts/{account}/external_accounts/{id}`
-**Status:** planned
-
-**Operations:**
-- **delete**
-  - Component: `deleted_external_account`
-  - Filters:
-    - `account` eq `path.account`
-    - `id` eq `path.id`
-  - Notes:
-    - Response body references #/components/schemas/deleted_external_account
-    - Query parameters: account, id
-
-### Component: `deleted_invoice`
-
-#### `DELETE /v1/invoices/{invoice}`
-**Status:** planned
-
-**Operations:**
-- **delete**
-  - Component: `deleted_invoice`
-  - Filters:
-    - `invoice` eq `path.invoice`
-  - Notes:
-    - Response body references #/components/schemas/deleted_invoice
-    - Query parameters: invoice
-
-### Component: `deleted_invoiceitem`
-
-#### `DELETE /v1/invoiceitems/{invoiceitem}`
-**Status:** planned
-
-**Operations:**
-- **delete**
-  - Component: `deleted_invoiceitem`
-  - Filters:
-    - `invoiceitem` eq `path.invoiceitem`
-  - Notes:
-    - Response body references #/components/schemas/deleted_invoiceitem
-    - Query parameters: invoiceitem
-
-### Component: `deleted_person`
-
-#### `DELETE /v1/accounts/{account}/people/{person}`
-**Status:** planned
-
-**Operations:**
-- **delete**
-  - Component: `deleted_person`
-  - Filters:
-    - `account` eq `path.account`
-    - `person` eq `path.person`
-  - Notes:
-    - Response body references #/components/schemas/deleted_person
-    - Query parameters: account, person
-
-#### `DELETE /v1/accounts/{account}/persons/{person}`
-**Status:** planned
-
-**Operations:**
-- **delete**
-  - Component: `deleted_person`
-  - Filters:
-    - `account` eq `path.account`
-    - `person` eq `path.person`
-  - Notes:
-    - Response body references #/components/schemas/deleted_person
-    - Query parameters: account, person
-
-### Component: `deleted_plan`
-
-#### `DELETE /v1/plans/{plan}`
-**Status:** planned
-
-**Operations:**
-- **delete**
-  - Component: `deleted_plan`
-  - Filters:
-    - `plan` eq `path.plan`
-  - Notes:
-    - Response body references #/components/schemas/deleted_plan
-    - Query parameters: plan
-
-### Component: `deleted_product`
-
-#### `DELETE /v1/products/{id}`
-**Status:** planned
-
-**Operations:**
-- **delete**
-  - Component: `deleted_product`
-  - Filters:
-    - `id` eq `path.id`
-  - Notes:
-    - Response body references #/components/schemas/deleted_product
-    - Query parameters: id
-
-### Component: `deleted_product_feature`
-
-#### `DELETE /v1/products/{product}/features/{id}`
-**Status:** planned
-
-**Operations:**
-- **delete**
-  - Component: `deleted_product_feature`
-  - Filters:
-    - `id` eq `path.id`
-    - `product` eq `path.product`
-  - Notes:
-    - Response body references #/components/schemas/deleted_product_feature
-    - Query parameters: id, product
-
-### Component: `deleted_radar.value_list`
-
-#### `DELETE /v1/radar/value_lists/{value_list}`
-**Status:** planned
-
-**Operations:**
-- **delete**
-  - Component: `deleted_radar.value_list`
-  - Filters:
-    - `value_list` eq `path.value_list`
-  - Notes:
-    - Response body references #/components/schemas/deleted_radar.value_list
-    - Query parameters: value_list
-
-### Component: `deleted_radar.value_list_item`
-
-#### `DELETE /v1/radar/value_list_items/{item}`
-**Status:** planned
-
-**Operations:**
-- **delete**
-  - Component: `deleted_radar.value_list_item`
-  - Filters:
-    - `item` eq `path.item`
-  - Notes:
-    - Response body references #/components/schemas/deleted_radar.value_list_item
-    - Query parameters: item
-
-### Component: `deleted_subscription_item`
-
-#### `DELETE /v1/subscription_items/{item}`
-**Status:** planned
-
-**Operations:**
-- **delete**
-  - Component: `deleted_subscription_item`
-  - Filters:
-    - `item` eq `path.item`
-  - Notes:
-    - Response body references #/components/schemas/deleted_subscription_item
-    - Query parameters: item
-
-### Component: `deleted_tax_id`
-
-#### `DELETE /v1/customers/{customer}/tax_ids/{id}`
-**Status:** planned
-
-**Operations:**
-- **delete**
-  - Component: `deleted_tax_id`
-  - Filters:
-    - `customer` eq `path.customer`
-    - `id` eq `path.id`
-  - Notes:
-    - Response body references #/components/schemas/deleted_tax_id
-    - Query parameters: customer, id
-
-#### `DELETE /v1/tax_ids/{id}`
-**Status:** planned
-
-**Operations:**
-- **delete**
-  - Component: `deleted_tax_id`
-  - Filters:
-    - `id` eq `path.id`
-  - Notes:
-    - Response body references #/components/schemas/deleted_tax_id
-    - Query parameters: id
-
-### Component: `deleted_terminal.configuration`
-
-#### `DELETE /v1/terminal/configurations/{configuration}`
-**Status:** planned
-
-**Operations:**
-- **delete**
-  - Component: `deleted_terminal.configuration`
-  - Filters:
-    - `configuration` eq `path.configuration`
-  - Notes:
-    - Response body references #/components/schemas/deleted_terminal.configuration
-    - Query parameters: configuration
-
-### Component: `deleted_terminal.location`
-
-#### `DELETE /v1/terminal/locations/{location}`
-**Status:** planned
-
-**Operations:**
-- **delete**
-  - Component: `deleted_terminal.location`
-  - Filters:
-    - `location` eq `path.location`
-  - Notes:
-    - Response body references #/components/schemas/deleted_terminal.location
-    - Query parameters: location
-
-### Component: `deleted_terminal.reader`
-
-#### `DELETE /v1/terminal/readers/{reader}`
-**Status:** planned
-
-**Operations:**
-- **delete**
-  - Component: `deleted_terminal.reader`
-  - Filters:
-    - `reader` eq `path.reader`
-  - Notes:
-    - Response body references #/components/schemas/deleted_terminal.reader
-    - Query parameters: reader
-
-### Component: `deleted_test_helpers.test_clock`
-
-#### `DELETE /v1/test_helpers/test_clocks/{test_clock}`
-**Status:** planned
-
-**Operations:**
-- **delete**
-  - Component: `deleted_test_helpers.test_clock`
-  - Filters:
-    - `test_clock` eq `path.test_clock`
-  - Notes:
-    - Response body references #/components/schemas/deleted_test_helpers.test_clock
-    - Query parameters: test_clock
-
-### Component: `deleted_webhook_endpoint`
-
-#### `DELETE /v1/webhook_endpoints/{webhook_endpoint}`
-**Status:** planned
-
-**Operations:**
-- **delete**
-  - Component: `deleted_webhook_endpoint`
-  - Filters:
-    - `webhook_endpoint` eq `path.webhook_endpoint`
-  - Notes:
-    - Response body references #/components/schemas/deleted_webhook_endpoint
-    - Query parameters: webhook_endpoint
-
-### Component: `discount`
 
 #### `GET /v1/customers/{customer}/discount`
 **Status:** planned
@@ -1396,6 +1462,15 @@ This document describes all generated API routes and their operations.
     - Response body references #/components/schemas/dispute
     - Query parameters: expand
 
+#### `GET /v1/disputes`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `dispute`
+  - Notes:
+    - Query parameters: charge, created, ending_before, expand, limit, payment_intent, starting_after
+
 #### `GET /v1/disputes/{dispute}`
 **Status:** planned
 
@@ -1407,6 +1482,15 @@ This document describes all generated API routes and their operations.
   - Notes:
     - Response body references #/components/schemas/dispute
     - Query parameters: expand
+
+#### `GET /v1/issuing/disputes`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `dispute`
+  - Notes:
+    - Query parameters: created, ending_before, expand, limit, starting_after, status, transaction
 
 #### `POST /v1/charges/{charge}/dispute`
 **Status:** planned
@@ -1528,1521 +1612,16 @@ This document describes all generated API routes and their operations.
   - Notes:
     - Response body references #/components/schemas/ephemeral_key
 
-### Component: `error`
-
-#### `DELETE /v1/customers/{customer}/bank_accounts/{id}`
-**Status:** planned
-
-**Operations:**
-- **delete**
-  - Component: `error`
-  - Filters:
-    - `customer` eq `path.customer`
-    - `id` eq `path.id`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: customer, id
-
-#### `DELETE /v1/customers/{customer}/cards/{id}`
-**Status:** planned
-
-**Operations:**
-- **delete**
-  - Component: `error`
-  - Filters:
-    - `customer` eq `path.customer`
-    - `id` eq `path.id`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: customer, id
-
-#### `DELETE /v1/customers/{customer}/sources/{id}`
-**Status:** planned
-
-**Operations:**
-- **delete**
-  - Component: `error`
-  - Filters:
-    - `customer` eq `path.customer`
-    - `id` eq `path.id`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: customer, id
-
-#### `GET /v1/accounts`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: created, ending_before, expand, limit, starting_after
-
-#### `GET /v1/accounts/{account}/capabilities`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `account` eq `path.account`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: expand
-
-#### `GET /v1/accounts/{account}/external_accounts`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `account` eq `path.account`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, object, starting_after
-
-#### `GET /v1/accounts/{account}/people`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `account` eq `path.account`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, relationship, starting_after
-
-#### `GET /v1/accounts/{account}/persons`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `account` eq `path.account`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, relationship, starting_after
-
-#### `GET /v1/apple_pay/domains`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: domain_name, ending_before, expand, limit, starting_after
-
-#### `GET /v1/application_fees`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: charge, created, ending_before, expand, limit, starting_after
-
-#### `GET /v1/application_fees/{id}/refunds`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `id` eq `path.id`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `GET /v1/apps/secrets`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, scope, starting_after
-
-#### `GET /v1/balance/history`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: created, currency, ending_before, expand, limit, payout, source, starting_after, type
-
-#### `GET /v1/balance_transactions`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: created, currency, ending_before, expand, limit, payout, source, starting_after, type
-
-#### `GET /v1/billing/alerts`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: alert_type, ending_before, expand, limit, meter, starting_after
-
-#### `GET /v1/billing/credit_balance_transactions`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: credit_grant, customer, ending_before, expand, limit, starting_after
-
-#### `GET /v1/billing/credit_grants`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: customer, ending_before, expand, limit, starting_after
-
-#### `GET /v1/billing/meters`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after, status
-
-#### `GET /v1/billing/meters/{id}/event_summaries`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `id` eq `path.id`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: customer, end_time, ending_before, expand, limit, start_time, starting_after, value_grouping_window
-
-#### `GET /v1/billing_portal/configurations`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: active, ending_before, expand, is_default, limit, starting_after
-
-#### `GET /v1/charges`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: created, customer, ending_before, expand, limit, payment_intent, starting_after, transfer_group
-
-#### `GET /v1/charges/search`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: expand, limit, page, query
-
-#### `GET /v1/charges/{charge}/refunds`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `charge` eq `path.charge`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `GET /v1/checkout/sessions`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: created, customer, customer_details, ending_before, expand, limit, payment_intent, payment_link, starting_after, status, subscription
-
-#### `GET /v1/checkout/sessions/{session}/line_items`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `session` eq `path.session`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `GET /v1/climate/orders`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `GET /v1/climate/products`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `GET /v1/climate/suppliers`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `GET /v1/country_specs`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `GET /v1/coupons`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: created, ending_before, expand, limit, starting_after
-
-#### `GET /v1/credit_notes`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: created, customer, ending_before, expand, invoice, limit, starting_after
-
-#### `GET /v1/credit_notes/preview/lines`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: amount, credit_amount, effective_at, email_type, ending_before, expand, invoice, limit, lines, memo, metadata, out_of_band_amount, reason, refund, refund_amount, shipping_cost, starting_after
-
-#### `GET /v1/credit_notes/{credit_note}/lines`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `credit_note` eq `path.credit_note`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `GET /v1/customers`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: created, email, ending_before, expand, limit, starting_after, test_clock
-
-#### `GET /v1/customers/search`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: expand, limit, page, query
-
-#### `GET /v1/customers/{customer}`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `customer` eq `path.customer`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: expand
-
-#### `GET /v1/customers/{customer}/balance_transactions`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `customer` eq `path.customer`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `GET /v1/customers/{customer}/bank_accounts`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `customer` eq `path.customer`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `GET /v1/customers/{customer}/cards`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `customer` eq `path.customer`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `GET /v1/customers/{customer}/cash_balance_transactions`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `customer` eq `path.customer`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `GET /v1/customers/{customer}/payment_methods`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `customer` eq `path.customer`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: allow_redisplay, ending_before, expand, limit, starting_after, type
-
-#### `GET /v1/customers/{customer}/sources`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `customer` eq `path.customer`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, object, starting_after
-
-#### `GET /v1/customers/{customer}/subscriptions`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `customer` eq `path.customer`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `GET /v1/customers/{customer}/tax_ids`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `customer` eq `path.customer`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `GET /v1/disputes`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: charge, created, ending_before, expand, limit, payment_intent, starting_after
-
-#### `GET /v1/entitlements/active_entitlements`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: customer, ending_before, expand, limit, starting_after
-
-#### `GET /v1/entitlements/features`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: archived, ending_before, expand, limit, lookup_key, starting_after
+### Component: `event`
 
 #### `GET /v1/events`
 **Status:** planned
 
 **Operations:**
 - **read_many**
-  - Component: `error`
+  - Component: `event`
   - Notes:
-    - Response body references #/components/schemas/error
     - Query parameters: created, delivery_success, ending_before, expand, limit, starting_after, type, types
-
-#### `GET /v1/exchange_rates`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `GET /v1/file_links`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: created, ending_before, expand, expired, file, limit, starting_after
-
-#### `GET /v1/files`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: created, ending_before, expand, limit, purpose, starting_after
-
-#### `GET /v1/financial_connections/accounts`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: account_holder, ending_before, expand, limit, session, starting_after
-
-#### `GET /v1/financial_connections/accounts/{account}/owners`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `account` eq `path.account`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, ownership, starting_after
-
-#### `GET /v1/financial_connections/transactions`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: account, ending_before, expand, limit, starting_after, transacted_at, transaction_refresh
-
-#### `GET /v1/forwarding/requests`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: created, ending_before, expand, limit, starting_after
-
-#### `GET /v1/identity/verification_reports`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: client_reference_id, created, ending_before, expand, limit, starting_after, type, verification_session
-
-#### `GET /v1/identity/verification_sessions`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: client_reference_id, created, ending_before, expand, limit, related_customer, starting_after, status
-
-#### `GET /v1/invoice_rendering_templates`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after, status
-
-#### `GET /v1/invoiceitems`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: created, customer, ending_before, expand, invoice, limit, pending, starting_after
-
-#### `GET /v1/invoices`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: collection_method, created, customer, due_date, ending_before, expand, limit, starting_after, status, subscription
-
-#### `GET /v1/invoices/search`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: expand, limit, page, query
-
-#### `GET /v1/invoices/upcoming/lines`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: automatic_tax, coupon, currency, customer, customer_details, discounts, ending_before, expand, invoice_items, issuer, limit, on_behalf_of, preview_mode, schedule, schedule_details, starting_after, subscription, subscription_billing_cycle_anchor, subscription_cancel_at, subscription_cancel_at_period_end, subscription_cancel_now, subscription_default_tax_rates, subscription_details, subscription_items, subscription_proration_behavior, subscription_proration_date, subscription_resume_at, subscription_start_date, subscription_trial_end
-
-#### `GET /v1/invoices/{invoice}/lines`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `invoice` eq `path.invoice`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `GET /v1/issuing/authorizations`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: card, cardholder, created, ending_before, expand, limit, starting_after, status
-
-#### `GET /v1/issuing/cardholders`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: created, email, ending_before, expand, limit, phone_number, starting_after, status, type
-
-#### `GET /v1/issuing/cards`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: cardholder, created, ending_before, exp_month, exp_year, expand, last4, limit, personalization_design, starting_after, status, type
-
-#### `GET /v1/issuing/disputes`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: created, ending_before, expand, limit, starting_after, status, transaction
-
-#### `GET /v1/issuing/personalization_designs`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, lookup_keys, preferences, starting_after, status
-
-#### `GET /v1/issuing/physical_bundles`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after, status, type
-
-#### `GET /v1/issuing/tokens`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: card, created, ending_before, expand, limit, starting_after, status
-
-#### `GET /v1/issuing/transactions`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: card, cardholder, created, ending_before, expand, limit, starting_after, type
-
-#### `GET /v1/linked_accounts`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: account_holder, ending_before, expand, limit, session, starting_after
-
-#### `GET /v1/linked_accounts/{account}/owners`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `account` eq `path.account`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, ownership, starting_after
-
-#### `GET /v1/payment_intents`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: created, customer, ending_before, expand, limit, starting_after
-
-#### `GET /v1/payment_intents/search`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: expand, limit, page, query
-
-#### `GET /v1/payment_links`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: active, ending_before, expand, limit, starting_after
-
-#### `GET /v1/payment_links/{payment_link}/line_items`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `payment_link` eq `path.payment_link`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `GET /v1/payment_method_configurations`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: application, ending_before, expand, limit, starting_after
-
-#### `GET /v1/payment_method_domains`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: domain_name, enabled, ending_before, expand, limit, starting_after
-
-#### `GET /v1/payment_methods`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: customer, ending_before, expand, limit, starting_after, type
-
-#### `GET /v1/payouts`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: arrival_date, created, destination, ending_before, expand, limit, starting_after, status
-
-#### `GET /v1/plans`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: active, created, ending_before, expand, limit, product, starting_after
-
-#### `GET /v1/prices`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: active, created, currency, ending_before, expand, limit, lookup_keys, product, recurring, starting_after, type
-
-#### `GET /v1/prices/search`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: expand, limit, page, query
-
-#### `GET /v1/products`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: active, created, ending_before, expand, ids, limit, shippable, starting_after, url
-
-#### `GET /v1/products/search`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: expand, limit, page, query
-
-#### `GET /v1/products/{product}/features`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `product` eq `path.product`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `GET /v1/promotion_codes`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: active, code, coupon, created, customer, ending_before, expand, limit, starting_after
-
-#### `GET /v1/quotes`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: customer, ending_before, expand, limit, starting_after, status, test_clock
-
-#### `GET /v1/quotes/{quote}/computed_upfront_line_items`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `quote` eq `path.quote`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `GET /v1/quotes/{quote}/line_items`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `quote` eq `path.quote`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `GET /v1/quotes/{quote}/pdf`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `quote` eq `path.quote`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: expand
-
-#### `GET /v1/radar/early_fraud_warnings`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: charge, created, ending_before, expand, limit, payment_intent, starting_after
-
-#### `GET /v1/radar/value_list_items`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: created, ending_before, expand, limit, starting_after, value, value_list
-
-#### `GET /v1/radar/value_lists`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: alias, contains, created, ending_before, expand, limit, starting_after
-
-#### `GET /v1/refunds`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: charge, created, ending_before, expand, limit, payment_intent, starting_after
-
-#### `GET /v1/reporting/report_runs`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: created, ending_before, expand, limit, starting_after
-
-#### `GET /v1/reporting/report_types`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: expand
-
-#### `GET /v1/reviews`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: created, ending_before, expand, limit, starting_after
-
-#### `GET /v1/setup_attempts`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: created, ending_before, expand, limit, setup_intent, starting_after
-
-#### `GET /v1/setup_intents`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: attach_to_self, created, customer, ending_before, expand, limit, payment_method, starting_after
-
-#### `GET /v1/shipping_rates`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: active, created, currency, ending_before, expand, limit, starting_after
-
-#### `GET /v1/sigma/scheduled_query_runs`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `GET /v1/sources/{source}/source_transactions`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `source` eq `path.source`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `GET /v1/subscription_items`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after, subscription
-
-#### `GET /v1/subscription_items/{subscription_item}/usage_record_summaries`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `subscription_item` eq `path.subscription_item`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `GET /v1/subscription_schedules`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: canceled_at, completed_at, created, customer, ending_before, expand, limit, released_at, scheduled, starting_after
-
-#### `GET /v1/subscriptions`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: automatic_tax, collection_method, created, current_period_end, current_period_start, customer, ending_before, expand, limit, price, starting_after, status, test_clock
-
-#### `GET /v1/subscriptions/search`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: expand, limit, page, query
-
-#### `GET /v1/tax/calculations/{calculation}/line_items`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `calculation` eq `path.calculation`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `GET /v1/tax/registrations`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after, status
-
-#### `GET /v1/tax/transactions/{transaction}/line_items`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `transaction` eq `path.transaction`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `GET /v1/tax_codes`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `GET /v1/tax_ids`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, owner, starting_after
-
-#### `GET /v1/tax_rates`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: active, created, ending_before, expand, inclusive, limit, starting_after
-
-#### `GET /v1/terminal/configurations`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, is_account_default, limit, starting_after
-
-#### `GET /v1/terminal/configurations/{configuration}`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `configuration` eq `path.configuration`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: expand
-
-#### `GET /v1/terminal/locations`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `GET /v1/terminal/locations/{location}`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `location` eq `path.location`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: expand
-
-#### `GET /v1/terminal/readers`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: device_type, ending_before, expand, limit, location, serial_number, starting_after, status
-
-#### `GET /v1/terminal/readers/{reader}`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `reader` eq `path.reader`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: expand
-
-#### `GET /v1/test_helpers/test_clocks`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `GET /v1/topups`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: amount, created, ending_before, expand, limit, starting_after, status
-
-#### `GET /v1/transfers`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: created, destination, ending_before, expand, limit, starting_after, transfer_group
-
-#### `GET /v1/transfers/{id}/reversals`
-**Status:** planned
-
-**Operations:**
-- **read_one**
-  - Component: `error`
-  - Filters:
-    - `id` eq `path.id`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `GET /v1/treasury/credit_reversals`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, financial_account, limit, received_credit, starting_after, status
-
-#### `GET /v1/treasury/debit_reversals`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, financial_account, limit, received_debit, resolution, starting_after, status
-
-#### `GET /v1/treasury/financial_accounts`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: created, ending_before, expand, limit, starting_after
-
-#### `GET /v1/treasury/inbound_transfers`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, financial_account, limit, starting_after, status
-
-#### `GET /v1/treasury/outbound_payments`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: created, customer, ending_before, expand, financial_account, limit, starting_after, status
-
-#### `GET /v1/treasury/outbound_transfers`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, financial_account, limit, starting_after, status
-
-#### `GET /v1/treasury/received_credits`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, financial_account, limit, linked_flows, starting_after, status
-
-#### `GET /v1/treasury/received_debits`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, financial_account, limit, starting_after, status
-
-#### `GET /v1/treasury/transaction_entries`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: created, effective_at, ending_before, expand, financial_account, limit, order_by, starting_after, transaction
-
-#### `GET /v1/treasury/transactions`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: created, ending_before, expand, financial_account, limit, order_by, starting_after, status, status_transitions
-
-#### `GET /v1/webhook_endpoints`
-**Status:** planned
-
-**Operations:**
-- **read_many**
-  - Component: `error`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: ending_before, expand, limit, starting_after
-
-#### `POST /v1/customers/{customer}/bank_accounts/{id}`
-**Status:** planned
-
-**Operations:**
-- **create**
-  - Component: `error`
-  - Filters:
-    - `customer` eq `path.customer`
-    - `id` eq `path.id`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: customer, id
-
-#### `POST /v1/customers/{customer}/cards/{id}`
-**Status:** planned
-
-**Operations:**
-- **create**
-  - Component: `error`
-  - Filters:
-    - `customer` eq `path.customer`
-    - `id` eq `path.id`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: customer, id
-
-#### `POST /v1/customers/{customer}/sources/{id}`
-**Status:** planned
-
-**Operations:**
-- **create**
-  - Component: `error`
-  - Filters:
-    - `customer` eq `path.customer`
-    - `id` eq `path.id`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: customer, id
-
-#### `POST /v1/terminal/configurations/{configuration}`
-**Status:** planned
-
-**Operations:**
-- **create**
-  - Component: `error`
-  - Filters:
-    - `configuration` eq `path.configuration`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: configuration
-
-#### `POST /v1/terminal/locations/{location}`
-**Status:** planned
-
-**Operations:**
-- **create**
-  - Component: `error`
-  - Filters:
-    - `location` eq `path.location`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: location
-
-#### `POST /v1/terminal/readers/{reader}`
-**Status:** planned
-
-**Operations:**
-- **create**
-  - Component: `error`
-  - Filters:
-    - `reader` eq `path.reader`
-  - Notes:
-    - Response body references #/components/schemas/error
-    - Query parameters: reader
-
-### Component: `event`
 
 #### `GET /v1/events/{id}`
 **Status:** planned
@@ -3058,6 +1637,15 @@ This document describes all generated API routes and their operations.
 
 ### Component: `exchange_rate`
 
+#### `GET /v1/exchange_rates`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `exchange_rate`
+  - Notes:
+    - Query parameters: ending_before, expand, limit, starting_after
+
 #### `GET /v1/exchange_rates/{rate_id}`
 **Status:** planned
 
@@ -3072,6 +1660,18 @@ This document describes all generated API routes and their operations.
 
 ### Component: `external_account`
 
+#### `DELETE /v1/accounts/{account}/external_accounts/{id}`
+**Status:** planned
+
+**Operations:**
+- **delete**
+  - Component: `external_account`
+  - Filters:
+    - `account` eq `path.account`
+    - `id` eq `path.id`
+  - Notes:
+    - Query parameters: account, id
+
 #### `GET /v1/accounts/{account}/bank_accounts/{id}`
 **Status:** planned
 
@@ -3084,6 +1684,17 @@ This document describes all generated API routes and their operations.
   - Notes:
     - Response body references #/components/schemas/external_account
     - Query parameters: expand
+
+#### `GET /v1/accounts/{account}/external_accounts`
+**Status:** planned
+
+**Operations:**
+- **read_one**
+  - Component: `external_account`
+  - Filters:
+    - `account` eq `path.account`
+  - Notes:
+    - Query parameters: ending_before, expand, limit, object, starting_after
 
 #### `GET /v1/accounts/{account}/external_accounts/{id}`
 **Status:** planned
@@ -3190,6 +1801,15 @@ This document describes all generated API routes and their operations.
 
 ### Component: `file`
 
+#### `GET /v1/files`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `file`
+  - Notes:
+    - Query parameters: created, ending_before, expand, limit, purpose, starting_after
+
 #### `GET /v1/files/{file}`
 **Status:** planned
 
@@ -3212,6 +1832,15 @@ This document describes all generated API routes and their operations.
     - Response body references #/components/schemas/file
 
 ### Component: `file_link`
+
+#### `GET /v1/file_links`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `file_link`
+  - Notes:
+    - Query parameters: created, ending_before, expand, expired, file, limit, starting_after
 
 #### `GET /v1/file_links/{link}`
 **Status:** planned
@@ -3512,7 +2141,38 @@ This document describes all generated API routes and their operations.
     - Response body references #/components/schemas/identity.verification_session
     - Query parameters: session
 
+### Component: `inbound_transfers`
+
+#### `GET /v1/treasury/inbound_transfers`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `inbound_transfers`
+  - Notes:
+    - Query parameters: ending_before, expand, financial_account, limit, starting_after, status
+
 ### Component: `invoice`
+
+#### `DELETE /v1/invoices/{invoice}`
+**Status:** planned
+
+**Operations:**
+- **delete**
+  - Component: `invoice`
+  - Filters:
+    - `from_invoice` eq `path.invoice`
+  - Notes:
+    - Query parameters: invoice
+
+#### `GET /v1/invoices`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `invoice`
+  - Notes:
+    - Query parameters: collection_method, created, customer, due_date, ending_before, expand, limit, starting_after, status, subscription
 
 #### `GET /v1/invoices/upcoming`
 **Status:** planned
@@ -3664,6 +2324,15 @@ This document describes all generated API routes and their operations.
 
 ### Component: `invoice_rendering_template`
 
+#### `GET /v1/invoice_rendering_templates`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `invoice_rendering_template`
+  - Notes:
+    - Query parameters: ending_before, expand, limit, starting_after, status
+
 #### `GET /v1/invoice_rendering_templates/{template}`
 **Status:** planned
 
@@ -3701,6 +2370,26 @@ This document describes all generated API routes and their operations.
     - Query parameters: template
 
 ### Component: `invoiceitem`
+
+#### `DELETE /v1/invoiceitems/{invoiceitem}`
+**Status:** planned
+
+**Operations:**
+- **delete**
+  - Component: `invoiceitem`
+  - Filters:
+    - `invoiceitem` eq `path.invoiceitem`
+  - Notes:
+    - Query parameters: invoiceitem
+
+#### `GET /v1/invoiceitems`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `invoiceitem`
+  - Notes:
+    - Query parameters: created, customer, ending_before, expand, invoice, limit, pending, starting_after
 
 #### `GET /v1/invoiceitems/{invoiceitem}`
 **Status:** planned
@@ -4223,6 +2912,61 @@ This document describes all generated API routes and their operations.
 
 ### Component: `line_item`
 
+#### `GET /v1/checkout/sessions/{session}/line_items`
+**Status:** planned
+
+**Operations:**
+- **read_one**
+  - Component: `line_item`
+  - Filters:
+    - `session` eq `path.session`
+  - Notes:
+    - Query parameters: ending_before, expand, limit, starting_after
+
+#### `GET /v1/payment_links/{payment_link}/line_items`
+**Status:** planned
+
+**Operations:**
+- **read_one**
+  - Component: `line_item`
+  - Filters:
+    - `payment_link` eq `path.payment_link`
+  - Notes:
+    - Query parameters: ending_before, expand, limit, starting_after
+
+#### `GET /v1/quotes/{quote}/line_items`
+**Status:** planned
+
+**Operations:**
+- **read_one**
+  - Component: `line_item`
+  - Filters:
+    - `quote` eq `path.quote`
+  - Notes:
+    - Query parameters: ending_before, expand, limit, starting_after
+
+#### `GET /v1/tax/calculations/{calculation}/line_items`
+**Status:** planned
+
+**Operations:**
+- **read_one**
+  - Component: `line_item`
+  - Filters:
+    - `calculation` eq `path.calculation`
+  - Notes:
+    - Query parameters: ending_before, expand, limit, starting_after
+
+#### `GET /v1/tax/transactions/{transaction}/line_items`
+**Status:** planned
+
+**Operations:**
+- **read_one**
+  - Component: `line_item`
+  - Filters:
+    - `transaction` eq `path.transaction`
+  - Notes:
+    - Query parameters: ending_before, expand, limit, starting_after
+
 #### `POST /v1/invoices/{invoice}/lines/{line_item_id}`
 **Status:** planned
 
@@ -4264,7 +3008,38 @@ This document describes all generated API routes and their operations.
     - Response body references #/components/schemas/mandate
     - Query parameters: expand
 
+### Component: `outbound_payments_payment_method_details`
+
+#### `GET /v1/treasury/outbound_payments`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `outbound_payments_payment_method_details`
+  - Notes:
+    - Query parameters: created, customer, ending_before, expand, financial_account, limit, starting_after, status
+
+### Component: `outbound_transfers_payment_method_details`
+
+#### `GET /v1/treasury/outbound_transfers`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `outbound_transfers_payment_method_details`
+  - Notes:
+    - Query parameters: ending_before, expand, financial_account, limit, starting_after, status
+
 ### Component: `payment_intent`
+
+#### `GET /v1/payment_intents`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `payment_intent`
+  - Notes:
+    - Query parameters: created, customer, ending_before, expand, limit, starting_after
 
 #### `GET /v1/payment_intents/{intent}`
 **Status:** planned
@@ -4373,6 +3148,15 @@ This document describes all generated API routes and their operations.
 
 ### Component: `payment_link`
 
+#### `GET /v1/payment_links`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `payment_link`
+  - Notes:
+    - Query parameters: active, ending_before, expand, limit, starting_after
+
 #### `GET /v1/payment_links/{payment_link}`
 **Status:** planned
 
@@ -4408,6 +3192,17 @@ This document describes all generated API routes and their operations.
 
 ### Component: `payment_method`
 
+#### `GET /v1/customers/{customer}/payment_methods`
+**Status:** planned
+
+**Operations:**
+- **read_one**
+  - Component: `payment_method`
+  - Filters:
+    - `customer` eq `path.customer`
+  - Notes:
+    - Query parameters: allow_redisplay, ending_before, expand, limit, starting_after, type
+
 #### `GET /v1/customers/{customer}/payment_methods/{payment_method}`
 **Status:** planned
 
@@ -4420,6 +3215,15 @@ This document describes all generated API routes and their operations.
   - Notes:
     - Response body references #/components/schemas/payment_method
     - Query parameters: expand
+
+#### `GET /v1/payment_methods`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `payment_method`
+  - Notes:
+    - Query parameters: customer, ending_before, expand, limit, starting_after, type
 
 #### `GET /v1/payment_methods/{payment_method}`
 **Status:** planned
@@ -4480,6 +3284,15 @@ This document describes all generated API routes and their operations.
 
 ### Component: `payment_method_configuration`
 
+#### `GET /v1/payment_method_configurations`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `payment_method_configuration`
+  - Notes:
+    - Query parameters: application, ending_before, expand, limit, starting_after
+
 #### `GET /v1/payment_method_configurations/{configuration}`
 **Status:** planned
 
@@ -4514,6 +3327,15 @@ This document describes all generated API routes and their operations.
     - Query parameters: configuration
 
 ### Component: `payment_method_domain`
+
+#### `GET /v1/payment_method_domains`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `payment_method_domain`
+  - Notes:
+    - Query parameters: domain_name, enabled, ending_before, expand, limit, starting_after
 
 #### `GET /v1/payment_method_domains/{payment_method_domain}`
 **Status:** planned
@@ -4613,6 +3435,15 @@ This document describes all generated API routes and their operations.
 
 ### Component: `payout`
 
+#### `GET /v1/payouts`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `payout`
+  - Notes:
+    - Query parameters: arrival_date, created, destination, ending_before, expand, limit, starting_after, status
+
 #### `GET /v1/payouts/{payout}`
 **Status:** planned
 
@@ -4672,6 +3503,18 @@ This document describes all generated API routes and their operations.
 
 ### Component: `person`
 
+#### `DELETE /v1/accounts/{account}/persons/{person}`
+**Status:** planned
+
+**Operations:**
+- **delete**
+  - Component: `person`
+  - Filters:
+    - `account` eq `path.account`
+    - `person` eq `path.person`
+  - Notes:
+    - Query parameters: account, person
+
 #### `GET /v1/accounts/{account}/people/{person}`
 **Status:** planned
 
@@ -4684,6 +3527,17 @@ This document describes all generated API routes and their operations.
   - Notes:
     - Response body references #/components/schemas/person
     - Query parameters: expand
+
+#### `GET /v1/accounts/{account}/persons`
+**Status:** planned
+
+**Operations:**
+- **read_one**
+  - Component: `person`
+  - Filters:
+    - `account` eq `path.account`
+  - Notes:
+    - Query parameters: ending_before, expand, limit, relationship, starting_after
 
 #### `GET /v1/accounts/{account}/persons/{person}`
 **Status:** planned
@@ -4750,6 +3604,26 @@ This document describes all generated API routes and their operations.
 
 ### Component: `plan`
 
+#### `DELETE /v1/plans/{plan}`
+**Status:** planned
+
+**Operations:**
+- **delete**
+  - Component: `plan`
+  - Filters:
+    - `plan` eq `path.plan`
+  - Notes:
+    - Query parameters: plan
+
+#### `GET /v1/plans`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `plan`
+  - Notes:
+    - Query parameters: active, created, ending_before, expand, limit, product, starting_after
+
 #### `GET /v1/plans/{plan}`
 **Status:** planned
 
@@ -4785,6 +3659,15 @@ This document describes all generated API routes and their operations.
 
 ### Component: `price`
 
+#### `GET /v1/prices`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `price`
+  - Notes:
+    - Query parameters: active, created, currency, ending_before, expand, limit, lookup_keys, product, recurring, starting_after, type
+
 #### `GET /v1/prices/{price}`
 **Status:** planned
 
@@ -4819,6 +3702,35 @@ This document describes all generated API routes and their operations.
     - Query parameters: price
 
 ### Component: `product`
+
+#### `DELETE /v1/products/{id}`
+**Status:** planned
+
+**Operations:**
+- **delete**
+  - Component: `product`
+  - Filters:
+    - `id` eq `path.id`
+  - Notes:
+    - Query parameters: id
+
+#### `GET /v1/climate/products`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `product`
+  - Notes:
+    - Query parameters: ending_before, expand, limit, starting_after
+
+#### `GET /v1/products`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `product`
+  - Notes:
+    - Query parameters: active, created, ending_before, expand, ids, limit, shippable, starting_after, url
 
 #### `GET /v1/products/{id}`
 **Status:** planned
@@ -4882,6 +3794,15 @@ This document describes all generated API routes and their operations.
 
 ### Component: `promotion_code`
 
+#### `GET /v1/promotion_codes`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `promotion_code`
+  - Notes:
+    - Query parameters: active, code, coupon, created, customer, ending_before, expand, limit, starting_after
+
 #### `GET /v1/promotion_codes/{promotion_code}`
 **Status:** planned
 
@@ -4916,6 +3837,15 @@ This document describes all generated API routes and their operations.
     - Query parameters: promotion_code
 
 ### Component: `quote`
+
+#### `GET /v1/quotes`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `quote`
+  - Notes:
+    - Query parameters: customer, ending_before, expand, limit, starting_after, status, test_clock
 
 #### `GET /v1/quotes/{quote}`
 **Status:** planned
@@ -5060,6 +3990,28 @@ This document describes all generated API routes and their operations.
 
 ### Component: `refund`
 
+#### `GET /v1/application_fees/{id}/refunds`
+**Status:** planned
+
+**Operations:**
+- **read_one**
+  - Component: `refund`
+  - Filters:
+    - `id` eq `path.id`
+  - Notes:
+    - Query parameters: ending_before, expand, limit, starting_after
+
+#### `GET /v1/charges/{charge}/refunds`
+**Status:** planned
+
+**Operations:**
+- **read_one**
+  - Component: `refund`
+  - Filters:
+    - `charge` eq `path.charge`
+  - Notes:
+    - Query parameters: ending_before, expand, limit, starting_after
+
 #### `GET /v1/charges/{charge}/refunds/{refund}`
 **Status:** planned
 
@@ -5072,6 +4024,15 @@ This document describes all generated API routes and their operations.
   - Notes:
     - Response body references #/components/schemas/refund
     - Query parameters: expand
+
+#### `GET /v1/refunds`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `refund`
+  - Notes:
+    - Query parameters: charge, created, ending_before, expand, limit, payment_intent, starting_after
 
 #### `GET /v1/refunds/{refund}`
 **Status:** planned
@@ -5194,6 +4155,15 @@ This document describes all generated API routes and their operations.
 
 ### Component: `review`
 
+#### `GET /v1/reviews`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `review`
+  - Notes:
+    - Query parameters: created, ending_before, expand, limit, starting_after
+
 #### `GET /v1/reviews/{review}`
 **Status:** planned
 
@@ -5220,6 +4190,15 @@ This document describes all generated API routes and their operations.
 
 ### Component: `scheduled_query_run`
 
+#### `GET /v1/sigma/scheduled_query_runs`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `scheduled_query_run`
+  - Notes:
+    - Query parameters: ending_before, expand, limit, starting_after
+
 #### `GET /v1/sigma/scheduled_query_runs/{scheduled_query_run}`
 **Status:** planned
 
@@ -5232,7 +4211,27 @@ This document describes all generated API routes and their operations.
     - Response body references #/components/schemas/scheduled_query_run
     - Query parameters: expand
 
+### Component: `setup_attempt`
+
+#### `GET /v1/setup_attempts`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `setup_attempt`
+  - Notes:
+    - Query parameters: created, ending_before, expand, limit, setup_intent, starting_after
+
 ### Component: `setup_intent`
+
+#### `GET /v1/setup_intents`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `setup_intent`
+  - Notes:
+    - Query parameters: attach_to_self, created, customer, ending_before, expand, limit, payment_method, starting_after
 
 #### `GET /v1/setup_intents/{intent}`
 **Status:** planned
@@ -5305,6 +4304,15 @@ This document describes all generated API routes and their operations.
 
 ### Component: `shipping_rate`
 
+#### `GET /v1/shipping_rates`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `shipping_rate`
+  - Notes:
+    - Query parameters: active, created, currency, ending_before, expand, limit, starting_after
+
 #### `GET /v1/shipping_rates/{shipping_rate_token}`
 **Status:** planned
 
@@ -5340,6 +4348,29 @@ This document describes all generated API routes and their operations.
 
 ### Component: `source`
 
+#### `DELETE /v1/customers/{customer}/sources/{id}`
+**Status:** planned
+
+**Operations:**
+- **delete**
+  - Component: `source`
+  - Filters:
+    - `customer` eq `path.customer`
+    - `id` eq `path.id`
+  - Notes:
+    - Query parameters: customer, id
+
+#### `GET /v1/customers/{customer}/sources`
+**Status:** planned
+
+**Operations:**
+- **read_one**
+  - Component: `source`
+  - Filters:
+    - `customer` eq `path.customer`
+  - Notes:
+    - Query parameters: ending_before, expand, limit, object, starting_after
+
 #### `GET /v1/sources/{source}`
 **Status:** planned
 
@@ -5351,6 +4382,18 @@ This document describes all generated API routes and their operations.
   - Notes:
     - Response body references #/components/schemas/source
     - Query parameters: client_secret, expand
+
+#### `POST /v1/customers/{customer}/sources/{id}`
+**Status:** planned
+
+**Operations:**
+- **create**
+  - Component: `source`
+  - Filters:
+    - `customer` eq `path.customer`
+    - `id` eq `path.id`
+  - Notes:
+    - Query parameters: customer, id
 
 #### `POST /v1/sources`
 **Status:** planned
@@ -5402,6 +4445,17 @@ This document describes all generated API routes and their operations.
 
 ### Component: `source_transaction`
 
+#### `GET /v1/sources/{source}/source_transactions`
+**Status:** planned
+
+**Operations:**
+- **read_one**
+  - Component: `source_transaction`
+  - Filters:
+    - `source` eq `path.source`
+  - Notes:
+    - Query parameters: ending_before, expand, limit, starting_after
+
 #### `GET /v1/sources/{source}/source_transactions/{source_transaction}`
 **Status:** planned
 
@@ -5442,6 +4496,17 @@ This document describes all generated API routes and their operations.
     - Response body references #/components/schemas/subscription
     - Query parameters: subscription_exposed_id
 
+#### `GET /v1/customers/{customer}/subscriptions`
+**Status:** planned
+
+**Operations:**
+- **read_one**
+  - Component: `subscription`
+  - Filters:
+    - `customer` eq `path.customer`
+  - Notes:
+    - Query parameters: ending_before, expand, limit, starting_after
+
 #### `GET /v1/customers/{customer}/subscriptions/{subscription_exposed_id}`
 **Status:** planned
 
@@ -5454,6 +4519,15 @@ This document describes all generated API routes and their operations.
   - Notes:
     - Response body references #/components/schemas/subscription
     - Query parameters: expand
+
+#### `GET /v1/subscriptions`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `subscription`
+  - Notes:
+    - Query parameters: automatic_tax, collection_method, created, current_period_end, current_period_start, customer, ending_before, expand, limit, price, starting_after, status, test_clock
 
 #### `GET /v1/subscriptions/{subscription_exposed_id}`
 **Status:** planned
@@ -5527,6 +4601,26 @@ This document describes all generated API routes and their operations.
 
 ### Component: `subscription_item`
 
+#### `DELETE /v1/subscription_items/{item}`
+**Status:** planned
+
+**Operations:**
+- **delete**
+  - Component: `subscription_item`
+  - Filters:
+    - `item` eq `path.item`
+  - Notes:
+    - Query parameters: item
+
+#### `GET /v1/subscription_items`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `subscription_item`
+  - Notes:
+    - Query parameters: ending_before, expand, limit, starting_after, subscription
+
 #### `GET /v1/subscription_items/{item}`
 **Status:** planned
 
@@ -5561,6 +4655,15 @@ This document describes all generated API routes and their operations.
     - Query parameters: item
 
 ### Component: `subscription_schedule`
+
+#### `GET /v1/subscription_schedules`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `subscription_schedule`
+  - Notes:
+    - Query parameters: canceled_at, completed_at, created, customer, ending_before, expand, limit, released_at, scheduled, starting_after
 
 #### `GET /v1/subscription_schedules/{schedule}`
 **Status:** planned
@@ -5732,6 +4835,15 @@ This document describes all generated API routes and their operations.
 
 ### Component: `tax_code`
 
+#### `GET /v1/tax_codes`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `tax_code`
+  - Notes:
+    - Query parameters: ending_before, expand, limit, starting_after
+
 #### `GET /v1/tax_codes/{id}`
 **Status:** planned
 
@@ -5746,6 +4858,40 @@ This document describes all generated API routes and their operations.
 
 ### Component: `tax_id`
 
+#### `DELETE /v1/customers/{customer}/tax_ids/{id}`
+**Status:** planned
+
+**Operations:**
+- **delete**
+  - Component: `tax_id`
+  - Filters:
+    - `customer` eq `path.customer`
+    - `id` eq `path.id`
+  - Notes:
+    - Query parameters: customer, id
+
+#### `DELETE /v1/tax_ids/{id}`
+**Status:** planned
+
+**Operations:**
+- **delete**
+  - Component: `tax_id`
+  - Filters:
+    - `id` eq `path.id`
+  - Notes:
+    - Query parameters: id
+
+#### `GET /v1/customers/{customer}/tax_ids`
+**Status:** planned
+
+**Operations:**
+- **read_one**
+  - Component: `tax_id`
+  - Filters:
+    - `customer` eq `path.customer`
+  - Notes:
+    - Query parameters: ending_before, expand, limit, starting_after
+
 #### `GET /v1/customers/{customer}/tax_ids/{id}`
 **Status:** planned
 
@@ -5758,6 +4904,15 @@ This document describes all generated API routes and their operations.
   - Notes:
     - Response body references #/components/schemas/tax_id
     - Query parameters: expand
+
+#### `GET /v1/tax_ids`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `tax_id`
+  - Notes:
+    - Query parameters: ending_before, expand, limit, owner, starting_after
 
 #### `GET /v1/tax_ids/{id}`
 **Status:** planned
@@ -5793,6 +4948,15 @@ This document describes all generated API routes and their operations.
     - Response body references #/components/schemas/tax_id
 
 ### Component: `tax_rate`
+
+#### `GET /v1/tax_rates`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `tax_rate`
+  - Notes:
+    - Query parameters: active, created, ending_before, expand, inclusive, limit, starting_after
 
 #### `GET /v1/tax_rates/{tax_rate}`
 **Status:** planned
@@ -5980,6 +5144,15 @@ This document describes all generated API routes and their operations.
 
 ### Component: `token`
 
+#### `GET /v1/issuing/tokens`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `token`
+  - Notes:
+    - Query parameters: card, created, ending_before, expand, limit, starting_after, status
+
 #### `GET /v1/tokens/{token}`
 **Status:** planned
 
@@ -6002,6 +5175,15 @@ This document describes all generated API routes and their operations.
     - Response body references #/components/schemas/token
 
 ### Component: `topup`
+
+#### `GET /v1/topups`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `topup`
+  - Notes:
+    - Query parameters: amount, created, ending_before, expand, limit, starting_after, status
 
 #### `GET /v1/topups/{topup}`
 **Status:** planned
@@ -6049,6 +5231,15 @@ This document describes all generated API routes and their operations.
     - Query parameters: topup
 
 ### Component: `transfer`
+
+#### `GET /v1/transfers`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `transfer`
+  - Notes:
+    - Query parameters: created, destination, ending_before, expand, limit, starting_after, transfer_group
 
 #### `GET /v1/transfers/{transfer}`
 **Status:** planned
@@ -6555,7 +5746,40 @@ This document describes all generated API routes and their operations.
     - Response body references #/components/schemas/usage_record
     - Query parameters: subscription_item
 
+### Component: `usage_record_summary`
+
+#### `GET /v1/subscription_items/{subscription_item}/usage_record_summaries`
+**Status:** planned
+
+**Operations:**
+- **read_one**
+  - Component: `usage_record_summary`
+  - Filters:
+    - `subscription_item` eq `path.subscription_item`
+  - Notes:
+    - Query parameters: ending_before, expand, limit, starting_after
+
 ### Component: `webhook_endpoint`
+
+#### `DELETE /v1/webhook_endpoints/{webhook_endpoint}`
+**Status:** planned
+
+**Operations:**
+- **delete**
+  - Component: `webhook_endpoint`
+  - Filters:
+    - `webhook_endpoint` eq `path.webhook_endpoint`
+  - Notes:
+    - Query parameters: webhook_endpoint
+
+#### `GET /v1/webhook_endpoints`
+**Status:** planned
+
+**Operations:**
+- **read_many**
+  - Component: `webhook_endpoint`
+  - Notes:
+    - Query parameters: ending_before, expand, limit, starting_after
 
 #### `GET /v1/webhook_endpoints/{webhook_endpoint}`
 **Status:** planned
@@ -6590,298 +5814,825 @@ This document describes all generated API routes and their operations.
     - Response body references #/components/schemas/webhook_endpoint
     - Query parameters: webhook_endpoint
 
+### Unmapped Routes
+
+#### `DELETE /v1/accounts/{account}/people/{person}`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `DELETE /v1/apple_pay/domains/{domain}`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `DELETE /v1/products/{product}/features/{id}`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `DELETE /v1/radar/value_list_items/{item}`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `DELETE /v1/radar/value_lists/{value_list}`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `DELETE /v1/terminal/configurations/{configuration}`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `DELETE /v1/terminal/locations/{location}`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `DELETE /v1/terminal/readers/{reader}`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `DELETE /v1/test_helpers/test_clocks/{test_clock}`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/accounts/{account}/people`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/apple_pay/domains`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/apps/secrets`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/balance/history`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/billing/alerts`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/billing/credit_balance_transactions`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/billing/credit_grants`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/billing/meters`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/billing/meters/{id}/event_summaries`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/billing_portal/configurations`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/charges/search`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/checkout/sessions`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/climate/orders`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/climate/suppliers`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/credit_notes/preview/lines`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/credit_notes/{credit_note}/lines`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/customers/search`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/customers/{customer}/cash_balance_transactions`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/entitlements/active_entitlements`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/entitlements/features`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/financial_connections/accounts/{account}/owners`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/financial_connections/transactions`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/forwarding/requests`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/identity/verification_reports`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/identity/verification_sessions`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/invoices/search`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/invoices/upcoming/lines`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/invoices/{invoice}/lines`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/issuing/authorizations`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/issuing/cardholders`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/issuing/personalization_designs`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/issuing/physical_bundles`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/issuing/transactions`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/linked_accounts`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/linked_accounts/{account}/owners`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/payment_intents/search`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/prices/search`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/products/search`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/products/{product}/features`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/quotes/{quote}/computed_upfront_line_items`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/quotes/{quote}/pdf`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/radar/early_fraud_warnings`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/radar/value_list_items`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/radar/value_lists`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/reporting/report_runs`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/reporting/report_types`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/subscriptions/search`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/tax/registrations`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/terminal/configurations`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/terminal/configurations/{configuration}`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/terminal/locations`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/terminal/locations/{location}`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/terminal/readers`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/terminal/readers/{reader}`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/test_helpers/test_clocks`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/transfers/{id}/reversals`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/treasury/credit_reversals`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/treasury/debit_reversals`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/treasury/financial_accounts`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/treasury/received_credits`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/treasury/received_debits`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/treasury/transaction_entries`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `GET /v1/treasury/transactions`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `POST /v1/terminal/configurations/{configuration}`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `POST /v1/terminal/locations/{location}`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
+#### `POST /v1/terminal/readers/{reader}`
+**Status:** needs_mapping
+
+**Operations:** None
+**Warnings:**
+- Unable to determine component from route path or schema references.
+
 ## Route Summary
 
 | Method | Path | Component | Status | Operations |
 |--------|------|-----------|--------|------------|
-| DELETE | `/v1/accounts/{account}` | deleted_account | planned | delete |
-| DELETE | `/v1/accounts/{account}/bank_accounts/{id}` | deleted_external_account | planned | delete |
-| DELETE | `/v1/accounts/{account}/external_accounts/{id}` | deleted_external_account | planned | delete |
-| DELETE | `/v1/accounts/{account}/people/{person}` | deleted_person | planned | delete |
-| DELETE | `/v1/accounts/{account}/persons/{person}` | deleted_person | planned | delete |
-| DELETE | `/v1/apple_pay/domains/{domain}` | deleted_apple_pay_domain | planned | delete |
-| DELETE | `/v1/coupons/{coupon}` | deleted_coupon | planned | delete |
-| DELETE | `/v1/customers/{customer}` | deleted_customer | planned | delete |
-| DELETE | `/v1/customers/{customer}/bank_accounts/{id}` | error | planned | delete |
-| DELETE | `/v1/customers/{customer}/cards/{id}` | error | planned | delete |
-| DELETE | `/v1/customers/{customer}/discount` | deleted_discount | planned | delete |
-| DELETE | `/v1/customers/{customer}/sources/{id}` | error | planned | delete |
+| DELETE | `/v1/accounts/{account}` | account | planned | delete |
+| DELETE | `/v1/accounts/{account}/bank_accounts/{id}` | bank_account | planned | delete |
+| DELETE | `/v1/accounts/{account}/external_accounts/{id}` | external_account | planned | delete |
+| DELETE | `/v1/accounts/{account}/people/{person}` | Unmapped | needs_mapping | None |
+| DELETE | `/v1/accounts/{account}/persons/{person}` | person | planned | delete |
+| DELETE | `/v1/apple_pay/domains/{domain}` | Unmapped | needs_mapping | None |
+| DELETE | `/v1/coupons/{coupon}` | coupon | planned | delete |
+| DELETE | `/v1/customers/{customer}` | customer | planned | delete |
+| DELETE | `/v1/customers/{customer}/bank_accounts/{id}` | bank_account | planned | delete |
+| DELETE | `/v1/customers/{customer}/cards/{id}` | card | planned | delete |
+| DELETE | `/v1/customers/{customer}/discount` | discount | planned | delete |
+| DELETE | `/v1/customers/{customer}/sources/{id}` | source | planned | delete |
 | DELETE | `/v1/customers/{customer}/subscriptions/{subscription_exposed_id}` | subscription | planned | delete |
-| DELETE | `/v1/customers/{customer}/subscriptions/{subscription_exposed_id}/discount` | deleted_discount | planned | delete |
-| DELETE | `/v1/customers/{customer}/tax_ids/{id}` | deleted_tax_id | planned | delete |
+| DELETE | `/v1/customers/{customer}/subscriptions/{subscription_exposed_id}/discount` | discount | planned | delete |
+| DELETE | `/v1/customers/{customer}/tax_ids/{id}` | tax_id | planned | delete |
 | DELETE | `/v1/ephemeral_keys/{key}` | ephemeral_key | planned | delete |
-| DELETE | `/v1/invoiceitems/{invoiceitem}` | deleted_invoiceitem | planned | delete |
-| DELETE | `/v1/invoices/{invoice}` | deleted_invoice | planned | delete |
-| DELETE | `/v1/plans/{plan}` | deleted_plan | planned | delete |
-| DELETE | `/v1/products/{id}` | deleted_product | planned | delete |
-| DELETE | `/v1/products/{product}/features/{id}` | deleted_product_feature | planned | delete |
-| DELETE | `/v1/radar/value_list_items/{item}` | deleted_radar.value_list_item | planned | delete |
-| DELETE | `/v1/radar/value_lists/{value_list}` | deleted_radar.value_list | planned | delete |
-| DELETE | `/v1/subscription_items/{item}` | deleted_subscription_item | planned | delete |
+| DELETE | `/v1/invoiceitems/{invoiceitem}` | invoiceitem | planned | delete |
+| DELETE | `/v1/invoices/{invoice}` | invoice | planned | delete |
+| DELETE | `/v1/plans/{plan}` | plan | planned | delete |
+| DELETE | `/v1/products/{id}` | product | planned | delete |
+| DELETE | `/v1/products/{product}/features/{id}` | Unmapped | needs_mapping | None |
+| DELETE | `/v1/radar/value_list_items/{item}` | Unmapped | needs_mapping | None |
+| DELETE | `/v1/radar/value_lists/{value_list}` | Unmapped | needs_mapping | None |
+| DELETE | `/v1/subscription_items/{item}` | subscription_item | planned | delete |
 | DELETE | `/v1/subscriptions/{subscription_exposed_id}` | subscription | planned | delete |
-| DELETE | `/v1/subscriptions/{subscription_exposed_id}/discount` | deleted_discount | planned | delete |
-| DELETE | `/v1/tax_ids/{id}` | deleted_tax_id | planned | delete |
-| DELETE | `/v1/terminal/configurations/{configuration}` | deleted_terminal.configuration | planned | delete |
-| DELETE | `/v1/terminal/locations/{location}` | deleted_terminal.location | planned | delete |
-| DELETE | `/v1/terminal/readers/{reader}` | deleted_terminal.reader | planned | delete |
-| DELETE | `/v1/test_helpers/test_clocks/{test_clock}` | deleted_test_helpers.test_clock | planned | delete |
-| DELETE | `/v1/webhook_endpoints/{webhook_endpoint}` | deleted_webhook_endpoint | planned | delete |
+| DELETE | `/v1/subscriptions/{subscription_exposed_id}/discount` | discount | planned | delete |
+| DELETE | `/v1/tax_ids/{id}` | tax_id | planned | delete |
+| DELETE | `/v1/terminal/configurations/{configuration}` | Unmapped | needs_mapping | None |
+| DELETE | `/v1/terminal/locations/{location}` | Unmapped | needs_mapping | None |
+| DELETE | `/v1/terminal/readers/{reader}` | Unmapped | needs_mapping | None |
+| DELETE | `/v1/test_helpers/test_clocks/{test_clock}` | Unmapped | needs_mapping | None |
+| DELETE | `/v1/webhook_endpoints/{webhook_endpoint}` | webhook_endpoint | planned | delete |
 | GET | `/v1/account` | account | planned | read_many |
-| GET | `/v1/accounts` | error | planned | read_many |
+| GET | `/v1/accounts` | account | planned | read_many |
 | GET | `/v1/accounts/{account}` | account | planned | read_one |
 | GET | `/v1/accounts/{account}/bank_accounts/{id}` | external_account | planned | read_one |
-| GET | `/v1/accounts/{account}/capabilities` | error | planned | read_one |
+| GET | `/v1/accounts/{account}/capabilities` | capability | planned | read_one |
 | GET | `/v1/accounts/{account}/capabilities/{capability}` | capability | planned | read_one |
-| GET | `/v1/accounts/{account}/external_accounts` | error | planned | read_one |
+| GET | `/v1/accounts/{account}/external_accounts` | external_account | planned | read_one |
 | GET | `/v1/accounts/{account}/external_accounts/{id}` | external_account | planned | read_one |
-| GET | `/v1/accounts/{account}/people` | error | planned | read_one |
+| GET | `/v1/accounts/{account}/people` | Unmapped | needs_mapping | None |
 | GET | `/v1/accounts/{account}/people/{person}` | person | planned | read_one |
-| GET | `/v1/accounts/{account}/persons` | error | planned | read_one |
+| GET | `/v1/accounts/{account}/persons` | person | planned | read_one |
 | GET | `/v1/accounts/{account}/persons/{person}` | person | planned | read_one |
-| GET | `/v1/apple_pay/domains` | error | planned | read_many |
+| GET | `/v1/apple_pay/domains` | Unmapped | needs_mapping | None |
 | GET | `/v1/apple_pay/domains/{domain}` | apple_pay_domain | planned | read_one |
-| GET | `/v1/application_fees` | error | planned | read_many |
+| GET | `/v1/application_fees` | application_fee | planned | read_many |
 | GET | `/v1/application_fees/{fee}/refunds/{id}` | fee_refund | planned | read_one |
 | GET | `/v1/application_fees/{id}` | application_fee | planned | read_one |
-| GET | `/v1/application_fees/{id}/refunds` | error | planned | read_one |
-| GET | `/v1/apps/secrets` | error | planned | read_many |
+| GET | `/v1/application_fees/{id}/refunds` | refund | planned | read_one |
+| GET | `/v1/apps/secrets` | Unmapped | needs_mapping | None |
 | GET | `/v1/apps/secrets/find` | apps.secret | planned | read_many |
 | GET | `/v1/balance` | balance | planned | read_many |
-| GET | `/v1/balance/history` | error | planned | read_many |
+| GET | `/v1/balance/history` | Unmapped | needs_mapping | None |
 | GET | `/v1/balance/history/{id}` | balance_transaction | planned | read_one |
-| GET | `/v1/balance_transactions` | error | planned | read_many |
+| GET | `/v1/balance_transactions` | balance_transaction | planned | read_many |
 | GET | `/v1/balance_transactions/{id}` | balance_transaction | planned | read_one |
-| GET | `/v1/billing/alerts` | error | planned | read_many |
+| GET | `/v1/billing/alerts` | Unmapped | needs_mapping | None |
 | GET | `/v1/billing/alerts/{id}` | billing.alert | planned | read_one |
 | GET | `/v1/billing/credit_balance_summary` | billing.credit_balance_summary | planned | read_many |
-| GET | `/v1/billing/credit_balance_transactions` | error | planned | read_many |
+| GET | `/v1/billing/credit_balance_transactions` | Unmapped | needs_mapping | None |
 | GET | `/v1/billing/credit_balance_transactions/{id}` | billing.credit_balance_transaction | planned | read_one |
-| GET | `/v1/billing/credit_grants` | error | planned | read_many |
+| GET | `/v1/billing/credit_grants` | Unmapped | needs_mapping | None |
 | GET | `/v1/billing/credit_grants/{id}` | billing.credit_grant | planned | read_one |
-| GET | `/v1/billing/meters` | error | planned | read_many |
+| GET | `/v1/billing/meters` | Unmapped | needs_mapping | None |
 | GET | `/v1/billing/meters/{id}` | billing.meter | planned | read_one |
-| GET | `/v1/billing/meters/{id}/event_summaries` | error | planned | read_one |
-| GET | `/v1/billing_portal/configurations` | error | planned | read_many |
+| GET | `/v1/billing/meters/{id}/event_summaries` | Unmapped | needs_mapping | None |
+| GET | `/v1/billing_portal/configurations` | Unmapped | needs_mapping | None |
 | GET | `/v1/billing_portal/configurations/{configuration}` | billing_portal.configuration | planned | read_one |
-| GET | `/v1/charges` | error | planned | read_many |
-| GET | `/v1/charges/search` | error | planned | read_many |
+| GET | `/v1/charges` | charge | planned | read_many |
+| GET | `/v1/charges/search` | Unmapped | needs_mapping | None |
 | GET | `/v1/charges/{charge}` | charge | planned | read_one |
 | GET | `/v1/charges/{charge}/dispute` | dispute | planned | read_one |
-| GET | `/v1/charges/{charge}/refunds` | error | planned | read_one |
+| GET | `/v1/charges/{charge}/refunds` | refund | planned | read_one |
 | GET | `/v1/charges/{charge}/refunds/{refund}` | refund | planned | read_one |
-| GET | `/v1/checkout/sessions` | error | planned | read_many |
+| GET | `/v1/checkout/sessions` | Unmapped | needs_mapping | None |
 | GET | `/v1/checkout/sessions/{session}` | checkout.session | planned | read_one |
-| GET | `/v1/checkout/sessions/{session}/line_items` | error | planned | read_one |
-| GET | `/v1/climate/orders` | error | planned | read_many |
+| GET | `/v1/checkout/sessions/{session}/line_items` | line_item | planned | read_one |
+| GET | `/v1/climate/orders` | Unmapped | needs_mapping | None |
 | GET | `/v1/climate/orders/{order}` | climate.order | planned | read_one |
-| GET | `/v1/climate/products` | error | planned | read_many |
+| GET | `/v1/climate/products` | product | planned | read_many |
 | GET | `/v1/climate/products/{product}` | climate.product | planned | read_one |
-| GET | `/v1/climate/suppliers` | error | planned | read_many |
+| GET | `/v1/climate/suppliers` | Unmapped | needs_mapping | None |
 | GET | `/v1/climate/suppliers/{supplier}` | climate.supplier | planned | read_one |
 | GET | `/v1/confirmation_tokens/{confirmation_token}` | confirmation_token | planned | read_one |
-| GET | `/v1/country_specs` | error | planned | read_many |
+| GET | `/v1/country_specs` | country_spec | planned | read_many |
 | GET | `/v1/country_specs/{country}` | country_spec | planned | read_one |
-| GET | `/v1/coupons` | error | planned | read_many |
+| GET | `/v1/coupons` | coupon | planned | read_many |
 | GET | `/v1/coupons/{coupon}` | coupon | planned | read_one |
-| GET | `/v1/credit_notes` | error | planned | read_many |
+| GET | `/v1/credit_notes` | credit_note | planned | read_many |
 | GET | `/v1/credit_notes/preview` | credit_note | planned | read_many |
-| GET | `/v1/credit_notes/preview/lines` | error | planned | read_many |
-| GET | `/v1/credit_notes/{credit_note}/lines` | error | planned | read_one |
+| GET | `/v1/credit_notes/preview/lines` | Unmapped | needs_mapping | None |
+| GET | `/v1/credit_notes/{credit_note}/lines` | Unmapped | needs_mapping | None |
 | GET | `/v1/credit_notes/{id}` | credit_note | planned | read_one |
-| GET | `/v1/customers` | error | planned | read_many |
-| GET | `/v1/customers/search` | error | planned | read_many |
-| GET | `/v1/customers/{customer}` | error | planned | read_one |
-| GET | `/v1/customers/{customer}/balance_transactions` | error | planned | read_one |
+| GET | `/v1/customers` | customer | planned | read_many |
+| GET | `/v1/customers/search` | Unmapped | needs_mapping | None |
+| GET | `/v1/customers/{customer}` | customer | planned | read_one |
+| GET | `/v1/customers/{customer}/balance_transactions` | balance_transaction | planned | read_one |
 | GET | `/v1/customers/{customer}/balance_transactions/{transaction}` | customer_balance_transaction | planned | read_one |
-| GET | `/v1/customers/{customer}/bank_accounts` | error | planned | read_one |
+| GET | `/v1/customers/{customer}/bank_accounts` | bank_account | planned | read_one |
 | GET | `/v1/customers/{customer}/bank_accounts/{id}` | bank_account | planned | read_one |
-| GET | `/v1/customers/{customer}/cards` | error | planned | read_one |
+| GET | `/v1/customers/{customer}/cards` | card | planned | read_one |
 | GET | `/v1/customers/{customer}/cards/{id}` | card | planned | read_one |
 | GET | `/v1/customers/{customer}/cash_balance` | cash_balance | planned | read_one |
-| GET | `/v1/customers/{customer}/cash_balance_transactions` | error | planned | read_one |
+| GET | `/v1/customers/{customer}/cash_balance_transactions` | Unmapped | needs_mapping | None |
 | GET | `/v1/customers/{customer}/cash_balance_transactions/{transaction}` | customer_cash_balance_transaction | planned | read_one |
 | GET | `/v1/customers/{customer}/discount` | discount | planned | read_one |
-| GET | `/v1/customers/{customer}/payment_methods` | error | planned | read_one |
+| GET | `/v1/customers/{customer}/payment_methods` | payment_method | planned | read_one |
 | GET | `/v1/customers/{customer}/payment_methods/{payment_method}` | payment_method | planned | read_one |
-| GET | `/v1/customers/{customer}/sources` | error | planned | read_one |
+| GET | `/v1/customers/{customer}/sources` | source | planned | read_one |
 | GET | `/v1/customers/{customer}/sources/{id}` | payment_source | planned | read_one |
-| GET | `/v1/customers/{customer}/subscriptions` | error | planned | read_one |
+| GET | `/v1/customers/{customer}/subscriptions` | subscription | planned | read_one |
 | GET | `/v1/customers/{customer}/subscriptions/{subscription_exposed_id}` | subscription | planned | read_one |
 | GET | `/v1/customers/{customer}/subscriptions/{subscription_exposed_id}/discount` | discount | planned | read_one |
-| GET | `/v1/customers/{customer}/tax_ids` | error | planned | read_one |
+| GET | `/v1/customers/{customer}/tax_ids` | tax_id | planned | read_one |
 | GET | `/v1/customers/{customer}/tax_ids/{id}` | tax_id | planned | read_one |
-| GET | `/v1/disputes` | error | planned | read_many |
+| GET | `/v1/disputes` | dispute | planned | read_many |
 | GET | `/v1/disputes/{dispute}` | dispute | planned | read_one |
-| GET | `/v1/entitlements/active_entitlements` | error | planned | read_many |
+| GET | `/v1/entitlements/active_entitlements` | Unmapped | needs_mapping | None |
 | GET | `/v1/entitlements/active_entitlements/{id}` | entitlements.active_entitlement | planned | read_one |
-| GET | `/v1/entitlements/features` | error | planned | read_many |
+| GET | `/v1/entitlements/features` | Unmapped | needs_mapping | None |
 | GET | `/v1/entitlements/features/{id}` | entitlements.feature | planned | read_one |
-| GET | `/v1/events` | error | planned | read_many |
+| GET | `/v1/events` | event | planned | read_many |
 | GET | `/v1/events/{id}` | event | planned | read_one |
-| GET | `/v1/exchange_rates` | error | planned | read_many |
+| GET | `/v1/exchange_rates` | exchange_rate | planned | read_many |
 | GET | `/v1/exchange_rates/{rate_id}` | exchange_rate | planned | read_one |
-| GET | `/v1/file_links` | error | planned | read_many |
+| GET | `/v1/file_links` | file_link | planned | read_many |
 | GET | `/v1/file_links/{link}` | file_link | planned | read_one |
-| GET | `/v1/files` | error | planned | read_many |
+| GET | `/v1/files` | file | planned | read_many |
 | GET | `/v1/files/{file}` | file | planned | read_one |
-| GET | `/v1/financial_connections/accounts` | error | planned | read_many |
+| GET | `/v1/financial_connections/accounts` | account | planned | read_many |
 | GET | `/v1/financial_connections/accounts/{account}` | financial_connections.account | planned | read_one |
-| GET | `/v1/financial_connections/accounts/{account}/owners` | error | planned | read_one |
+| GET | `/v1/financial_connections/accounts/{account}/owners` | Unmapped | needs_mapping | None |
 | GET | `/v1/financial_connections/sessions/{session}` | financial_connections.session | planned | read_one |
-| GET | `/v1/financial_connections/transactions` | error | planned | read_many |
+| GET | `/v1/financial_connections/transactions` | Unmapped | needs_mapping | None |
 | GET | `/v1/financial_connections/transactions/{transaction}` | financial_connections.transaction | planned | read_one |
-| GET | `/v1/forwarding/requests` | error | planned | read_many |
+| GET | `/v1/forwarding/requests` | Unmapped | needs_mapping | None |
 | GET | `/v1/forwarding/requests/{id}` | forwarding.request | planned | read_one |
-| GET | `/v1/identity/verification_reports` | error | planned | read_many |
+| GET | `/v1/identity/verification_reports` | Unmapped | needs_mapping | None |
 | GET | `/v1/identity/verification_reports/{report}` | identity.verification_report | planned | read_one |
-| GET | `/v1/identity/verification_sessions` | error | planned | read_many |
+| GET | `/v1/identity/verification_sessions` | Unmapped | needs_mapping | None |
 | GET | `/v1/identity/verification_sessions/{session}` | identity.verification_session | planned | read_one |
-| GET | `/v1/invoice_rendering_templates` | error | planned | read_many |
+| GET | `/v1/invoice_rendering_templates` | invoice_rendering_template | planned | read_many |
 | GET | `/v1/invoice_rendering_templates/{template}` | invoice_rendering_template | planned | read_one |
-| GET | `/v1/invoiceitems` | error | planned | read_many |
+| GET | `/v1/invoiceitems` | invoiceitem | planned | read_many |
 | GET | `/v1/invoiceitems/{invoiceitem}` | invoiceitem | planned | read_one |
-| GET | `/v1/invoices` | error | planned | read_many |
-| GET | `/v1/invoices/search` | error | planned | read_many |
+| GET | `/v1/invoices` | invoice | planned | read_many |
+| GET | `/v1/invoices/search` | Unmapped | needs_mapping | None |
 | GET | `/v1/invoices/upcoming` | invoice | planned | read_many |
-| GET | `/v1/invoices/upcoming/lines` | error | planned | read_many |
+| GET | `/v1/invoices/upcoming/lines` | Unmapped | needs_mapping | None |
 | GET | `/v1/invoices/{invoice}` | invoice | planned | read_one |
-| GET | `/v1/invoices/{invoice}/lines` | error | planned | read_one |
-| GET | `/v1/issuing/authorizations` | error | planned | read_many |
+| GET | `/v1/invoices/{invoice}/lines` | Unmapped | needs_mapping | None |
+| GET | `/v1/issuing/authorizations` | Unmapped | needs_mapping | None |
 | GET | `/v1/issuing/authorizations/{authorization}` | issuing.authorization | planned | read_one |
-| GET | `/v1/issuing/cardholders` | error | planned | read_many |
+| GET | `/v1/issuing/cardholders` | Unmapped | needs_mapping | None |
 | GET | `/v1/issuing/cardholders/{cardholder}` | issuing.cardholder | planned | read_one |
-| GET | `/v1/issuing/cards` | error | planned | read_many |
+| GET | `/v1/issuing/cards` | card | planned | read_many |
 | GET | `/v1/issuing/cards/{card}` | issuing.card | planned | read_one |
-| GET | `/v1/issuing/disputes` | error | planned | read_many |
+| GET | `/v1/issuing/disputes` | dispute | planned | read_many |
 | GET | `/v1/issuing/disputes/{dispute}` | issuing.dispute | planned | read_one |
-| GET | `/v1/issuing/personalization_designs` | error | planned | read_many |
+| GET | `/v1/issuing/personalization_designs` | Unmapped | needs_mapping | None |
 | GET | `/v1/issuing/personalization_designs/{personalization_design}` | issuing.personalization_design | planned | read_one |
-| GET | `/v1/issuing/physical_bundles` | error | planned | read_many |
+| GET | `/v1/issuing/physical_bundles` | Unmapped | needs_mapping | None |
 | GET | `/v1/issuing/physical_bundles/{physical_bundle}` | issuing.physical_bundle | planned | read_one |
 | GET | `/v1/issuing/settlements/{settlement}` | issuing.settlement | planned | read_one |
-| GET | `/v1/issuing/tokens` | error | planned | read_many |
+| GET | `/v1/issuing/tokens` | token | planned | read_many |
 | GET | `/v1/issuing/tokens/{token}` | issuing.token | planned | read_one |
-| GET | `/v1/issuing/transactions` | error | planned | read_many |
+| GET | `/v1/issuing/transactions` | Unmapped | needs_mapping | None |
 | GET | `/v1/issuing/transactions/{transaction}` | issuing.transaction | planned | read_one |
 | GET | `/v1/link_account_sessions/{session}` | financial_connections.session | planned | read_one |
-| GET | `/v1/linked_accounts` | error | planned | read_many |
+| GET | `/v1/linked_accounts` | Unmapped | needs_mapping | None |
 | GET | `/v1/linked_accounts/{account}` | financial_connections.account | planned | read_one |
-| GET | `/v1/linked_accounts/{account}/owners` | error | planned | read_one |
+| GET | `/v1/linked_accounts/{account}/owners` | Unmapped | needs_mapping | None |
 | GET | `/v1/mandates/{mandate}` | mandate | planned | read_one |
-| GET | `/v1/payment_intents` | error | planned | read_many |
-| GET | `/v1/payment_intents/search` | error | planned | read_many |
+| GET | `/v1/payment_intents` | payment_intent | planned | read_many |
+| GET | `/v1/payment_intents/search` | Unmapped | needs_mapping | None |
 | GET | `/v1/payment_intents/{intent}` | payment_intent | planned | read_one |
-| GET | `/v1/payment_links` | error | planned | read_many |
+| GET | `/v1/payment_links` | payment_link | planned | read_many |
 | GET | `/v1/payment_links/{payment_link}` | payment_link | planned | read_one |
-| GET | `/v1/payment_links/{payment_link}/line_items` | error | planned | read_one |
-| GET | `/v1/payment_method_configurations` | error | planned | read_many |
+| GET | `/v1/payment_links/{payment_link}/line_items` | line_item | planned | read_one |
+| GET | `/v1/payment_method_configurations` | payment_method_configuration | planned | read_many |
 | GET | `/v1/payment_method_configurations/{configuration}` | payment_method_configuration | planned | read_one |
-| GET | `/v1/payment_method_domains` | error | planned | read_many |
+| GET | `/v1/payment_method_domains` | payment_method_domain | planned | read_many |
 | GET | `/v1/payment_method_domains/{payment_method_domain}` | payment_method_domain | planned | read_one |
-| GET | `/v1/payment_methods` | error | planned | read_many |
+| GET | `/v1/payment_methods` | payment_method | planned | read_many |
 | GET | `/v1/payment_methods/{payment_method}` | payment_method | planned | read_one |
-| GET | `/v1/payouts` | error | planned | read_many |
+| GET | `/v1/payouts` | payout | planned | read_many |
 | GET | `/v1/payouts/{payout}` | payout | planned | read_one |
-| GET | `/v1/plans` | error | planned | read_many |
+| GET | `/v1/plans` | plan | planned | read_many |
 | GET | `/v1/plans/{plan}` | plan | planned | read_one |
-| GET | `/v1/prices` | error | planned | read_many |
-| GET | `/v1/prices/search` | error | planned | read_many |
+| GET | `/v1/prices` | price | planned | read_many |
+| GET | `/v1/prices/search` | Unmapped | needs_mapping | None |
 | GET | `/v1/prices/{price}` | price | planned | read_one |
-| GET | `/v1/products` | error | planned | read_many |
-| GET | `/v1/products/search` | error | planned | read_many |
+| GET | `/v1/products` | product | planned | read_many |
+| GET | `/v1/products/search` | Unmapped | needs_mapping | None |
 | GET | `/v1/products/{id}` | product | planned | read_one |
-| GET | `/v1/products/{product}/features` | error | planned | read_one |
+| GET | `/v1/products/{product}/features` | Unmapped | needs_mapping | None |
 | GET | `/v1/products/{product}/features/{id}` | product_feature | planned | read_one |
-| GET | `/v1/promotion_codes` | error | planned | read_many |
+| GET | `/v1/promotion_codes` | promotion_code | planned | read_many |
 | GET | `/v1/promotion_codes/{promotion_code}` | promotion_code | planned | read_one |
-| GET | `/v1/quotes` | error | planned | read_many |
+| GET | `/v1/quotes` | quote | planned | read_many |
 | GET | `/v1/quotes/{quote}` | quote | planned | read_one |
-| GET | `/v1/quotes/{quote}/computed_upfront_line_items` | error | planned | read_one |
-| GET | `/v1/quotes/{quote}/line_items` | error | planned | read_one |
-| GET | `/v1/quotes/{quote}/pdf` | error | planned | read_one |
-| GET | `/v1/radar/early_fraud_warnings` | error | planned | read_many |
+| GET | `/v1/quotes/{quote}/computed_upfront_line_items` | Unmapped | needs_mapping | None |
+| GET | `/v1/quotes/{quote}/line_items` | line_item | planned | read_one |
+| GET | `/v1/quotes/{quote}/pdf` | Unmapped | needs_mapping | None |
+| GET | `/v1/radar/early_fraud_warnings` | Unmapped | needs_mapping | None |
 | GET | `/v1/radar/early_fraud_warnings/{early_fraud_warning}` | radar.early_fraud_warning | planned | read_one |
-| GET | `/v1/radar/value_list_items` | error | planned | read_many |
+| GET | `/v1/radar/value_list_items` | Unmapped | needs_mapping | None |
 | GET | `/v1/radar/value_list_items/{item}` | radar.value_list_item | planned | read_one |
-| GET | `/v1/radar/value_lists` | error | planned | read_many |
+| GET | `/v1/radar/value_lists` | Unmapped | needs_mapping | None |
 | GET | `/v1/radar/value_lists/{value_list}` | radar.value_list | planned | read_one |
-| GET | `/v1/refunds` | error | planned | read_many |
+| GET | `/v1/refunds` | refund | planned | read_many |
 | GET | `/v1/refunds/{refund}` | refund | planned | read_one |
-| GET | `/v1/reporting/report_runs` | error | planned | read_many |
+| GET | `/v1/reporting/report_runs` | Unmapped | needs_mapping | None |
 | GET | `/v1/reporting/report_runs/{report_run}` | reporting.report_run | planned | read_one |
-| GET | `/v1/reporting/report_types` | error | planned | read_many |
+| GET | `/v1/reporting/report_types` | Unmapped | needs_mapping | None |
 | GET | `/v1/reporting/report_types/{report_type}` | reporting.report_type | planned | read_one |
-| GET | `/v1/reviews` | error | planned | read_many |
+| GET | `/v1/reviews` | review | planned | read_many |
 | GET | `/v1/reviews/{review}` | review | planned | read_one |
-| GET | `/v1/setup_attempts` | error | planned | read_many |
-| GET | `/v1/setup_intents` | error | planned | read_many |
+| GET | `/v1/setup_attempts` | setup_attempt | planned | read_many |
+| GET | `/v1/setup_intents` | setup_intent | planned | read_many |
 | GET | `/v1/setup_intents/{intent}` | setup_intent | planned | read_one |
-| GET | `/v1/shipping_rates` | error | planned | read_many |
+| GET | `/v1/shipping_rates` | shipping_rate | planned | read_many |
 | GET | `/v1/shipping_rates/{shipping_rate_token}` | shipping_rate | planned | read_one |
-| GET | `/v1/sigma/scheduled_query_runs` | error | planned | read_many |
+| GET | `/v1/sigma/scheduled_query_runs` | scheduled_query_run | planned | read_many |
 | GET | `/v1/sigma/scheduled_query_runs/{scheduled_query_run}` | scheduled_query_run | planned | read_one |
 | GET | `/v1/sources/{source}` | source | planned | read_one |
 | GET | `/v1/sources/{source}/mandate_notifications/{mandate_notification}` | source_mandate_notification | planned | read_one |
-| GET | `/v1/sources/{source}/source_transactions` | error | planned | read_one |
+| GET | `/v1/sources/{source}/source_transactions` | source_transaction | planned | read_one |
 | GET | `/v1/sources/{source}/source_transactions/{source_transaction}` | source_transaction | planned | read_one |
-| GET | `/v1/subscription_items` | error | planned | read_many |
+| GET | `/v1/subscription_items` | subscription_item | planned | read_many |
 | GET | `/v1/subscription_items/{item}` | subscription_item | planned | read_one |
-| GET | `/v1/subscription_items/{subscription_item}/usage_record_summaries` | error | planned | read_one |
-| GET | `/v1/subscription_schedules` | error | planned | read_many |
+| GET | `/v1/subscription_items/{subscription_item}/usage_record_summaries` | usage_record_summary | planned | read_one |
+| GET | `/v1/subscription_schedules` | subscription_schedule | planned | read_many |
 | GET | `/v1/subscription_schedules/{schedule}` | subscription_schedule | planned | read_one |
-| GET | `/v1/subscriptions` | error | planned | read_many |
-| GET | `/v1/subscriptions/search` | error | planned | read_many |
+| GET | `/v1/subscriptions` | subscription | planned | read_many |
+| GET | `/v1/subscriptions/search` | Unmapped | needs_mapping | None |
 | GET | `/v1/subscriptions/{subscription_exposed_id}` | subscription | planned | read_one |
 | GET | `/v1/tax/calculations/{calculation}` | tax.calculation | planned | read_one |
-| GET | `/v1/tax/calculations/{calculation}/line_items` | error | planned | read_one |
-| GET | `/v1/tax/registrations` | error | planned | read_many |
+| GET | `/v1/tax/calculations/{calculation}/line_items` | line_item | planned | read_one |
+| GET | `/v1/tax/registrations` | Unmapped | needs_mapping | None |
 | GET | `/v1/tax/registrations/{id}` | tax.registration | planned | read_one |
 | GET | `/v1/tax/settings` | tax.settings | planned | read_many |
 | GET | `/v1/tax/transactions/{transaction}` | tax.transaction | planned | read_one |
-| GET | `/v1/tax/transactions/{transaction}/line_items` | error | planned | read_one |
-| GET | `/v1/tax_codes` | error | planned | read_many |
+| GET | `/v1/tax/transactions/{transaction}/line_items` | line_item | planned | read_one |
+| GET | `/v1/tax_codes` | tax_code | planned | read_many |
 | GET | `/v1/tax_codes/{id}` | tax_code | planned | read_one |
-| GET | `/v1/tax_ids` | error | planned | read_many |
+| GET | `/v1/tax_ids` | tax_id | planned | read_many |
 | GET | `/v1/tax_ids/{id}` | tax_id | planned | read_one |
-| GET | `/v1/tax_rates` | error | planned | read_many |
+| GET | `/v1/tax_rates` | tax_rate | planned | read_many |
 | GET | `/v1/tax_rates/{tax_rate}` | tax_rate | planned | read_one |
-| GET | `/v1/terminal/configurations` | error | planned | read_many |
-| GET | `/v1/terminal/configurations/{configuration}` | error | planned | read_one |
-| GET | `/v1/terminal/locations` | error | planned | read_many |
-| GET | `/v1/terminal/locations/{location}` | error | planned | read_one |
-| GET | `/v1/terminal/readers` | error | planned | read_many |
-| GET | `/v1/terminal/readers/{reader}` | error | planned | read_one |
-| GET | `/v1/test_helpers/test_clocks` | error | planned | read_many |
+| GET | `/v1/terminal/configurations` | Unmapped | needs_mapping | None |
+| GET | `/v1/terminal/configurations/{configuration}` | Unmapped | needs_mapping | None |
+| GET | `/v1/terminal/locations` | Unmapped | needs_mapping | None |
+| GET | `/v1/terminal/locations/{location}` | Unmapped | needs_mapping | None |
+| GET | `/v1/terminal/readers` | Unmapped | needs_mapping | None |
+| GET | `/v1/terminal/readers/{reader}` | Unmapped | needs_mapping | None |
+| GET | `/v1/test_helpers/test_clocks` | Unmapped | needs_mapping | None |
 | GET | `/v1/test_helpers/test_clocks/{test_clock}` | test_helpers.test_clock | planned | read_one |
 | GET | `/v1/tokens/{token}` | token | planned | read_one |
-| GET | `/v1/topups` | error | planned | read_many |
+| GET | `/v1/topups` | topup | planned | read_many |
 | GET | `/v1/topups/{topup}` | topup | planned | read_one |
-| GET | `/v1/transfers` | error | planned | read_many |
-| GET | `/v1/transfers/{id}/reversals` | error | planned | read_one |
+| GET | `/v1/transfers` | transfer | planned | read_many |
+| GET | `/v1/transfers/{id}/reversals` | Unmapped | needs_mapping | None |
 | GET | `/v1/transfers/{transfer}` | transfer | planned | read_one |
 | GET | `/v1/transfers/{transfer}/reversals/{id}` | transfer_reversal | planned | read_one |
-| GET | `/v1/treasury/credit_reversals` | error | planned | read_many |
+| GET | `/v1/treasury/credit_reversals` | Unmapped | needs_mapping | None |
 | GET | `/v1/treasury/credit_reversals/{credit_reversal}` | treasury.credit_reversal | planned | read_one |
-| GET | `/v1/treasury/debit_reversals` | error | planned | read_many |
+| GET | `/v1/treasury/debit_reversals` | Unmapped | needs_mapping | None |
 | GET | `/v1/treasury/debit_reversals/{debit_reversal}` | treasury.debit_reversal | planned | read_one |
-| GET | `/v1/treasury/financial_accounts` | error | planned | read_many |
+| GET | `/v1/treasury/financial_accounts` | Unmapped | needs_mapping | None |
 | GET | `/v1/treasury/financial_accounts/{financial_account}` | treasury.financial_account | planned | read_one |
 | GET | `/v1/treasury/financial_accounts/{financial_account}/features` | treasury.financial_account_features | planned | read_one |
-| GET | `/v1/treasury/inbound_transfers` | error | planned | read_many |
+| GET | `/v1/treasury/inbound_transfers` | inbound_transfers | planned | read_many |
 | GET | `/v1/treasury/inbound_transfers/{id}` | treasury.inbound_transfer | planned | read_one |
-| GET | `/v1/treasury/outbound_payments` | error | planned | read_many |
+| GET | `/v1/treasury/outbound_payments` | outbound_payments_payment_method_details | planned | read_many |
 | GET | `/v1/treasury/outbound_payments/{id}` | treasury.outbound_payment | planned | read_one |
-| GET | `/v1/treasury/outbound_transfers` | error | planned | read_many |
+| GET | `/v1/treasury/outbound_transfers` | outbound_transfers_payment_method_details | planned | read_many |
 | GET | `/v1/treasury/outbound_transfers/{outbound_transfer}` | treasury.outbound_transfer | planned | read_one |
-| GET | `/v1/treasury/received_credits` | error | planned | read_many |
+| GET | `/v1/treasury/received_credits` | Unmapped | needs_mapping | None |
 | GET | `/v1/treasury/received_credits/{id}` | treasury.received_credit | planned | read_one |
-| GET | `/v1/treasury/received_debits` | error | planned | read_many |
+| GET | `/v1/treasury/received_debits` | Unmapped | needs_mapping | None |
 | GET | `/v1/treasury/received_debits/{id}` | treasury.received_debit | planned | read_one |
-| GET | `/v1/treasury/transaction_entries` | error | planned | read_many |
+| GET | `/v1/treasury/transaction_entries` | Unmapped | needs_mapping | None |
 | GET | `/v1/treasury/transaction_entries/{id}` | treasury.transaction_entry | planned | read_one |
-| GET | `/v1/treasury/transactions` | error | planned | read_many |
+| GET | `/v1/treasury/transactions` | Unmapped | needs_mapping | None |
 | GET | `/v1/treasury/transactions/{id}` | treasury.transaction | planned | read_one |
-| GET | `/v1/webhook_endpoints` | error | planned | read_many |
+| GET | `/v1/webhook_endpoints` | webhook_endpoint | planned | read_many |
 | GET | `/v1/webhook_endpoints/{webhook_endpoint}` | webhook_endpoint | planned | read_one |
 | POST | `/v1/account_links` | account_link | planned | create |
 | POST | `/v1/account_sessions` | account_session | planned | create |
@@ -6946,14 +6697,14 @@ This document describes all generated API routes and their operations.
 | POST | `/v1/customers/{customer}/balance_transactions` | customer_balance_transaction | planned | create |
 | POST | `/v1/customers/{customer}/balance_transactions/{transaction}` | customer_balance_transaction | planned | create |
 | POST | `/v1/customers/{customer}/bank_accounts` | payment_source | planned | create |
-| POST | `/v1/customers/{customer}/bank_accounts/{id}` | error | planned | create |
+| POST | `/v1/customers/{customer}/bank_accounts/{id}` | bank_account | planned | create |
 | POST | `/v1/customers/{customer}/bank_accounts/{id}/verify` | bank_account | planned | create |
 | POST | `/v1/customers/{customer}/cards` | payment_source | planned | create |
-| POST | `/v1/customers/{customer}/cards/{id}` | error | planned | create |
+| POST | `/v1/customers/{customer}/cards/{id}` | card | planned | create |
 | POST | `/v1/customers/{customer}/cash_balance` | cash_balance | planned | create |
 | POST | `/v1/customers/{customer}/funding_instructions` | funding_instructions | planned | create |
 | POST | `/v1/customers/{customer}/sources` | payment_source | planned | create |
-| POST | `/v1/customers/{customer}/sources/{id}` | error | planned | create |
+| POST | `/v1/customers/{customer}/sources/{id}` | source | planned | create |
 | POST | `/v1/customers/{customer}/sources/{id}/verify` | bank_account | planned | create |
 | POST | `/v1/customers/{customer}/subscriptions` | subscription | planned | create |
 | POST | `/v1/customers/{customer}/subscriptions/{subscription_exposed_id}` | subscription | planned | create |
@@ -7085,12 +6836,12 @@ This document describes all generated API routes and their operations.
 | POST | `/v1/tax_rates` | tax_rate | planned | create |
 | POST | `/v1/tax_rates/{tax_rate}` | tax_rate | planned | create |
 | POST | `/v1/terminal/configurations` | terminal.configuration | planned | create |
-| POST | `/v1/terminal/configurations/{configuration}` | error | planned | create |
+| POST | `/v1/terminal/configurations/{configuration}` | Unmapped | needs_mapping | None |
 | POST | `/v1/terminal/connection_tokens` | terminal.connection_token | planned | create |
 | POST | `/v1/terminal/locations` | terminal.location | planned | create |
-| POST | `/v1/terminal/locations/{location}` | error | planned | create |
+| POST | `/v1/terminal/locations/{location}` | Unmapped | needs_mapping | None |
 | POST | `/v1/terminal/readers` | terminal.reader | planned | create |
-| POST | `/v1/terminal/readers/{reader}` | error | planned | create |
+| POST | `/v1/terminal/readers/{reader}` | Unmapped | needs_mapping | None |
 | POST | `/v1/terminal/readers/{reader}/cancel_action` | terminal.reader | planned | create |
 | POST | `/v1/terminal/readers/{reader}/process_payment_intent` | terminal.reader | planned | create |
 | POST | `/v1/terminal/readers/{reader}/process_setup_intent` | terminal.reader | planned | create |

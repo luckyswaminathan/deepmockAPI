@@ -46,9 +46,14 @@ def _load_response_ref(operation: Dict[str, Any]) -> Optional[str]:
     responses = operation.get("responses")
     if not isinstance(responses, dict):
         return None
-    preferred_statuses = ["200", "201", "202", "default"]
-    status_keys = list(responses.keys())
-    for status in preferred_statuses + status_keys:
+    # Prefer success status codes (2xx), avoid error codes (4xx, 5xx)
+    preferred_statuses = ["200", "201", "202", "204"]
+    status_keys = [k for k in responses.keys() if isinstance(k, str) and (
+        k.startswith("2") or k == "default"
+    )]
+    
+    # Check preferred success statuses first
+    for status in preferred_statuses:
         entry = responses.get(status)
         if not isinstance(entry, dict):
             continue
@@ -61,7 +66,30 @@ def _load_response_ref(operation: Dict[str, Any]) -> Optional[str]:
                 if isinstance(schema, dict):
                     ref = schema.get("$ref")
                     if isinstance(ref, str):
-                        return ref
+                        # Skip error schemas
+                        if "error" not in ref.lower() and "deleted" not in ref.lower():
+                            return ref
+    
+    # Fallback to other 2xx statuses
+    for status in status_keys:
+        if status in preferred_statuses:
+            continue  # Already checked
+        entry = responses.get(status)
+        if not isinstance(entry, dict):
+            continue
+        content = entry.get("content")
+        if not isinstance(content, dict):
+            continue
+        for definition in content.values():
+            if isinstance(definition, dict):
+                schema = definition.get("schema")
+                if isinstance(schema, dict):
+                    ref = schema.get("$ref")
+                    if isinstance(ref, str):
+                        # Skip error schemas
+                        if "error" not in ref.lower() and "deleted" not in ref.lower():
+                            return ref
+    
     return None
 
 

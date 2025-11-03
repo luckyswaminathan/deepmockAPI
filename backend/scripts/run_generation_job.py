@@ -151,8 +151,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--manifest",
         type=Path,
-        required=True,
-        help="Path to the job manifest or plan assets mounted into the container.",
+        required=False,
+        help="Optional path to the job manifest or plan assets mounted into the container. If not provided, the plan will be regenerated.",
     )
     parser.add_argument(
         "--image",
@@ -209,8 +209,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
 
-    manifest = args.manifest.resolve()
-    if not manifest.exists():
+    manifest = args.manifest.resolve() if args.manifest else None
+    if manifest and not manifest.exists():
         raise FileNotFoundError(f"Manifest path '{manifest}' does not exist.")
 
     slug_fragment = _slugify(args.api_slug)
@@ -263,10 +263,15 @@ def main(argv: list[str] | None = None) -> int:
         if command[:1] == ["--"]:
             command = command[1:]
         if not command:
-            command = ["reverse-generate", "--api-slug", args.api_slug, "--plan-json", "/workspace/manifest.yaml"]
+            if manifest:
+                command = ["reverse-generate", "--api-slug", args.api_slug, "--plan-json", "/workspace/manifest.yaml"]
+            else:
+                command = ["reverse-generate", "--api-slug", args.api_slug]
 
         # Prepare volume mounts
-        mounts = [(manifest, "/workspace/manifest.yaml")]
+        mounts = []
+        if manifest:
+            mounts.append((manifest, "/workspace/manifest.yaml"))
         
         # Mount output directory if provided
         if args.output_dir:

@@ -1,6 +1,6 @@
 {
   "api_slug": "stripe",
-  "generated_at": "2025-11-01T20:16:47.085860+00:00",
+  "generated_at": "2025-11-03T21:50:48.015858+00:00",
   "routes": [
     {
       "component": "account",
@@ -61,15 +61,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "account",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "account",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: created, ending_before, expand, limit, starting_after"
           ],
           "type": "read_many"
@@ -100,21 +99,20 @@
       "warnings": []
     },
     {
-      "component": "deleted_account",
+      "component": "account",
       "method": "DELETE",
       "operations": [
         {
-          "component": "deleted_account",
+          "component": "account",
           "filters": [
             {
-              "field": "account",
+              "field": "id",
               "operator": "eq",
               "value_source": "path.account"
             }
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/deleted_account",
             "Query parameters: account"
           ],
           "type": "delete"
@@ -133,7 +131,7 @@
           "component": "account",
           "filters": [
             {
-              "field": "external_accounts",
+              "field": "id",
               "operator": "eq",
               "value_source": "path.account"
             }
@@ -159,7 +157,7 @@
           "component": "account",
           "filters": [
             {
-              "field": "external_accounts",
+              "field": "id",
               "operator": "eq",
               "value_source": "path.account"
             }
@@ -204,11 +202,11 @@
       "warnings": []
     },
     {
-      "component": "deleted_external_account",
+      "component": "bank_account",
       "method": "DELETE",
       "operations": [
         {
-          "component": "deleted_external_account",
+          "component": "bank_account",
           "filters": [
             {
               "field": "account",
@@ -223,7 +221,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/deleted_external_account",
             "Query parameters: account, id"
           ],
           "type": "delete"
@@ -297,11 +294,11 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "capability",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "capability",
           "filters": [
             {
               "field": "account",
@@ -311,7 +308,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: expand"
           ],
           "type": "read_one"
@@ -385,11 +381,11 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "external_account",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "external_account",
           "filters": [
             {
               "field": "account",
@@ -399,7 +395,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: ending_before, expand, limit, object, starting_after"
           ],
           "type": "read_one"
@@ -437,11 +432,11 @@
       "warnings": []
     },
     {
-      "component": "deleted_external_account",
+      "component": "external_account",
       "method": "DELETE",
       "operations": [
         {
-          "component": "deleted_external_account",
+          "component": "external_account",
           "filters": [
             {
               "field": "account",
@@ -456,7 +451,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/deleted_external_account",
             "Query parameters: account, id"
           ],
           "type": "delete"
@@ -556,30 +550,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [
-            {
-              "field": "account",
-              "operator": "eq",
-              "value_source": "path.account"
-            }
-          ],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: ending_before, expand, limit, relationship, starting_after"
-          ],
-          "type": "read_one"
-        }
-      ],
+      "operations": [],
       "path": "/v1/accounts/{account}/people",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "person",
@@ -608,35 +587,15 @@
       "warnings": []
     },
     {
-      "component": "deleted_person",
+      "component": null,
       "method": "DELETE",
-      "operations": [
-        {
-          "component": "deleted_person",
-          "filters": [
-            {
-              "field": "account",
-              "operator": "eq",
-              "value_source": "path.account"
-            },
-            {
-              "field": "person",
-              "operator": "eq",
-              "value_source": "path.person"
-            }
-          ],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/deleted_person",
-            "Query parameters: account, person"
-          ],
-          "type": "delete"
-        }
-      ],
+      "operations": [],
       "path": "/v1/accounts/{account}/people/{person}",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "person",
@@ -701,11 +660,11 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "person",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "person",
           "filters": [
             {
               "field": "account",
@@ -715,7 +674,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: ending_before, expand, limit, relationship, starting_after"
           ],
           "type": "read_one"
@@ -753,11 +711,11 @@
       "warnings": []
     },
     {
-      "component": "deleted_person",
+      "component": "person",
       "method": "DELETE",
       "operations": [
         {
-          "component": "deleted_person",
+          "component": "person",
           "filters": [
             {
               "field": "account",
@@ -772,7 +730,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/deleted_person",
             "Query parameters: account, person"
           ],
           "type": "delete"
@@ -872,24 +829,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: domain_name, ending_before, expand, limit, starting_after"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/apple_pay/domains",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "apple_pay_domain",
@@ -911,30 +859,15 @@
       "warnings": []
     },
     {
-      "component": "deleted_apple_pay_domain",
+      "component": null,
       "method": "DELETE",
-      "operations": [
-        {
-          "component": "deleted_apple_pay_domain",
-          "filters": [
-            {
-              "field": "domain",
-              "operator": "eq",
-              "value_source": "path.domain"
-            }
-          ],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/deleted_apple_pay_domain",
-            "Query parameters: domain"
-          ],
-          "type": "delete"
-        }
-      ],
+      "operations": [],
       "path": "/v1/apple_pay/domains/{domain}",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "apple_pay_domain",
@@ -963,15 +896,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "application_fee",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "application_fee",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: charge, created, ending_before, expand, limit, starting_after"
           ],
           "type": "read_many"
@@ -1097,11 +1029,11 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "refund",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "refund",
           "filters": [
             {
               "field": "id",
@@ -1111,7 +1043,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: ending_before, expand, limit, starting_after"
           ],
           "type": "read_one"
@@ -1149,24 +1080,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: ending_before, expand, limit, scope, starting_after"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/apps/secrets",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "apps.secret",
@@ -1247,24 +1169,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: created, currency, ending_before, expand, limit, payout, source, starting_after, type"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/balance/history",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "balance_transaction",
@@ -1293,15 +1206,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "balance_transaction",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "balance_transaction",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: created, currency, ending_before, expand, limit, payout, source, starting_after, type"
           ],
           "type": "read_many"
@@ -1339,24 +1251,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: alert_type, ending_before, expand, limit, meter, starting_after"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/billing/alerts",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "billing.alert",
@@ -1502,24 +1405,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: credit_grant, customer, ending_before, expand, limit, starting_after"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/billing/credit_balance_transactions",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "billing.credit_balance_transaction",
@@ -1548,24 +1442,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: customer, ending_before, expand, limit, starting_after"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/billing/credit_grants",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "billing.credit_grant",
@@ -1729,24 +1614,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: ending_before, expand, limit, starting_after, status"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/billing/meters",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "billing.meter",
@@ -1846,30 +1722,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [
-            {
-              "field": "id",
-              "operator": "eq",
-              "value_source": "path.id"
-            }
-          ],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: customer, end_time, ending_before, expand, limit, start_time, starting_after, value_grouping_window"
-          ],
-          "type": "read_one"
-        }
-      ],
+      "operations": [],
       "path": "/v1/billing/meters/{id}/event_summaries",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "billing.meter",
@@ -1898,24 +1759,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: active, ending_before, expand, is_default, limit, starting_after"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/billing_portal/configurations",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "billing_portal.configuration",
@@ -2008,15 +1860,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "charge",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "charge",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: created, customer, ending_before, expand, limit, payment_intent, starting_after, transfer_group"
           ],
           "type": "read_many"
@@ -2047,24 +1898,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: expand, limit, page, query"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/charges/search",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "charge",
@@ -2249,11 +2091,11 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "refund",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "refund",
           "filters": [
             {
               "field": "charge",
@@ -2263,7 +2105,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: ending_before, expand, limit, starting_after"
           ],
           "type": "read_one"
@@ -2363,24 +2204,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: created, customer, customer_details, ending_before, expand, limit, payment_intent, payment_link, starting_after, status, subscription"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/checkout/sessions",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "checkout.session",
@@ -2480,11 +2312,11 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "line_item",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "line_item",
           "filters": [
             {
               "field": "session",
@@ -2494,7 +2326,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: ending_before, expand, limit, starting_after"
           ],
           "type": "read_one"
@@ -2506,24 +2337,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: ending_before, expand, limit, starting_after"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/climate/orders",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "climate.order",
@@ -2623,15 +2445,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "product",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "product",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: ending_before, expand, limit, starting_after"
           ],
           "type": "read_many"
@@ -2669,24 +2490,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: ending_before, expand, limit, starting_after"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/climate/suppliers",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "climate.supplier",
@@ -2741,15 +2553,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "country_spec",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "country_spec",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: ending_before, expand, limit, starting_after"
           ],
           "type": "read_many"
@@ -2787,15 +2598,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "coupon",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "coupon",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: created, ending_before, expand, limit, starting_after"
           ],
           "type": "read_many"
@@ -2826,11 +2636,11 @@
       "warnings": []
     },
     {
-      "component": "deleted_coupon",
+      "component": "coupon",
       "method": "DELETE",
       "operations": [
         {
-          "component": "deleted_coupon",
+          "component": "coupon",
           "filters": [
             {
               "field": "coupon",
@@ -2840,7 +2650,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/deleted_coupon",
             "Query parameters: coupon"
           ],
           "type": "delete"
@@ -2904,15 +2713,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "credit_note",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "credit_note",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: created, customer, ending_before, expand, invoice, limit, starting_after"
           ],
           "type": "read_many"
@@ -2963,50 +2771,26 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: amount, credit_amount, effective_at, email_type, ending_before, expand, invoice, limit, lines, memo, metadata, out_of_band_amount, reason, refund, refund_amount, shipping_cost, starting_after"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/credit_notes/preview/lines",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [
-            {
-              "field": "credit_note",
-              "operator": "eq",
-              "value_source": "path.credit_note"
-            }
-          ],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: ending_before, expand, limit, starting_after"
-          ],
-          "type": "read_one"
-        }
-      ],
+      "operations": [],
       "path": "/v1/credit_notes/{credit_note}/lines",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "credit_note",
@@ -3106,15 +2890,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "customer",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "customer",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: created, email, ending_before, expand, limit, starting_after, test_clock"
           ],
           "type": "read_many"
@@ -3145,31 +2928,22 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: expand, limit, page, query"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/customers/search",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
-      "component": "deleted_customer",
+      "component": "customer",
       "method": "DELETE",
       "operations": [
         {
-          "component": "deleted_customer",
+          "component": "customer",
           "filters": [
             {
               "field": "customer",
@@ -3179,7 +2953,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/deleted_customer",
             "Query parameters: customer"
           ],
           "type": "delete"
@@ -3191,11 +2964,11 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "customer",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "customer",
           "filters": [
             {
               "field": "customer",
@@ -3205,7 +2978,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: expand"
           ],
           "type": "read_one"
@@ -3243,11 +3015,11 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "balance_transaction",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "balance_transaction",
           "filters": [
             {
               "field": "customer",
@@ -3257,7 +3029,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: ending_before, expand, limit, starting_after"
           ],
           "type": "read_one"
@@ -3357,11 +3128,11 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "bank_account",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "bank_account",
           "filters": [
             {
               "field": "customer",
@@ -3371,7 +3142,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: ending_before, expand, limit, starting_after"
           ],
           "type": "read_one"
@@ -3409,11 +3179,11 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "bank_account",
       "method": "DELETE",
       "operations": [
         {
-          "component": "error",
+          "component": "bank_account",
           "filters": [
             {
               "field": "customer",
@@ -3428,7 +3198,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: customer, id"
           ],
           "type": "delete"
@@ -3471,11 +3240,11 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "bank_account",
       "method": "POST",
       "operations": [
         {
-          "component": "error",
+          "component": "bank_account",
           "filters": [
             {
               "field": "customer",
@@ -3490,7 +3259,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: customer, id"
           ],
           "type": "create"
@@ -3533,11 +3301,11 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "card",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "card",
           "filters": [
             {
               "field": "customer",
@@ -3547,7 +3315,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: ending_before, expand, limit, starting_after"
           ],
           "type": "read_one"
@@ -3585,11 +3352,11 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "card",
       "method": "DELETE",
       "operations": [
         {
-          "component": "error",
+          "component": "card",
           "filters": [
             {
               "field": "customer",
@@ -3604,7 +3371,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: customer, id"
           ],
           "type": "delete"
@@ -3647,11 +3413,11 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "card",
       "method": "POST",
       "operations": [
         {
-          "component": "error",
+          "component": "card",
           "filters": [
             {
               "field": "customer",
@@ -3666,7 +3432,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: customer, id"
           ],
           "type": "create"
@@ -3730,30 +3495,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [
-            {
-              "field": "customer",
-              "operator": "eq",
-              "value_source": "path.customer"
-            }
-          ],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: ending_before, expand, limit, starting_after"
-          ],
-          "type": "read_one"
-        }
-      ],
+      "operations": [],
       "path": "/v1/customers/{customer}/cash_balance_transactions",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "customer_cash_balance_transaction",
@@ -3787,11 +3537,11 @@
       "warnings": []
     },
     {
-      "component": "deleted_discount",
+      "component": "discount",
       "method": "DELETE",
       "operations": [
         {
-          "component": "deleted_discount",
+          "component": "discount",
           "filters": [
             {
               "field": "customer",
@@ -3801,7 +3551,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/deleted_discount",
             "Query parameters: customer"
           ],
           "type": "delete"
@@ -3865,11 +3614,11 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "payment_method",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "payment_method",
           "filters": [
             {
               "field": "customer",
@@ -3879,7 +3628,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: allow_redisplay, ending_before, expand, limit, starting_after, type"
           ],
           "type": "read_one"
@@ -3922,11 +3670,11 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "source",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "source",
           "filters": [
             {
               "field": "customer",
@@ -3936,7 +3684,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: ending_before, expand, limit, object, starting_after"
           ],
           "type": "read_one"
@@ -3974,11 +3721,11 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "source",
       "method": "DELETE",
       "operations": [
         {
-          "component": "error",
+          "component": "source",
           "filters": [
             {
               "field": "customer",
@@ -3993,7 +3740,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: customer, id"
           ],
           "type": "delete"
@@ -4036,11 +3782,11 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "source",
       "method": "POST",
       "operations": [
         {
-          "component": "error",
+          "component": "source",
           "filters": [
             {
               "field": "customer",
@@ -4055,7 +3801,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: customer, id"
           ],
           "type": "create"
@@ -4098,11 +3843,11 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "subscription",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "subscription",
           "filters": [
             {
               "field": "customer",
@@ -4112,7 +3857,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: ending_before, expand, limit, starting_after"
           ],
           "type": "read_one"
@@ -4243,11 +3987,11 @@
       "warnings": []
     },
     {
-      "component": "deleted_discount",
+      "component": "discount",
       "method": "DELETE",
       "operations": [
         {
-          "component": "deleted_discount",
+          "component": "discount",
           "filters": [
             {
               "field": "customer",
@@ -4262,7 +4006,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/deleted_discount",
             "Query parameters: customer, subscription_exposed_id"
           ],
           "type": "delete"
@@ -4305,11 +4048,11 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "tax_id",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "tax_id",
           "filters": [
             {
               "field": "customer",
@@ -4319,7 +4062,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: ending_before, expand, limit, starting_after"
           ],
           "type": "read_one"
@@ -4357,11 +4099,11 @@
       "warnings": []
     },
     {
-      "component": "deleted_tax_id",
+      "component": "tax_id",
       "method": "DELETE",
       "operations": [
         {
-          "component": "deleted_tax_id",
+          "component": "tax_id",
           "filters": [
             {
               "field": "customer",
@@ -4376,7 +4118,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/deleted_tax_id",
             "Query parameters: customer, id"
           ],
           "type": "delete"
@@ -4419,15 +4160,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "dispute",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "dispute",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: charge, created, ending_before, expand, limit, payment_intent, starting_after"
           ],
           "type": "read_many"
@@ -4517,24 +4257,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: customer, ending_before, expand, limit, starting_after"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/entitlements/active_entitlements",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "entitlements.active_entitlement",
@@ -4563,24 +4294,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: archived, ending_before, expand, limit, lookup_key, starting_after"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/entitlements/features",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "entitlements.feature",
@@ -4699,15 +4421,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "event",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "event",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: created, delivery_success, ending_before, expand, limit, starting_after, type, types"
           ],
           "type": "read_many"
@@ -4745,15 +4466,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "exchange_rate",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "exchange_rate",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: ending_before, expand, limit, starting_after"
           ],
           "type": "read_many"
@@ -4791,15 +4511,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "file_link",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "file_link",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: created, ending_before, expand, expired, file, limit, starting_after"
           ],
           "type": "read_many"
@@ -4882,15 +4601,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "file",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "file",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: created, ending_before, expand, limit, purpose, starting_after"
           ],
           "type": "read_many"
@@ -4947,15 +4665,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "account",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "account",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: account_holder, ending_before, expand, limit, session, starting_after"
           ],
           "type": "read_many"
@@ -5019,30 +4736,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [
-            {
-              "field": "account",
-              "operator": "eq",
-              "value_source": "path.account"
-            }
-          ],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: ending_before, expand, limit, ownership, starting_after"
-          ],
-          "type": "read_one"
-        }
-      ],
+      "operations": [],
       "path": "/v1/financial_connections/accounts/{account}/owners",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "financial_connections.account",
@@ -5168,24 +4870,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: account, ending_before, expand, limit, starting_after, transacted_at, transaction_refresh"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/financial_connections/transactions",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "financial_connections.transaction",
@@ -5214,24 +4907,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: created, ending_before, expand, limit, starting_after"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/forwarding/requests",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "forwarding.request",
@@ -5279,24 +4963,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: client_reference_id, created, ending_before, expand, limit, starting_after, type, verification_session"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/identity/verification_reports",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "identity.verification_report",
@@ -5325,24 +5000,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: client_reference_id, created, ending_before, expand, limit, related_customer, starting_after, status"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/identity/verification_sessions",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "identity.verification_session",
@@ -5468,15 +5134,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "invoice_rendering_template",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "invoice_rendering_template",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: ending_before, expand, limit, starting_after, status"
           ],
           "type": "read_many"
@@ -5566,15 +5231,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "invoiceitem",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "invoiceitem",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: created, customer, ending_before, expand, invoice, limit, pending, starting_after"
           ],
           "type": "read_many"
@@ -5605,11 +5269,11 @@
       "warnings": []
     },
     {
-      "component": "deleted_invoiceitem",
+      "component": "invoiceitem",
       "method": "DELETE",
       "operations": [
         {
-          "component": "deleted_invoiceitem",
+          "component": "invoiceitem",
           "filters": [
             {
               "field": "invoiceitem",
@@ -5619,7 +5283,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/deleted_invoiceitem",
             "Query parameters: invoiceitem"
           ],
           "type": "delete"
@@ -5683,15 +5346,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "invoice",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "invoice",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: collection_method, created, customer, due_date, ending_before, expand, limit, starting_after, status, subscription"
           ],
           "type": "read_many"
@@ -5741,24 +5403,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: expand, limit, page, query"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/invoices/search",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "invoice",
@@ -5781,41 +5434,31 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: automatic_tax, coupon, currency, customer, customer_details, discounts, ending_before, expand, invoice_items, issuer, limit, on_behalf_of, preview_mode, schedule, schedule_details, starting_after, subscription, subscription_billing_cycle_anchor, subscription_cancel_at, subscription_cancel_at_period_end, subscription_cancel_now, subscription_default_tax_rates, subscription_details, subscription_items, subscription_proration_behavior, subscription_proration_date, subscription_resume_at, subscription_start_date, subscription_trial_end"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/invoices/upcoming/lines",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
-      "component": "deleted_invoice",
+      "component": "invoice",
       "method": "DELETE",
       "operations": [
         {
-          "component": "deleted_invoice",
+          "component": "invoice",
           "filters": [
             {
-              "field": "invoice",
+              "field": "from_invoice",
               "operator": "eq",
               "value_source": "path.invoice"
             }
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/deleted_invoice",
             "Query parameters: invoice"
           ],
           "type": "delete"
@@ -5931,30 +5574,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [
-            {
-              "field": "invoice",
-              "operator": "eq",
-              "value_source": "path.invoice"
-            }
-          ],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: ending_before, expand, limit, starting_after"
-          ],
-          "type": "read_one"
-        }
-      ],
+      "operations": [],
       "path": "/v1/invoices/{invoice}/lines",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "line_item",
@@ -6144,24 +5772,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: card, cardholder, created, ending_before, expand, limit, starting_after, status"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/issuing/authorizations",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "issuing.authorization",
@@ -6268,24 +5887,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: created, email, ending_before, expand, limit, phone_number, starting_after, status, type"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/issuing/cardholders",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "issuing.cardholder",
@@ -6359,15 +5969,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "card",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "card",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: cardholder, created, ending_before, exp_month, exp_year, expand, last4, limit, personalization_design, starting_after, status, type"
           ],
           "type": "read_many"
@@ -6450,15 +6059,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "dispute",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "dispute",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: created, ending_before, expand, limit, starting_after, status, transaction"
           ],
           "type": "read_many"
@@ -6567,24 +6175,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: ending_before, expand, limit, lookup_keys, preferences, starting_after, status"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/issuing/personalization_designs",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "issuing.personalization_design",
@@ -6658,24 +6257,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: ending_before, expand, limit, starting_after, status, type"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/issuing/physical_bundles",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "issuing.physical_bundle",
@@ -6756,15 +6346,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "token",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "token",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: card, created, ending_before, expand, limit, starting_after, status"
           ],
           "type": "read_many"
@@ -6828,24 +6417,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: card, cardholder, created, ending_before, expand, limit, starting_after, type"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/issuing/transactions",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "issuing.transaction",
@@ -6945,24 +6525,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: account_holder, ending_before, expand, limit, session, starting_after"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/linked_accounts",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "financial_connections.account",
@@ -7017,30 +6588,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [
-            {
-              "field": "account",
-              "operator": "eq",
-              "value_source": "path.account"
-            }
-          ],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: ending_before, expand, limit, ownership, starting_after"
-          ],
-          "type": "read_one"
-        }
-      ],
+      "operations": [],
       "path": "/v1/linked_accounts/{account}/owners",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "financial_connections.account",
@@ -7095,15 +6651,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "payment_intent",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "payment_intent",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: created, customer, ending_before, expand, limit, starting_after"
           ],
           "type": "read_many"
@@ -7134,24 +6689,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: expand, limit, page, query"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/payment_intents/search",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "payment_intent",
@@ -7362,15 +6908,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "payment_link",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "payment_link",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: active, ending_before, expand, limit, starting_after"
           ],
           "type": "read_many"
@@ -7453,11 +6998,11 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "line_item",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "line_item",
           "filters": [
             {
               "field": "payment_link",
@@ -7467,7 +7012,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: ending_before, expand, limit, starting_after"
           ],
           "type": "read_one"
@@ -7479,15 +7023,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "payment_method_configuration",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "payment_method_configuration",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: application, ending_before, expand, limit, starting_after"
           ],
           "type": "read_many"
@@ -7570,15 +7113,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "payment_method_domain",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "payment_method_domain",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: domain_name, enabled, ending_before, expand, limit, starting_after"
           ],
           "type": "read_many"
@@ -7687,15 +7229,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "payment_method",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "payment_method",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: customer, ending_before, expand, limit, starting_after, type"
           ],
           "type": "read_many"
@@ -7830,15 +7371,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "payout",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "payout",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: arrival_date, created, destination, ending_before, expand, limit, starting_after, status"
           ],
           "type": "read_many"
@@ -7973,15 +7513,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "plan",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "plan",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: active, created, ending_before, expand, limit, product, starting_after"
           ],
           "type": "read_many"
@@ -8012,11 +7551,11 @@
       "warnings": []
     },
     {
-      "component": "deleted_plan",
+      "component": "plan",
       "method": "DELETE",
       "operations": [
         {
-          "component": "deleted_plan",
+          "component": "plan",
           "filters": [
             {
               "field": "plan",
@@ -8026,7 +7565,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/deleted_plan",
             "Query parameters: plan"
           ],
           "type": "delete"
@@ -8090,15 +7628,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "price",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "price",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: active, created, currency, ending_before, expand, limit, lookup_keys, product, recurring, starting_after, type"
           ],
           "type": "read_many"
@@ -8129,24 +7666,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: expand, limit, page, query"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/prices/search",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "price",
@@ -8201,15 +7729,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "product",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "product",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: active, created, ending_before, expand, ids, limit, shippable, starting_after, url"
           ],
           "type": "read_many"
@@ -8240,31 +7767,22 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: expand, limit, page, query"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/products/search",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
-      "component": "deleted_product",
+      "component": "product",
       "method": "DELETE",
       "operations": [
         {
-          "component": "deleted_product",
+          "component": "product",
           "filters": [
             {
               "field": "id",
@@ -8274,7 +7792,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/deleted_product",
             "Query parameters: id"
           ],
           "type": "delete"
@@ -8338,30 +7855,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [
-            {
-              "field": "product",
-              "operator": "eq",
-              "value_source": "path.product"
-            }
-          ],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: ending_before, expand, limit, starting_after"
-          ],
-          "type": "read_one"
-        }
-      ],
+      "operations": [],
       "path": "/v1/products/{product}/features",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "product_feature",
@@ -8390,35 +7892,15 @@
       "warnings": []
     },
     {
-      "component": "deleted_product_feature",
+      "component": null,
       "method": "DELETE",
-      "operations": [
-        {
-          "component": "deleted_product_feature",
-          "filters": [
-            {
-              "field": "id",
-              "operator": "eq",
-              "value_source": "path.id"
-            },
-            {
-              "field": "product",
-              "operator": "eq",
-              "value_source": "path.product"
-            }
-          ],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/deleted_product_feature",
-            "Query parameters: id, product"
-          ],
-          "type": "delete"
-        }
-      ],
+      "operations": [],
       "path": "/v1/products/{product}/features/{id}",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "product_feature",
@@ -8452,15 +7934,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "promotion_code",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "promotion_code",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: active, code, coupon, created, customer, ending_before, expand, limit, starting_after"
           ],
           "type": "read_many"
@@ -8543,15 +8024,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "quote",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "quote",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: customer, ending_before, expand, limit, starting_after, status, test_clock"
           ],
           "type": "read_many"
@@ -8686,30 +8166,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [
-            {
-              "field": "quote",
-              "operator": "eq",
-              "value_source": "path.quote"
-            }
-          ],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: ending_before, expand, limit, starting_after"
-          ],
-          "type": "read_one"
-        }
-      ],
+      "operations": [],
       "path": "/v1/quotes/{quote}/computed_upfront_line_items",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "quote",
@@ -8738,11 +8203,11 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "line_item",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "line_item",
           "filters": [
             {
               "field": "quote",
@@ -8752,7 +8217,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: ending_before, expand, limit, starting_after"
           ],
           "type": "read_one"
@@ -8764,50 +8228,26 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [
-            {
-              "field": "quote",
-              "operator": "eq",
-              "value_source": "path.quote"
-            }
-          ],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: expand"
-          ],
-          "type": "read_one"
-        }
-      ],
+      "operations": [],
       "path": "/v1/quotes/{quote}/pdf",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: charge, created, ending_before, expand, limit, payment_intent, starting_after"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/radar/early_fraud_warnings",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "radar.early_fraud_warning",
@@ -8836,24 +8276,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: created, ending_before, expand, limit, starting_after, value, value_list"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/radar/value_list_items",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "radar.value_list_item",
@@ -8875,30 +8306,15 @@
       "warnings": []
     },
     {
-      "component": "deleted_radar.value_list_item",
+      "component": null,
       "method": "DELETE",
-      "operations": [
-        {
-          "component": "deleted_radar.value_list_item",
-          "filters": [
-            {
-              "field": "item",
-              "operator": "eq",
-              "value_source": "path.item"
-            }
-          ],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/deleted_radar.value_list_item",
-            "Query parameters: item"
-          ],
-          "type": "delete"
-        }
-      ],
+      "operations": [],
       "path": "/v1/radar/value_list_items/{item}",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "radar.value_list_item",
@@ -8927,24 +8343,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: alias, contains, created, ending_before, expand, limit, starting_after"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/radar/value_lists",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "radar.value_list",
@@ -8966,30 +8373,15 @@
       "warnings": []
     },
     {
-      "component": "deleted_radar.value_list",
+      "component": null,
       "method": "DELETE",
-      "operations": [
-        {
-          "component": "deleted_radar.value_list",
-          "filters": [
-            {
-              "field": "value_list",
-              "operator": "eq",
-              "value_source": "path.value_list"
-            }
-          ],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/deleted_radar.value_list",
-            "Query parameters: value_list"
-          ],
-          "type": "delete"
-        }
-      ],
+      "operations": [],
       "path": "/v1/radar/value_lists/{value_list}",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "radar.value_list",
@@ -9044,15 +8436,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "refund",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "refund",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: charge, created, ending_before, expand, limit, payment_intent, starting_after"
           ],
           "type": "read_many"
@@ -9161,24 +8552,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: created, ending_before, expand, limit, starting_after"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/reporting/report_runs",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "reporting.report_run",
@@ -9226,24 +8608,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: expand"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/reporting/report_types",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "reporting.report_type",
@@ -9272,15 +8645,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "review",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "review",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: created, ending_before, expand, limit, starting_after"
           ],
           "type": "read_many"
@@ -9344,15 +8716,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "setup_attempt",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "setup_attempt",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: created, ending_before, expand, limit, setup_intent, starting_after"
           ],
           "type": "read_many"
@@ -9364,15 +8735,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "setup_intent",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "setup_intent",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: attach_to_self, created, customer, ending_before, expand, limit, payment_method, starting_after"
           ],
           "type": "read_many"
@@ -9533,15 +8903,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "shipping_rate",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "shipping_rate",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: active, created, currency, ending_before, expand, limit, starting_after"
           ],
           "type": "read_many"
@@ -9624,15 +8993,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "scheduled_query_run",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "scheduled_query_run",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: ending_before, expand, limit, starting_after"
           ],
           "type": "read_many"
@@ -9772,11 +9140,11 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "source_transaction",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "source_transaction",
           "filters": [
             {
               "field": "source",
@@ -9786,7 +9154,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: ending_before, expand, limit, starting_after"
           ],
           "type": "read_one"
@@ -9855,15 +9222,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "subscription_item",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "subscription_item",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: ending_before, expand, limit, starting_after, subscription"
           ],
           "type": "read_many"
@@ -9894,11 +9260,11 @@
       "warnings": []
     },
     {
-      "component": "deleted_subscription_item",
+      "component": "subscription_item",
       "method": "DELETE",
       "operations": [
         {
-          "component": "deleted_subscription_item",
+          "component": "subscription_item",
           "filters": [
             {
               "field": "item",
@@ -9908,7 +9274,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/deleted_subscription_item",
             "Query parameters: item"
           ],
           "type": "delete"
@@ -9972,11 +9337,11 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "usage_record_summary",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "usage_record_summary",
           "filters": [
             {
               "field": "subscription_item",
@@ -9986,7 +9351,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: ending_before, expand, limit, starting_after"
           ],
           "type": "read_one"
@@ -10024,15 +9388,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "subscription_schedule",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "subscription_schedule",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: canceled_at, completed_at, created, customer, ending_before, expand, limit, released_at, scheduled, starting_after"
           ],
           "type": "read_many"
@@ -10167,15 +9530,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "subscription",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "subscription",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: automatic_tax, collection_method, created, current_period_end, current_period_start, customer, ending_before, expand, limit, price, starting_after, status, test_clock"
           ],
           "type": "read_many"
@@ -10206,24 +9568,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: expand, limit, page, query"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/subscriptions/search",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "subscription",
@@ -10304,11 +9657,11 @@
       "warnings": []
     },
     {
-      "component": "deleted_discount",
+      "component": "discount",
       "method": "DELETE",
       "operations": [
         {
-          "component": "deleted_discount",
+          "component": "discount",
           "filters": [
             {
               "field": "subscription_exposed_id",
@@ -10318,7 +9671,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/deleted_discount",
             "Query parameters: subscription_exposed_id"
           ],
           "type": "delete"
@@ -10401,11 +9753,11 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "line_item",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "line_item",
           "filters": [
             {
               "field": "calculation",
@@ -10415,7 +9767,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: ending_before, expand, limit, starting_after"
           ],
           "type": "read_one"
@@ -10427,24 +9778,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: ending_before, expand, limit, starting_after, status"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/tax/registrations",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "tax.registration",
@@ -10621,11 +9963,11 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "line_item",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "line_item",
           "filters": [
             {
               "field": "transaction",
@@ -10635,7 +9977,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: ending_before, expand, limit, starting_after"
           ],
           "type": "read_one"
@@ -10647,15 +9988,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "tax_code",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "tax_code",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: ending_before, expand, limit, starting_after"
           ],
           "type": "read_many"
@@ -10693,15 +10033,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "tax_id",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "tax_id",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: ending_before, expand, limit, owner, starting_after"
           ],
           "type": "read_many"
@@ -10732,11 +10071,11 @@
       "warnings": []
     },
     {
-      "component": "deleted_tax_id",
+      "component": "tax_id",
       "method": "DELETE",
       "operations": [
         {
-          "component": "deleted_tax_id",
+          "component": "tax_id",
           "filters": [
             {
               "field": "id",
@@ -10746,7 +10085,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/deleted_tax_id",
             "Query parameters: id"
           ],
           "type": "delete"
@@ -10784,15 +10122,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "tax_rate",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "tax_rate",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: active, created, ending_before, expand, inclusive, limit, starting_after"
           ],
           "type": "read_many"
@@ -10875,24 +10212,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: ending_before, expand, is_account_default, limit, starting_after"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/terminal/configurations",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "terminal.configuration",
@@ -10914,82 +10242,37 @@
       "warnings": []
     },
     {
-      "component": "deleted_terminal.configuration",
+      "component": null,
       "method": "DELETE",
-      "operations": [
-        {
-          "component": "deleted_terminal.configuration",
-          "filters": [
-            {
-              "field": "configuration",
-              "operator": "eq",
-              "value_source": "path.configuration"
-            }
-          ],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/deleted_terminal.configuration",
-            "Query parameters: configuration"
-          ],
-          "type": "delete"
-        }
-      ],
+      "operations": [],
       "path": "/v1/terminal/configurations/{configuration}",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [
-            {
-              "field": "configuration",
-              "operator": "eq",
-              "value_source": "path.configuration"
-            }
-          ],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: expand"
-          ],
-          "type": "read_one"
-        }
-      ],
+      "operations": [],
       "path": "/v1/terminal/configurations/{configuration}",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
-      "component": "error",
+      "component": null,
       "method": "POST",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [
-            {
-              "field": "configuration",
-              "operator": "eq",
-              "value_source": "path.configuration"
-            }
-          ],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: configuration"
-          ],
-          "type": "create"
-        }
-      ],
+      "operations": [],
       "path": "/v1/terminal/configurations/{configuration}",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "terminal.connection_token",
@@ -11011,24 +10294,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: ending_before, expand, limit, starting_after"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/terminal/locations",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "terminal.location",
@@ -11050,102 +10324,48 @@
       "warnings": []
     },
     {
-      "component": "deleted_terminal.location",
+      "component": null,
       "method": "DELETE",
-      "operations": [
-        {
-          "component": "deleted_terminal.location",
-          "filters": [
-            {
-              "field": "location",
-              "operator": "eq",
-              "value_source": "path.location"
-            }
-          ],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/deleted_terminal.location",
-            "Query parameters: location"
-          ],
-          "type": "delete"
-        }
-      ],
+      "operations": [],
       "path": "/v1/terminal/locations/{location}",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [
-            {
-              "field": "location",
-              "operator": "eq",
-              "value_source": "path.location"
-            }
-          ],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: expand"
-          ],
-          "type": "read_one"
-        }
-      ],
+      "operations": [],
       "path": "/v1/terminal/locations/{location}",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
-      "component": "error",
+      "component": null,
       "method": "POST",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [
-            {
-              "field": "location",
-              "operator": "eq",
-              "value_source": "path.location"
-            }
-          ],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: location"
-          ],
-          "type": "create"
-        }
-      ],
+      "operations": [],
       "path": "/v1/terminal/locations/{location}",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: device_type, ending_before, expand, limit, location, serial_number, starting_after, status"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/terminal/readers",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "terminal.reader",
@@ -11167,82 +10387,37 @@
       "warnings": []
     },
     {
-      "component": "deleted_terminal.reader",
+      "component": null,
       "method": "DELETE",
-      "operations": [
-        {
-          "component": "deleted_terminal.reader",
-          "filters": [
-            {
-              "field": "reader",
-              "operator": "eq",
-              "value_source": "path.reader"
-            }
-          ],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/deleted_terminal.reader",
-            "Query parameters: reader"
-          ],
-          "type": "delete"
-        }
-      ],
+      "operations": [],
       "path": "/v1/terminal/readers/{reader}",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [
-            {
-              "field": "reader",
-              "operator": "eq",
-              "value_source": "path.reader"
-            }
-          ],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: expand"
-          ],
-          "type": "read_one"
-        }
-      ],
+      "operations": [],
       "path": "/v1/terminal/readers/{reader}",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
-      "component": "error",
+      "component": null,
       "method": "POST",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [
-            {
-              "field": "reader",
-              "operator": "eq",
-              "value_source": "path.reader"
-            }
-          ],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: reader"
-          ],
-          "type": "create"
-        }
-      ],
+      "operations": [],
       "path": "/v1/terminal/readers/{reader}",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "terminal.reader",
@@ -11886,24 +11061,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: ending_before, expand, limit, starting_after"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/test_helpers/test_clocks",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "test_helpers.test_clock",
@@ -11925,30 +11091,15 @@
       "warnings": []
     },
     {
-      "component": "deleted_test_helpers.test_clock",
+      "component": null,
       "method": "DELETE",
-      "operations": [
-        {
-          "component": "deleted_test_helpers.test_clock",
-          "filters": [
-            {
-              "field": "test_clock",
-              "operator": "eq",
-              "value_source": "path.test_clock"
-            }
-          ],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/deleted_test_helpers.test_clock",
-            "Query parameters: test_clock"
-          ],
-          "type": "delete"
-        }
-      ],
+      "operations": [],
       "path": "/v1/test_helpers/test_clocks/{test_clock}",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "test_helpers.test_clock",
@@ -12372,15 +11523,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "topup",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "topup",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: amount, created, ending_before, expand, limit, starting_after, status"
           ],
           "type": "read_many"
@@ -12489,15 +11639,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "transfer",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "transfer",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: created, destination, ending_before, expand, limit, starting_after, transfer_group"
           ],
           "type": "read_many"
@@ -12528,30 +11677,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [
-            {
-              "field": "id",
-              "operator": "eq",
-              "value_source": "path.id"
-            }
-          ],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: ending_before, expand, limit, starting_after"
-          ],
-          "type": "read_one"
-        }
-      ],
+      "operations": [],
       "path": "/v1/transfers/{id}/reversals",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "transfer_reversal",
@@ -12694,24 +11828,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: ending_before, expand, financial_account, limit, received_credit, starting_after, status"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/treasury/credit_reversals",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "treasury.credit_reversal",
@@ -12759,24 +11884,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: ending_before, expand, financial_account, limit, received_debit, resolution, starting_after, status"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/treasury/debit_reversals",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "treasury.debit_reversal",
@@ -12824,24 +11940,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: created, ending_before, expand, limit, starting_after"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/treasury/financial_accounts",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "treasury.financial_account",
@@ -12967,15 +12074,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "inbound_transfers",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "inbound_transfers",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: ending_before, expand, financial_account, limit, starting_after, status"
           ],
           "type": "read_many"
@@ -13058,15 +12164,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "outbound_payments_payment_method_details",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "outbound_payments_payment_method_details",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: created, customer, ending_before, expand, financial_account, limit, starting_after, status"
           ],
           "type": "read_many"
@@ -13149,15 +12254,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "outbound_transfers_payment_method_details",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "outbound_transfers_payment_method_details",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: ending_before, expand, financial_account, limit, starting_after, status"
           ],
           "type": "read_many"
@@ -13240,24 +12344,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: ending_before, expand, financial_account, limit, linked_flows, starting_after, status"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/treasury/received_credits",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "treasury.received_credit",
@@ -13286,24 +12381,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: ending_before, expand, financial_account, limit, starting_after, status"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/treasury/received_debits",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "treasury.received_debit",
@@ -13332,24 +12418,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: created, effective_at, ending_before, expand, financial_account, limit, order_by, starting_after, transaction"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/treasury/transaction_entries",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "treasury.transaction_entry",
@@ -13378,24 +12455,15 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": null,
       "method": "GET",
-      "operations": [
-        {
-          "component": "error",
-          "filters": [],
-          "joins": [],
-          "notes": [
-            "Response body references #/components/schemas/error",
-            "Query parameters: created, ending_before, expand, financial_account, limit, order_by, starting_after, status, status_transitions"
-          ],
-          "type": "read_many"
-        }
-      ],
+      "operations": [],
       "path": "/v1/treasury/transactions",
-      "status": "planned",
+      "status": "needs_mapping",
       "summary": null,
-      "warnings": []
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
     },
     {
       "component": "treasury.transaction",
@@ -13424,15 +12492,14 @@
       "warnings": []
     },
     {
-      "component": "error",
+      "component": "webhook_endpoint",
       "method": "GET",
       "operations": [
         {
-          "component": "error",
+          "component": "webhook_endpoint",
           "filters": [],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/error",
             "Query parameters: ending_before, expand, limit, starting_after"
           ],
           "type": "read_many"
@@ -13463,11 +12530,11 @@
       "warnings": []
     },
     {
-      "component": "deleted_webhook_endpoint",
+      "component": "webhook_endpoint",
       "method": "DELETE",
       "operations": [
         {
-          "component": "deleted_webhook_endpoint",
+          "component": "webhook_endpoint",
           "filters": [
             {
               "field": "webhook_endpoint",
@@ -13477,7 +12544,6 @@
           ],
           "joins": [],
           "notes": [
-            "Response body references #/components/schemas/deleted_webhook_endpoint",
             "Query parameters: webhook_endpoint"
           ],
           "type": "delete"
@@ -13542,7 +12608,159 @@
     }
   ],
   "validation": {
-    "errors": [],
-    "warnings": []
+    "errors": [
+      "Missing component mapping for GET /v1/accounts/{account}/people.",
+      "Missing component mapping for DELETE /v1/accounts/{account}/people/{person}.",
+      "Missing component mapping for GET /v1/apple_pay/domains.",
+      "Missing component mapping for DELETE /v1/apple_pay/domains/{domain}.",
+      "Missing component mapping for GET /v1/apps/secrets.",
+      "Missing component mapping for GET /v1/balance/history.",
+      "Missing component mapping for GET /v1/billing/alerts.",
+      "Missing component mapping for GET /v1/billing/credit_balance_transactions.",
+      "Missing component mapping for GET /v1/billing/credit_grants.",
+      "Missing component mapping for GET /v1/billing/meters.",
+      "Missing component mapping for GET /v1/billing/meters/{id}/event_summaries.",
+      "Missing component mapping for GET /v1/billing_portal/configurations.",
+      "Missing component mapping for GET /v1/charges/search.",
+      "Missing component mapping for GET /v1/checkout/sessions.",
+      "Missing component mapping for GET /v1/climate/orders.",
+      "Missing component mapping for GET /v1/climate/suppliers.",
+      "Missing component mapping for GET /v1/credit_notes/preview/lines.",
+      "Missing component mapping for GET /v1/credit_notes/{credit_note}/lines.",
+      "Missing component mapping for GET /v1/customers/search.",
+      "Missing component mapping for GET /v1/customers/{customer}/cash_balance_transactions.",
+      "Missing component mapping for GET /v1/entitlements/active_entitlements.",
+      "Missing component mapping for GET /v1/entitlements/features.",
+      "Missing component mapping for GET /v1/financial_connections/accounts/{account}/owners.",
+      "Missing component mapping for GET /v1/financial_connections/transactions.",
+      "Missing component mapping for GET /v1/forwarding/requests.",
+      "Missing component mapping for GET /v1/identity/verification_reports.",
+      "Missing component mapping for GET /v1/identity/verification_sessions.",
+      "Missing component mapping for GET /v1/invoices/search.",
+      "Missing component mapping for GET /v1/invoices/upcoming/lines.",
+      "Missing component mapping for GET /v1/invoices/{invoice}/lines.",
+      "Missing component mapping for GET /v1/issuing/authorizations.",
+      "Missing component mapping for GET /v1/issuing/cardholders.",
+      "Missing component mapping for GET /v1/issuing/personalization_designs.",
+      "Missing component mapping for GET /v1/issuing/physical_bundles.",
+      "Missing component mapping for GET /v1/issuing/transactions.",
+      "Missing component mapping for GET /v1/linked_accounts.",
+      "Missing component mapping for GET /v1/linked_accounts/{account}/owners.",
+      "Missing component mapping for GET /v1/payment_intents/search.",
+      "Missing component mapping for GET /v1/prices/search.",
+      "Missing component mapping for GET /v1/products/search.",
+      "Missing component mapping for GET /v1/products/{product}/features.",
+      "Missing component mapping for DELETE /v1/products/{product}/features/{id}.",
+      "Missing component mapping for GET /v1/quotes/{quote}/computed_upfront_line_items.",
+      "Missing component mapping for GET /v1/quotes/{quote}/pdf.",
+      "Missing component mapping for GET /v1/radar/early_fraud_warnings.",
+      "Missing component mapping for GET /v1/radar/value_list_items.",
+      "Missing component mapping for DELETE /v1/radar/value_list_items/{item}.",
+      "Missing component mapping for GET /v1/radar/value_lists.",
+      "Missing component mapping for DELETE /v1/radar/value_lists/{value_list}.",
+      "Missing component mapping for GET /v1/reporting/report_runs.",
+      "Missing component mapping for GET /v1/reporting/report_types.",
+      "Missing component mapping for GET /v1/subscriptions/search.",
+      "Missing component mapping for GET /v1/tax/registrations.",
+      "Missing component mapping for GET /v1/terminal/configurations.",
+      "Missing component mapping for DELETE /v1/terminal/configurations/{configuration}.",
+      "Missing component mapping for GET /v1/terminal/configurations/{configuration}.",
+      "Missing component mapping for POST /v1/terminal/configurations/{configuration}.",
+      "Missing component mapping for GET /v1/terminal/locations.",
+      "Missing component mapping for DELETE /v1/terminal/locations/{location}.",
+      "Missing component mapping for GET /v1/terminal/locations/{location}.",
+      "Missing component mapping for POST /v1/terminal/locations/{location}.",
+      "Missing component mapping for GET /v1/terminal/readers.",
+      "Missing component mapping for DELETE /v1/terminal/readers/{reader}.",
+      "Missing component mapping for GET /v1/terminal/readers/{reader}.",
+      "Missing component mapping for POST /v1/terminal/readers/{reader}.",
+      "Missing component mapping for GET /v1/test_helpers/test_clocks.",
+      "Missing component mapping for DELETE /v1/test_helpers/test_clocks/{test_clock}.",
+      "Missing component mapping for GET /v1/transfers/{id}/reversals.",
+      "Missing component mapping for GET /v1/treasury/credit_reversals.",
+      "Missing component mapping for GET /v1/treasury/debit_reversals.",
+      "Missing component mapping for GET /v1/treasury/financial_accounts.",
+      "Missing component mapping for GET /v1/treasury/received_credits.",
+      "Missing component mapping for GET /v1/treasury/received_debits.",
+      "Missing component mapping for GET /v1/treasury/transaction_entries.",
+      "Missing component mapping for GET /v1/treasury/transactions."
+    ],
+    "warnings": [
+      "No component mapping found for GET /v1/accounts/{account}/people.",
+      "No component mapping found for DELETE /v1/accounts/{account}/people/{person}.",
+      "No component mapping found for GET /v1/apple_pay/domains.",
+      "No component mapping found for DELETE /v1/apple_pay/domains/{domain}.",
+      "No component mapping found for GET /v1/apps/secrets.",
+      "No component mapping found for GET /v1/balance/history.",
+      "No component mapping found for GET /v1/billing/alerts.",
+      "No component mapping found for GET /v1/billing/credit_balance_transactions.",
+      "No component mapping found for GET /v1/billing/credit_grants.",
+      "No component mapping found for GET /v1/billing/meters.",
+      "No component mapping found for GET /v1/billing/meters/{id}/event_summaries.",
+      "No component mapping found for GET /v1/billing_portal/configurations.",
+      "No component mapping found for GET /v1/charges/search.",
+      "No component mapping found for GET /v1/checkout/sessions.",
+      "No component mapping found for GET /v1/climate/orders.",
+      "No component mapping found for GET /v1/climate/suppliers.",
+      "No component mapping found for GET /v1/credit_notes/preview/lines.",
+      "No component mapping found for GET /v1/credit_notes/{credit_note}/lines.",
+      "No component mapping found for GET /v1/customers/search.",
+      "No component mapping found for GET /v1/customers/{customer}/cash_balance_transactions.",
+      "No component mapping found for GET /v1/entitlements/active_entitlements.",
+      "No component mapping found for GET /v1/entitlements/features.",
+      "No component mapping found for GET /v1/financial_connections/accounts/{account}/owners.",
+      "No component mapping found for GET /v1/financial_connections/transactions.",
+      "No component mapping found for GET /v1/forwarding/requests.",
+      "No component mapping found for GET /v1/identity/verification_reports.",
+      "No component mapping found for GET /v1/identity/verification_sessions.",
+      "No component mapping found for GET /v1/invoices/search.",
+      "No component mapping found for GET /v1/invoices/upcoming/lines.",
+      "No component mapping found for GET /v1/invoices/{invoice}/lines.",
+      "No component mapping found for GET /v1/issuing/authorizations.",
+      "No component mapping found for GET /v1/issuing/cardholders.",
+      "No component mapping found for GET /v1/issuing/personalization_designs.",
+      "No component mapping found for GET /v1/issuing/physical_bundles.",
+      "No component mapping found for GET /v1/issuing/transactions.",
+      "No component mapping found for GET /v1/linked_accounts.",
+      "No component mapping found for GET /v1/linked_accounts/{account}/owners.",
+      "No component mapping found for GET /v1/payment_intents/search.",
+      "No component mapping found for GET /v1/prices/search.",
+      "No component mapping found for GET /v1/products/search.",
+      "No component mapping found for GET /v1/products/{product}/features.",
+      "No component mapping found for DELETE /v1/products/{product}/features/{id}.",
+      "No component mapping found for GET /v1/quotes/{quote}/computed_upfront_line_items.",
+      "No component mapping found for GET /v1/quotes/{quote}/pdf.",
+      "No component mapping found for GET /v1/radar/early_fraud_warnings.",
+      "No component mapping found for GET /v1/radar/value_list_items.",
+      "No component mapping found for DELETE /v1/radar/value_list_items/{item}.",
+      "No component mapping found for GET /v1/radar/value_lists.",
+      "No component mapping found for DELETE /v1/radar/value_lists/{value_list}.",
+      "No component mapping found for GET /v1/reporting/report_runs.",
+      "No component mapping found for GET /v1/reporting/report_types.",
+      "No component mapping found for GET /v1/subscriptions/search.",
+      "No component mapping found for GET /v1/tax/registrations.",
+      "No component mapping found for GET /v1/terminal/configurations.",
+      "No component mapping found for DELETE /v1/terminal/configurations/{configuration}.",
+      "No component mapping found for GET /v1/terminal/configurations/{configuration}.",
+      "No component mapping found for POST /v1/terminal/configurations/{configuration}.",
+      "No component mapping found for GET /v1/terminal/locations.",
+      "No component mapping found for DELETE /v1/terminal/locations/{location}.",
+      "No component mapping found for GET /v1/terminal/locations/{location}.",
+      "No component mapping found for POST /v1/terminal/locations/{location}.",
+      "No component mapping found for GET /v1/terminal/readers.",
+      "No component mapping found for DELETE /v1/terminal/readers/{reader}.",
+      "No component mapping found for GET /v1/terminal/readers/{reader}.",
+      "No component mapping found for POST /v1/terminal/readers/{reader}.",
+      "No component mapping found for GET /v1/test_helpers/test_clocks.",
+      "No component mapping found for DELETE /v1/test_helpers/test_clocks/{test_clock}.",
+      "No component mapping found for GET /v1/transfers/{id}/reversals.",
+      "No component mapping found for GET /v1/treasury/credit_reversals.",
+      "No component mapping found for GET /v1/treasury/debit_reversals.",
+      "No component mapping found for GET /v1/treasury/financial_accounts.",
+      "No component mapping found for GET /v1/treasury/received_credits.",
+      "No component mapping found for GET /v1/treasury/received_debits.",
+      "No component mapping found for GET /v1/treasury/transaction_entries.",
+      "No component mapping found for GET /v1/treasury/transactions."
+    ]
   }
 }

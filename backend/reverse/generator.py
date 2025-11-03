@@ -124,6 +124,8 @@ def _render_routes_module(plan: ReversePlan) -> str:
         ]
         if route.component:
             doc_lines.append(f"Target component: {route.component}.")
+        else:
+            print(route.path)
         doc_lines.append('"""')
         signature = ", ".join(["*"] + params) if params else ""
 
@@ -235,6 +237,8 @@ def _render_data_generator() -> str:
 
 def _render_operation_body(route: RoutePlan, operation: OperationPlan) -> list[str]:
     component = operation.component or route.component
+    if route.component == "error":
+        print(route.path)
     if not component:
         return [
             '    raise HTTPException(status_code=501, detail="Generated route missing component mapping.")'
@@ -297,16 +301,43 @@ def _render_operation_body(route: RoutePlan, operation: OperationPlan) -> list[s
 
 
 def _select_primary_filter(route: RoutePlan, operation: OperationPlan) -> Tuple[str, Optional[str]]:
+    path_params = extract_path_params(route.path)
+    if not path_params:
+        return ("id", None)
+    
+    # For nested resources, prioritize the LAST path parameter (usually the resource ID)
+    # Prefer filters that match the last parameter (e.g., {id} over {account})
+    primary_param = path_params[-1]
+    
+    # Check if primary_param is an ID-like parameter
+    is_id_like = (
+        primary_param.lower() in ("id", "uuid", "key") or 
+        primary_param.lower().endswith("_id")
+    )
+    
+    # Look for a filter matching the last path parameter (resource ID)
     for op_filter in operation.filters:
         if op_filter.value_source.startswith("path."):
             param = op_filter.value_source.split(".", 1)[1]
-            return op_filter.field, param
-    path_params = extract_path_params(route.path)
-    if path_params:
-        param = path_params[0]
-        field = operation.filters[0].field if operation.filters else param
-        return field, param
-    return ("id", None)
+            if param == primary_param:
+                # Use "id" as field name if parameter is ID-like
+                if is_id_like:
+                    return "id", param
+                return op_filter.field, param
+    
+    # Fallback: if no matching filter found, use the last parameter
+    # If it's ID-like, use "id" as field name, otherwise use param name as field name
+    if is_id_like:
+        return "id", primary_param
+    
+    # Last resort: use first filter if available, or default to primary_param
+    if operation.filters:
+        first_filter = operation.filters[0]
+        if first_filter.value_source.startswith("path."):
+            param = first_filter.value_source.split(".", 1)[1]
+            return first_filter.field, param
+    
+    return primary_param, primary_param
 
 
 def _write_prompts(root: Path, plan: ReversePlan) -> list[str]:

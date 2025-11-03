@@ -54,9 +54,10 @@ Containerised Generation Workflow
    starts a transient PostgreSQL container, runs the generator image, and cleans everything up:
 
    ```bash
-   python backend/scripts/run_generation_job.py \
-     --api-slug stripe \
-     --manifest /absolute/path/to/manifest.json
+   python3 backend/scripts/run_generation_job.py \
+  --api-slug stripe \
+  --manifest backend/reverse/generated/stripe/plan/plan.json \
+  --output-dir ./generated_output
    ```
 
    - The script uses `reverse-generate --api-slug <slug>` by default; pass a custom command after

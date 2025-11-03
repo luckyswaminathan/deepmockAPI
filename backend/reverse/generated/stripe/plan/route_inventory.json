@@ -47,7 +47,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -73,7 +73,7 @@
       "account"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/deleted_account",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -135,7 +135,7 @@
       "id"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/deleted_external_account",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -183,7 +183,7 @@
       "expand"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -235,7 +235,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -267,7 +267,7 @@
       "id"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/deleted_external_account",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -334,7 +334,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -366,7 +366,7 @@
       "person"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/deleted_person",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -418,7 +418,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -450,7 +450,7 @@
       "person"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/deleted_person",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -515,7 +515,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -541,7 +541,7 @@
       "domain"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/deleted_apple_pay_domain",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -574,7 +574,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -655,7 +655,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -687,7 +687,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -758,7 +758,7 @@
       "type"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -794,7 +794,7 @@
       "type"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -827,7 +827,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -931,7 +931,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -963,7 +963,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -1073,7 +1073,7 @@
       "status"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -1151,7 +1151,7 @@
       "value_grouping_window"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -1184,7 +1184,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -1256,7 +1256,7 @@
       "transfer_group"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -1283,7 +1283,7 @@
       "query"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -1406,7 +1406,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -1477,7 +1477,7 @@
       "subscription"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -1551,7 +1551,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -1567,7 +1567,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -1639,7 +1639,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -1670,7 +1670,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -1716,7 +1716,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -1748,7 +1748,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -1774,7 +1774,7 @@
       "coupon"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/deleted_coupon",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -1823,7 +1823,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -1889,7 +1889,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -1907,7 +1907,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -1982,7 +1982,7 @@
       "test_clock"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -2009,7 +2009,7 @@
       "query"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -2024,7 +2024,7 @@
       "customer"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/deleted_customer",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -2039,7 +2039,7 @@
       "expand"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -2072,7 +2072,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -2138,7 +2138,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -2170,7 +2170,7 @@
       "id"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -2203,7 +2203,7 @@
       "id"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -2238,7 +2238,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -2270,7 +2270,7 @@
       "id"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -2303,7 +2303,7 @@
       "id"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -2351,7 +2351,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -2382,7 +2382,7 @@
       "customer"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/deleted_discount",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -2432,7 +2432,7 @@
       "type"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -2467,7 +2467,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -2499,7 +2499,7 @@
       "id"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -2532,7 +2532,7 @@
       "id"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -2567,7 +2567,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -2649,7 +2649,7 @@
       "subscription_exposed_id"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/deleted_discount",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -2683,7 +2683,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -2715,7 +2715,7 @@
       "id"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/deleted_tax_id",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -2750,7 +2750,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -2812,7 +2812,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -2845,7 +2845,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -2932,7 +2932,7 @@
       "types"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -2963,7 +2963,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -2997,7 +2997,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -3056,7 +3056,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -3100,7 +3100,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -3149,7 +3149,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -3239,7 +3239,7 @@
       "transaction_refresh"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -3271,7 +3271,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -3317,7 +3317,7 @@
       "verification_session"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -3352,7 +3352,7 @@
       "status"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -3440,7 +3440,7 @@
       "status"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -3506,7 +3506,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -3532,7 +3532,7 @@
       "invoiceitem"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/deleted_invoiceitem",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -3584,7 +3584,7 @@
       "subscription"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -3622,7 +3622,7 @@
       "query"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -3701,7 +3701,7 @@
       "subscription_trial_end"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -3716,7 +3716,7 @@
       "invoice"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/deleted_invoice",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -3794,7 +3794,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -3921,7 +3921,7 @@
       "status"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -4002,7 +4002,7 @@
       "type"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -4067,7 +4067,7 @@
       "type"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -4127,7 +4127,7 @@
       "transaction"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -4202,7 +4202,7 @@
       "status"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -4261,7 +4261,7 @@
       "type"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -4325,7 +4325,7 @@
       "status"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -4375,7 +4375,7 @@
       "type"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -4449,7 +4449,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -4498,7 +4498,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -4546,7 +4546,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -4573,7 +4573,7 @@
       "query"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -4711,7 +4711,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -4770,7 +4770,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -4787,7 +4787,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -4846,7 +4846,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -4920,7 +4920,7 @@
       "type"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -5011,7 +5011,7 @@
       "status"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -5101,7 +5101,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -5127,7 +5127,7 @@
       "plan"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/deleted_plan",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -5180,7 +5180,7 @@
       "type"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -5207,7 +5207,7 @@
       "query"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -5258,7 +5258,7 @@
       "url"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -5285,7 +5285,7 @@
       "query"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -5300,7 +5300,7 @@
       "id"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/deleted_product",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -5348,7 +5348,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -5380,7 +5380,7 @@
       "product"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/deleted_product_feature",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -5417,7 +5417,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -5477,7 +5477,7 @@
       "test_clock"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -5566,7 +5566,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -5599,7 +5599,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -5614,7 +5614,7 @@
       "expand"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -5633,7 +5633,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -5667,7 +5667,7 @@
       "value_list"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -5693,7 +5693,7 @@
       "item"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/deleted_radar.value_list_item",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -5727,7 +5727,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -5753,7 +5753,7 @@
       "value_list"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/deleted_radar.value_list",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -5802,7 +5802,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -5875,7 +5875,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -5914,7 +5914,7 @@
       "expand"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -5946,7 +5946,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -5994,7 +5994,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -6014,7 +6014,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -6120,7 +6120,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -6177,7 +6177,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -6268,7 +6268,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -6316,7 +6316,7 @@
       "subscription"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -6342,7 +6342,7 @@
       "item"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/deleted_subscription_item",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -6390,7 +6390,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -6427,7 +6427,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -6523,7 +6523,7 @@
       "test_clock"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -6550,7 +6550,7 @@
       "query"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -6610,7 +6610,7 @@
       "subscription_exposed_id"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/deleted_discount",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -6669,7 +6669,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -6686,7 +6686,7 @@
       "status"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -6806,7 +6806,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -6822,7 +6822,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -6854,7 +6854,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -6880,7 +6880,7 @@
       "id"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/deleted_tax_id",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -6914,7 +6914,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -6972,7 +6972,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -6998,7 +6998,7 @@
       "configuration"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/deleted_terminal.configuration",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -7013,7 +7013,7 @@
       "expand"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -7028,7 +7028,7 @@
       "configuration"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -7055,7 +7055,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -7081,7 +7081,7 @@
       "location"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/deleted_terminal.location",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -7096,7 +7096,7 @@
       "expand"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -7111,7 +7111,7 @@
       "location"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -7131,7 +7131,7 @@
       "status"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -7157,7 +7157,7 @@
       "reader"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/deleted_terminal.reader",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -7172,7 +7172,7 @@
       "expand"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -7187,7 +7187,7 @@
       "reader"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -7573,7 +7573,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -7599,7 +7599,7 @@
       "test_clock"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/deleted_test_helpers.test_clock",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -7861,7 +7861,7 @@
       "status"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -7936,7 +7936,7 @@
       "transfer_group"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -7965,7 +7965,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -8062,7 +8062,7 @@
       "status"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -8108,7 +8108,7 @@
       "status"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -8151,7 +8151,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -8240,7 +8240,7 @@
       "status"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -8301,7 +8301,7 @@
       "status"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -8360,7 +8360,7 @@
       "status"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -8420,7 +8420,7 @@
       "status"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -8453,7 +8453,7 @@
       "status"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -8489,7 +8489,7 @@
       "transaction"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -8525,7 +8525,7 @@
       "status_transitions"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -8556,7 +8556,7 @@
       "starting_after"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/error",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },
@@ -8582,7 +8582,7 @@
       "webhook_endpoint"
     ],
     "request_body_ref": null,
-    "response_body_ref": "#/components/schemas/deleted_webhook_endpoint",
+    "response_body_ref": null,
     "summary": null,
     "tags": []
   },

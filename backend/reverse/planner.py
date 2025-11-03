@@ -40,6 +40,16 @@ def load_route_inventory(api_slug: str) -> list[RouteInventoryEntry]:
     return routes
 
 
+def _is_error_component(component_name: str) -> bool:
+    """Check if a component name represents an error or deleted entity, which should be filtered out."""
+    if not component_name:
+        return False
+    name_lower = component_name.lower()
+    # Common error/deleted component patterns
+    error_patterns = ["error", "deleted_", "failure", "exception"]
+    return any(pattern in name_lower for pattern in error_patterns)
+
+
 def _extract_component_name_from_ref(ref: str) -> Optional[str]:
     """Extract component name from OpenAPI schema reference like '#/components/schemas/User'."""
     if not ref or not isinstance(ref, str):
@@ -117,13 +127,17 @@ def _resolve_component_from_refs(
         if not ref_component_name:
             continue
         
+        # Skip error/deleted components (they're not real entity components)
+        if _is_error_component(ref_component_name):
+            continue
+        
         # Check if exact match exists
         if ref_component_name in component_names:
             return ref_component_name
         
         # Try to infer base component from request/response types
         inferred = _infer_base_component_name(ref_component_name, component_names)
-        if inferred:
+        if inferred and not _is_error_component(inferred):
             return inferred
     
     return None
@@ -157,7 +171,9 @@ def build_plan(api_slug: str, *, route_inventory: Optional[Iterable[RouteInvento
         ## TODO: need to have better operation Mapping - use some form of GPT labelling, etc
         ## plug in API label (so essentially our operations also are robust)
         operation_type = METHOD_OPERATION_MAP.get(method)
+        
         if not operation_type:
+            print("NOT OPERATION TYPE", route.path)
             validation.warnings.append(f"Route {route.method} {route.path} uses unsupported method.")
             status = "skipped"
             planned_routes.append(
@@ -176,7 +192,6 @@ def build_plan(api_slug: str, *, route_inventory: Optional[Iterable[RouteInvento
         # Try to resolve component from explicit schema references first
         component = _resolve_component_from_refs(route, component_names, method)
         
-        print(component)
         # Fall back to path-based guessing if no explicit refs found
         if component is None:
             component = guess_component_from_path(route.path, component_names)
@@ -251,15 +266,43 @@ def _build_filters(component: str, route: RouteInventoryEntry, fields: list[str]
 
 
 def _match_field(param: str, fields: list[str]) -> Optional[str]:
+    """Match path parameter to component field name with preference for exact matches."""
     param_lower = param.lower()
+    
+    # Priority 1: Exact match (case-insensitive)
     for field in fields:
         if field.lower() == param_lower:
             return field
+    
+    # Priority 2: {param}_id pattern (e.g., "account_id" for "account" param)
+    for field in fields:
         if field.lower() == f"{param_lower}_id":
             return field
+    
+    # Priority 3: Common ID fields if param suggests an ID (especially "id" itself)
+    if param_lower in ("id", "uuid", "key"):
+        for common_id_field in ("id", "uuid", "uid", "key"):
+            for field in fields:
+                if field.lower() == common_id_field:
+                    return field
+    
+    # Priority 4: Field name ending with _id that contains param
+    # (e.g., "stripe_account_id" for "account" param, but prefer exact)
     for field in fields:
-        if param_lower in field.lower():
-            return field
+        field_lower = field.lower()
+        if field_lower.endswith("_id") and param_lower in field_lower:
+            # But avoid matching "external_accounts" to "account" - too loose
+            if field_lower.startswith(param_lower) or field_lower.endswith(f"_{param_lower}_id"):
+                return field
+    
+    # Priority 5: Avoid substring matches for common ambiguous terms
+    # Skip substring matching if param is too short or ambiguous
+    ambiguous_terms = {"id", "key", "uuid", "account", "customer"}
+    if param_lower not in ambiguous_terms:
+        for field in fields:
+            if param_lower in field.lower() and len(param_lower) >= 4:
+                return field
+    
     return None
 
 
@@ -420,7 +463,6 @@ def _render_component_plan(component_name: str, routes: list[RoutePlan], plan: R
     operations_set: set[str] = set()
     for route in routes:
         for operation in route.operations:
-            print(operation)
             if operation.component == component_name or (component_name == "Unmapped Routes" and not operation.component):
                 operations_set.add(operation.type)
     
@@ -428,7 +470,7 @@ def _render_component_plan(component_name: str, routes: list[RoutePlan], plan: R
         lines.append("## Supported Operations")
         ordered_ops = [op for op in OPERATION_ORDER if op in operations_set]
         for op in ordered_ops:
-            print(op)
+
             description = OPERATION_DESCRIPTIONS.get(op, op)
             lines.append(f"- **`{op}`**: {description}")
         lines.append("")

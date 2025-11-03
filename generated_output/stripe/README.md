@@ -1,6 +1,6 @@
 # Generated assets for stripe
 
-- Generated at: 2025-11-01T20:16:47.085860+00:00
+- Generated at: 2025-11-03T21:50:48.015858+00:00
 - Copy assets manually after review.
 
 ## Contents
