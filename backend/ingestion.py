@@ -236,6 +236,8 @@ def get_component_entry(api_slug: str, component_name: str) -> Optional[Dict[str
 
     if not record:
         return None
+
+
     return {
         "api_slug": record.api_slug,
         "component_name": record.component_name,
@@ -244,7 +246,6 @@ def get_component_entry(api_slug: str, component_name: str) -> Optional[Dict[str
         "schema": record.schema_payload,
         "created_at": record.created_at,
     }
-
 
 def get_component_properties(entry: Dict[str, Any]) -> list[Dict[str, Any]]:
     schema = entry.get("schema")

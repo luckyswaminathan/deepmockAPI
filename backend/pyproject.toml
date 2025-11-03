@@ -17,6 +17,7 @@ dependencies = [
 
 [project.scripts]
 deepmock-run-generated-tests = "generated_apis.cli:main"
+reverse-generate = "reverse.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["backend", "reverse", "generated_apis"]

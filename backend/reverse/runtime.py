@@ -48,7 +48,7 @@ def replace_dataset(api_slug: str, dataset: Dict[str, list[dict[str, Any]]]) -> 
                     )
                 )
 
-
+## TODO - need to update GeneratedRecord type doesn't seem right
 def fetch_component_records(api_slug: str, component_name: str) -> list[dict[str, Any]]:
     with db_session() as session:
         records = session.exec(

@@ -42,6 +42,31 @@ Run
   uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload
   ```
 
+Containerised Generation Workflow
+---------------------------------
+1. Build the backend image (contains the generator runtime and CLI tools):
+   
+   ```bash
+   docker build -t deepmock-backend:latest backend
+   ```
+
+2. Launch a per-API generation job. The helper script provisions an isolated Docker network,
+   starts a transient PostgreSQL container, runs the generator image, and cleans everything up:
+
+   ```bash
+   python backend/scripts/run_generation_job.py \
+     --api-slug stripe \
+     --manifest /absolute/path/to/manifest.json
+   ```
+
+   - The script uses `reverse-generate --api-slug <slug>` by default; pass a custom command after
+     `--` if you need a different entrypoint.
+   - All generated records already include `api_slug` columns (`api_registry`, `component_registry`,
+     and `generated_records` tables), so a shared PostgreSQL instance can host multiple API slugs
+     without data collisions.
+   - To reuse an external database instead of the transient PostgreSQL container, provide
+     `--shared-database-url postgresql+psycopg://user:pass@host:5432/dbname`.
+
 OpenAPI Workflow
 ----------------
 1. Visit `http://localhost:8000/` for the dashboard.
@@ -62,6 +87,4 @@ Visit
 - Interactive docs (Swagger): `http://localhost:8000/docs`
 - Alternative docs (ReDoc): `http://localhost:8000/redoc`
 
-Mock Server
------------
-The Stripe-derived mock server lives under `backend/mock-server`. Follow the README inside that directory for setup, testing, and Docker/CI instructions.
+

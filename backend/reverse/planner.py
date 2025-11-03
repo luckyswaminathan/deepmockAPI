@@ -138,6 +138,7 @@ def build_plan(api_slug: str, *, route_inventory: Optional[Iterable[RouteInvento
     components = list_components(api_slug)
     component_names = [component["component_name"] for component in components]
 
+
     component_fields: dict[str, list[str]] = {}
     for component in component_names:
         entry = get_component_entry(api_slug, component)
@@ -152,6 +153,9 @@ def build_plan(api_slug: str, *, route_inventory: Optional[Iterable[RouteInvento
 
     for route in routes:
         method = normalise_method(route.method)
+
+        ## TODO: need to have better operation Mapping - use some form of GPT labelling, etc
+        ## plug in API label (so essentially our operations also are robust)
         operation_type = METHOD_OPERATION_MAP.get(method)
         if not operation_type:
             validation.warnings.append(f"Route {route.method} {route.path} uses unsupported method.")
@@ -172,6 +176,7 @@ def build_plan(api_slug: str, *, route_inventory: Optional[Iterable[RouteInvento
         # Try to resolve component from explicit schema references first
         component = _resolve_component_from_refs(route, component_names, method)
         
+        print(component)
         # Fall back to path-based guessing if no explicit refs found
         if component is None:
             component = guess_component_from_path(route.path, component_names)
@@ -415,6 +420,7 @@ def _render_component_plan(component_name: str, routes: list[RoutePlan], plan: R
     operations_set: set[str] = set()
     for route in routes:
         for operation in route.operations:
+            print(operation)
             if operation.component == component_name or (component_name == "Unmapped Routes" and not operation.component):
                 operations_set.add(operation.type)
     
@@ -422,6 +428,7 @@ def _render_component_plan(component_name: str, routes: list[RoutePlan], plan: R
         lines.append("## Supported Operations")
         ordered_ops = [op for op in OPERATION_ORDER if op in operations_set]
         for op in ordered_ops:
+            print(op)
             description = OPERATION_DESCRIPTIONS.get(op, op)
             lines.append(f"- **`{op}`**: {description}")
         lines.append("")
