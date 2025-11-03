@@ -4,7 +4,16 @@ from typing import Any, Dict
 
 from fastapi import APIRouter, HTTPException
 
-from reverse import runtime as generated_runtime
+# Import local runtime module from parent directory
+import sys
+from pathlib import Path
+
+# Add parent directory to Python path to import runtime
+parent_dir = str(Path(__file__).parent.parent)
+if parent_dir not in sys.path:
+    sys.path.insert(0, parent_dir)
+
+import runtime as generated_runtime
 
 API_SLUG = "stripe"
 
