@@ -9,62 +9,95 @@ This repository contains a FastAPI backend and a Next.js frontend. Follow the st
 - Node.js 18+ and npm
 - Optional: `psql` CLI (for database health checks)
 
-## 1) Start Postgres
+## Setup & Run
 
-Run a local Postgres instance on host port 5433 with a persistent volume:
+### 1. Initialize Database with Docker
+
+Start a local PostgreSQL instance:
 
 ```bash
 docker run --name deepmock-postgres \
-  -e POSTGRES_USER=xxxxx \
-  -e POSTGRES_PASSWORD=xxxxx \
+  -e POSTGRES_USER=deepmock \
+  -e POSTGRES_PASSWORD=deepmock \
   -e POSTGRES_DB=deepmock \
-  -p 5433:5432 \
+  -p 5432:5432 \
   -v deepmock_pg:/var/lib/postgresql/data \
   -d postgres:16
 ```
 
-Health check (optional):
+Set the database URL:
 
 ```bash
-PGPASSWORD=xxxxx psql 'postgresql://xxxxx@localhost:5433/xxxxx' -c 'select 1;'
+export DATABASE_URL="postgresql+psycopg://deepmock:deepmock@localhost:5432/deepmock"
 ```
 
-## 2) Configure backend
-
-Export the SQLAlchemy connection string (psycopg v3):
-
-```bash
-export DATABASE_URL='postgresql+psycopg://xxxxx:xxxxx@localhost:5433/xxxxx'
-```
-
-Install dependencies and run the API:
+### 2. Start Backend Server
 
 ```bash
 cd backend
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
+uvicorn main:app --reload
 ```
 
-Notes
+The server will start at `http://localhost:8000`
+
+**Notes:**
 - Core tables are created automatically on startup.
 - CORS is enabled for `http://localhost:3000`.
 
-## 3) Configure frontend
+### 3. Upload OpenAPI Specification
+
+**Option A: Via API (curl)**
+
+```bash
+curl -X POST "http://localhost:8000/apis/upload" \
+  -F "spec_file=@path/to/your/openapi.json" \
+  -F "api_name=Your API Name"
+```
+
+**Option B: Via Frontend**
 
 In a separate terminal:
 
 ```bash
 cd frontend
 npm install
-# Optional if different from default
-# export NEXT_PUBLIC_BACKEND_URL='http://localhost:8000'
 npm run dev
 ```
 
-Open `http://localhost:3000` in your browser.
+Then visit `http://localhost:3000/upload` to upload via the web UI.
 
-## 4) Use the app
+### 4. Generate Mock API
+
+Build the Docker image:
+
+```bash
+docker build -t deepmock-backend:latest backend
+```
+
+Run generation (replace `{api_slug}` with your actual API slug from the upload response):
+
+```bash
+export _DATABASE_URL="postgresql+psycopg://deepmock:deepmock@localhost:5432/deepmock"
+
+python3 backend/scripts/run_generation_job.py \
+  --api-slug {api_slug} \
+  --manifest backend/reverse/generated/{api_slug}/plan/plan.json \
+  --output-dir ./generated_output
+```
+
+**Note:** The script automatically detects `_DATABASE_URL` or `DATABASE_URL` from your environment
+and uses your existing database (with `localhost` converted to `host.docker.internal` for Docker).
+If no database URL is set, it creates a transient empty PostgreSQL container.
+
+**What happens:**
+- Generates code (routes, tests, services)
+- Automatically generates data for ALL components using dependency graph
+- Stores data in `generated_records` table
+- Syncs to `generated_output/{api_slug}/` with standalone API files
+
+## Additional Information
 
 ### Basic Workflow (Component Inspection)
 
@@ -72,127 +105,43 @@ Open `http://localhost:3000` in your browser.
 - After a successful upload, see the API listed on the home page `/`.
 - Click into an API to view its components and open a component to inspect its properties.
 
-### Full Pipeline: Upload → Generation → Standalone API
+### Alternative: Generate via API Endpoints
 
-The complete workflow to generate a runnable mock API from an OpenAPI specification:
+Instead of using the Docker CLI, you can also generate via API endpoints:
 
-#### Step 1: Upload and Ingest OpenAPI Spec
-
-Upload your OpenAPI specification via the web UI (`/upload`) or API:
-
+**Review Plan (Optional):**
 ```bash
-# Via API endpoint
-curl -X POST "http://localhost:8000/apis/upload" \
-  -F "spec_file=@path/to/your/openapi.json" \
-  -F "api_name=Stripe API"
-```
-
-This automatically:
-- Ingests the spec into the component registry
-- Generates a route inventory
-- Creates an initial generation plan
-
-**Response includes:**
-- `api_slug`: Unique identifier for the API (e.g., `stripe`)
-- `api_name`: Display name
-- `components`: List of discovered components with property counts
-
-#### Step 2: Review the Generation Plan (Optional)
-
-View the human-readable plan that describes inferred database operations:
-
-```bash
-# Via API endpoint
+# Replace {api_slug} with your API slug
 curl -X POST "http://localhost:8000/reverse/plan" \
   -H "Content-Type: application/json" \
-  -d '{"api_slug": "stripe"}'
+  -d '{"api_slug": "{api_slug}"}'
 ```
 
-The plan is also available at:
-- **Markdown**: `backend/reverse/generated/{api_slug}/plan/plan.md`
-- **JSON**: `backend/reverse/generated/{api_slug}/plan/plan.json`
-
-#### Step 3: Generate Code, Tests, and Sample Data
-
-Generate the complete implementation:
-
+**Generate Code:**
 ```bash
-# Via API endpoint
+# Replace {api_slug} with your API slug
 curl -X POST "http://localhost:8000/reverse/generate" \
   -H "Content-Type: application/json" \
-  -d '{"api_slug": "stripe"}'
+  -d '{"api_slug": "{api_slug}"}'
 ```
 
-This generates:
-- **`code/`**: FastAPI route handlers, services, and models
-- **`tests/`**: Pytest test stubs
-- **`data/`**: Data generators and seed files
-- **`prompts/`**: LLM prompt transcripts for reproducibility
-
-All output is written to `backend/reverse/generated/{api_slug}/`
-
-#### Step 4: Preview Generated Assets (Optional)
-
-Preview the generated code before applying:
-
+**Run Standalone API:**
 ```bash
-curl "http://localhost:8000/reverse/preview?api_slug=stripe"
-```
-
-#### Step 5: Apply to Main Backend (Optional)
-
-If you want to mount the generated routes in the main FastAPI app:
-
-```bash
-curl -X POST "http://localhost:8000/reverse/apply" \
-  -H "Content-Type: application/json" \
-  -d '{"api_slug": "stripe"}'
-```
-
-This will:
-- Mount routes at `/generated/{api_slug}/*`
-- Sync the package to `generated_output/{api_slug}/`
-- Seed the database with synthesized sample data
-
-Routes will be available at: `http://localhost:8000/generated/stripe/v1/...`
-
-#### Step 6: Run Standalone API (Recommended)
-
-Instead of applying to the main backend, you can run a **completely standalone** version:
-
-```bash
-cd generated_output/stripe
-
-# Install dependencies
+# Replace {api_slug} with your API slug
+cd generated_output/{api_slug}
 pip install -r requirements.txt
-
-# Run the standalone API
 python main.py
 ```
 
-The standalone API includes:
+### Standalone API Output
+
+After generation, your standalone API will be available at `generated_output/{api_slug}/` with:
 - ✅ All generated routes
 - ✅ In-memory data storage (no database required)
 - ✅ Self-contained FastAPI application
 - ✅ Interactive docs at `http://localhost:8000/docs`
 
-**Benefits of standalone:**
-- No database setup required
-- Completely isolated from the main backend
-- Easy to deploy independently
-- Perfect for development and testing
-
 See `generated_output/{api_slug}/README_STANDALONE.md` for detailed instructions.
-
-#### Cleanup (Optional)
-
-Remove generated assets:
-
-```bash
-curl -X POST "http://localhost:8000/reverse/cleanup" \
-  -H "Content-Type: application/json" \
-  -d '{"api_slug": "stripe"}'
-```
 
 ### API Endpoints Summary
 
@@ -211,40 +160,37 @@ curl -X POST "http://localhost:8000/reverse/cleanup" \
 
 ## Troubleshooting
 
-- Database connection errors: confirm Docker is running and `DATABASE_URL` is exported.
-- Postgres not ready: wait a moment or use the psql health check shown above.
-- Many components in one spec causing lock errors: ingestion runs DDL in autocommit to reduce lock usage. If needed, start Postgres with more locks:
+- **Database connection errors**: Confirm Docker is running and `DATABASE_URL` is exported.
+- **Postgres not ready**: Wait a moment after starting the container.
+- **Many components causing lock errors**: Start Postgres with more locks:
 
 ```bash
 docker rm -f deepmock-postgres
 docker run --name deepmock-postgres \
-  -e POSTGRES_USER=xxxxx \
+  -e POSTGRES_USER=deepmock \
   -e POSTGRES_PASSWORD=deepmock \
   -e POSTGRES_DB=deepmock \
-  -p 5433:5432 \
+  -p 5432:5432 \
   -v deepmock_pg:/var/lib/postgresql/data \
   -d postgres:16 -c max_locks_per_transaction=256
 ```
 
-- CORS issues from the frontend: ensure backend runs on `http://localhost:8000` and the frontend on `http://localhost:3000`.
+- **CORS issues**: Ensure backend runs on `http://localhost:8000` and frontend on `http://localhost:3000`.
 
-## Project structure
+## Project Structure
 
 ```
 backend/
   main.py            # FastAPI app + routes
   database.py        # SQLAlchemy engine & tables
   ingestion.py       # OpenAPI ingestion → tables + registries
-  templates/         # HTML templates (legacy server-rendered UI)
+  reverse/           # Code generation pipeline
 frontend/
   src/app/           # Next.js App Router pages
-  src/lib/api.ts     # Frontend fetch helpers for backend routes
-```
-
-## Clean up
-
-```bash
-docker stop deepmock-postgres
-# Remove container (data persists in volume):
-docker rm deepmock-postgres
+  src/lib/api.ts     # Frontend fetch helpers
+generated_output/   # Generated standalone APIs
+  {api_slug}/
+    main.py          # Standalone FastAPI app
+    runtime.py       # In-memory storage
+    code/            # Generated routes
 ```

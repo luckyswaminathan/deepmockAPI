@@ -4,89 +4,90 @@ FastAPI Backend
 Prerequisites
 -------------
 - Python 3.12+
+- Docker (for database and generation)
 
-Setup
------
-1. Create a virtual environment (recommended)
-   
-   ```bash
-   python3 -m venv .venv
-   source .venv/bin/activate
-   ```
-
-2. Install dependencies
-   
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-Environment
+Setup & Run
 -----------
-Configure a PostgreSQL database and expose it as `DATABASE_URL`. Example:
+
+### 1. Initialize Database with Docker
+
+Start a local PostgreSQL instance:
 
 ```bash
-export DATABASE_URL="postgresql+psycopg://user:password@localhost:5432/deepmock"
+docker run --name deepmock-postgres \
+  -e POSTGRES_USER=deepmock \
+  -e POSTGRES_PASSWORD=deepmock \
+  -e POSTGRES_DB=deepmock \
+  -p 5432:5432 \
+  -v deepmock_pg:/var/lib/postgresql/data \
+  -d postgres:16
 ```
 
-Run
----
-- Start the FastAPI server (auto-reload enabled):
-  
-  ```bash
-  python backend/main.py
-  ```
+Set the database URL:
 
-- Or run via Uvicorn directly:
-  
-  ```bash
-  uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload
-  ```
+```bash
+export DATABASE_URL="postgresql+psycopg://deepmock:deepmock@localhost:5432/deepmock"
+```
 
-Containerised Generation Workflow
----------------------------------
-1. Start your backend server (required for component ingestion):
-   
-   ```bash
-   export DATABASE_URL="postgresql+psycopg://user:password@localhost:5432/deepmock"
-   python backend/main.py
-   ```
+### 2. Start Backend Server
 
-2. Upload OpenAPI spec to ingest components:
-   
-   ```bash
-   curl -X POST "http://localhost:8000/apis/upload" \
-     -F "spec_file=@path/to/openapi.json" \
-     -F "api_name=Your API"
-   ```
+```bash
+cd backend
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+uvicorn main:app --reload
+```
 
-3. Build the backend image (contains the generator runtime and CLI tools):
-   
-   ```bash
-   docker build -t deepmock-backend:latest backend
-   ```
+The server will start at `http://localhost:8000`
 
-4. Generate API with Docker (uses your existing database with components):
-   
-   ```bash
-   # Export your database URL so Docker can use it
-   export _DATABASE_URL="postgresql+psycopg://user:password@localhost:5432/deepmock"
-   
-   # Run generation job
-   python3 backend/scripts/run_generation_job.py \
-     --api-slug stripe \
-     --manifest backend/reverse/generated/stripe/plan/plan.json \
-     --output-dir ./generated_output
-   ```
+### 3. Upload OpenAPI Specification
 
-   **Note:** The script automatically detects `_DATABASE_URL` or `DATABASE_URL` from your environment
-   and uses your existing database (with `localhost` converted to `host.docker.internal` for Docker).
-   If no database URL is set, it creates a transient empty PostgreSQL container.
-   
-   **What happens:**
-   - Generates code (routes, tests, services)
-   - Automatically generates data for ALL components using dependency graph
-   - Stores data in `generated_records` table
-   - Syncs to `generated_output/{api_slug}/` with standalone API files
+**Option A: Via API (curl)**
+
+```bash
+curl -X POST "http://localhost:8000/apis/upload" \
+  -F "spec_file=@path/to/your/openapi.json" \
+  -F "api_name=Your API Name"
+```
+
+**Option B: Via Frontend**
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Then visit `http://localhost:3000/upload` to upload via the web UI.
+
+### 4. Generate Mock API
+
+Build the Docker image:
+
+```bash
+docker build -t deepmock-backend:latest backend
+```
+
+Run generation (replace `{api_slug}` with your actual API slug from the upload response):
+
+```bash
+export _DATABASE_URL="postgresql+psycopg://deepmock:deepmock@localhost:5432/deepmock"
+
+python3 backend/scripts/run_generation_job.py \
+  --api-slug {api_slug} \
+  --manifest backend/reverse/generated/{api_slug}/plan/plan.json \
+  --output-dir ./generated_output
+```
+
+**Note:** The script automatically detects `_DATABASE_URL` or `DATABASE_URL` from your environment
+and uses your existing database (with `localhost` converted to `host.docker.internal` for Docker).
+If no database URL is set, it creates a transient empty PostgreSQL container.
+
+**What happens:**
+- Generates code (routes, tests, services)
+- Automatically generates data for ALL components using dependency graph
+- Stores data in `generated_records` table
+- Syncs to `generated_output/{api_slug}/` with standalone API files
 
 OpenAPI Ingestion Workflow
 ---------------------------
@@ -120,10 +121,10 @@ The plan is stored at `backend/reverse/generated/{api_slug}/plan/plan.json`
 Review the generated plan before code generation:
 
 ```bash
-# View human-readable plan
+# View human-readable plan (replace {api_slug} with your API slug)
 curl -X POST "http://localhost:8000/reverse/plan" \
   -H "Content-Type: application/json" \
-  -d '{"api_slug": "stripe"}'
+  -d '{"api_slug": "{api_slug}"}'
 ```
 
 The plan describes:
@@ -140,19 +141,21 @@ Files:
 **Via API (recommended):**
 
 ```bash
+# Replace {api_slug} with your API slug
 curl -X POST "http://localhost:8000/reverse/generate" \
   -H "Content-Type: application/json" \
-  -d '{"api_slug": "stripe"}'
+  -d '{"api_slug": "{api_slug}"}'
 ```
 
 **Or via Docker CLI:**
 
 ```bash
-export _DATABASE_URL="postgresql+psycopg://user:password@localhost:5432/deepmock"
+export _DATABASE_URL="postgresql+psycopg://deepmock:deepmock@localhost:5432/deepmock"
 
+# Replace {api_slug} with your API slug
 python3 backend/scripts/run_generation_job.py \
-  --api-slug stripe \
-  --manifest backend/reverse/generated/stripe/plan/plan.json \
+  --api-slug {api_slug} \
+  --manifest backend/reverse/generated/{api_slug}/plan/plan.json \
   --output-dir ./generated_output
 ```
 
@@ -179,7 +182,8 @@ backend/reverse/generated/{api_slug}/
 Preview generated assets before applying:
 
 ```bash
-curl "http://localhost:8000/reverse/preview?api_slug=stripe"
+# Replace {api_slug} with your API slug
+curl "http://localhost:8000/reverse/preview?api_slug={api_slug}"
 ```
 
 ### Step 5: Apply to Main Backend (Optional)
@@ -187,9 +191,10 @@ curl "http://localhost:8000/reverse/preview?api_slug=stripe"
 Mount generated routes in the running FastAPI app:
 
 ```bash
+# Replace {api_slug} with your API slug
 curl -X POST "http://localhost:8000/reverse/apply" \
   -H "Content-Type: application/json" \
-  -d '{"api_slug": "stripe"}'
+  -d '{"api_slug": "{api_slug}"}'
 ```
 
 This automatically:
@@ -201,14 +206,15 @@ This automatically:
 - Mounts routes at `/generated/{api_slug}/*`
 
 **Routes become available at:**
-- `http://localhost:8000/generated/stripe/v1/...`
+- `http://localhost:8000/generated/{api_slug}/v1/...`
 
 ### Step 6: Standalone API (Recommended)
 
 For a completely isolated deployment, run the standalone version:
 
 ```bash
-cd generated_output/stripe
+# Replace {api_slug} with your API slug
+cd generated_output/{api_slug}
 pip install -r requirements.txt
 python main.py
 ```
