@@ -28,7 +28,7 @@ app.include_router(router)
 # Load generated seed data on startup
 @app.on_event("startup")
 async def load_seed_data() -> None:
-    """Load generated seed data into runtime storage and distribute account-scoped data."""
+    """Load generated seed data into runtime storage."""
     try:
         import json
         from pathlib import Path
@@ -40,36 +40,36 @@ async def load_seed_data() -> None:
             
             dataset = seed_data.get("dataset", {})
             
-            # Import runtime and auth
+            # Import runtime
             import runtime
-            import auth
             
-            # Load into runtime storage (global)
+            # Load into runtime storage
             for component_name, records in dataset.items():
                 for record in records:
                     runtime.insert_component_record("stripe", component_name, record)
             
             # Distribute account-scoped components (like balance) to each mock account
+            # Get all mock account IDs from auth module if it exists
             account_scoped_components = ["balance", "balance_transaction"]
+            mock_accounts = []
             
             try:
-                # Get mock accounts from auth module
+                # Try to get mock accounts from auth module (if it exists)
                 from auth import _MOCK_API_KEYS
                 mock_accounts = [
                     info.get("account_id") 
                     for info in _MOCK_API_KEYS.values() 
                     if info.get("account_id")
                 ]
-            except Exception:
-                # Fallback to default accounts
+            except (ImportError, AttributeError, KeyError):
+                # Auth module doesn't exist or doesn't have expected structure - use default accounts
                 mock_accounts = ["acct_default", "acct_123456", "acct_production"]
             
             # Distribute account-scoped data to each account
-            account_record_count = 0
+            # Give each account at least one record (round-robin if multiple records exist)
             for component_name in account_scoped_components:
                 if component_name in dataset:
                     component_records = dataset[component_name]
-                    # Give each account at least one record (round-robin if multiple records exist)
                     for idx, account_id in enumerate(mock_accounts):
                         if component_records:
                             record_index = idx % len(component_records)
@@ -77,16 +77,20 @@ async def load_seed_data() -> None:
                             runtime.insert_account_component_record(
                                 account_id, component_name, record
                             )
-                            account_record_count += 1
             
             total_records = sum(len(records) for records in dataset.values())
+            account_records = sum(
+                len(records) 
+                for component in account_scoped_components 
+                if component in dataset 
+                for records in [dataset[component]] 
+                for _ in mock_accounts
+            )
             print(f"Loaded {total_records} records into runtime storage")
-            if account_record_count > 0:
-                print(f"Distributed {account_record_count} account-scoped records to {len(mock_accounts)} accounts")
+            if account_records > 0:
+                print(f"Distributed {account_records} account-scoped records to {len(mock_accounts)} accounts")
     except Exception as e:
-        import traceback
         print(f"Warning: Could not load seed data: {e}")
-        traceback.print_exc()
 
 @app.get("/health")
 async def health_check():
@@ -103,4 +107,3 @@ if __name__ == "__main__":
         port=8000,
         reload=True,
     )
-

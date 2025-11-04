@@ -65,10 +65,26 @@ def sync_standalone_api(api_slug: str) -> Path:
         raise FileNotFoundError(f"Generated code not found for API slug '{api_slug}'. Run /reverse/generate first.")
     
     # Target: generated_output/{api_slug}/
-    output_root = Path(__file__).resolve().parent.parent.parent / "generated_output"
+    # Check for OUTPUT_DIR environment variable first (used by Docker scripts)
+    # Then try relative to backend directory, then relative to repo root
+    import os
+    output_root_env = os.getenv("OUTPUT_DIR") or os.getenv("GENERATED_OUTPUT_DIR")
+    if output_root_env:
+        output_root = Path(output_root_env)
+    else:
+        # Calculate relative to backend directory: backend/reverse/package_manager.py -> backend/ -> repo_root/generated_output
+        backend_dir = Path(__file__).resolve().parent.parent.parent
+        # Check if we're in backend/ directory structure
+        if backend_dir.name == "backend":
+            output_root = backend_dir.parent / "generated_output"
+        else:
+            # Fallback: assume generated_output is sibling to backend
+            output_root = Path(__file__).resolve().parent.parent.parent / "generated_output"
+    
     ensure_dir(output_root)
     dest = output_root / api_slug
     ensure_dir(dest)
+    print(f"[sync_standalone_api] Writing to: {dest}", file=__import__("sys").stderr)
     
     # Copy code
     code_dest = dest / "code"
@@ -106,7 +122,16 @@ import runtime as generated_runtime'''
         shutil.copytree(plan_src, plan_dest)
     
     # Create standalone API files if they don't exist
-    _ensure_standalone_files(dest, api_slug)
+    # This MUST happen before data generation so files exist even if data generation fails
+    try:
+        _ensure_standalone_files(dest, api_slug)
+        print(f"[sync_standalone_api] Created standalone files: main.py, runtime.py, requirements.txt", file=__import__("sys").stderr)
+    except Exception as e:
+        import sys
+        import traceback
+        print(f"[sync_standalone_api] ERROR: Failed to create standalone files: {e}", file=sys.stderr)
+        traceback.print_exc(file=sys.stderr)
+        raise  # Re-raise because we MUST have these files
     
     # Generate and seed data using graph-based generator
     try:
@@ -215,10 +240,28 @@ def _update_package_index() -> None:
 
 
 def _ensure_standalone_files(dest: Path, api_slug: str) -> None:
-    """Ensure standalone API files exist (main.py, runtime.py, requirements.txt)."""
+    """
+    Ensure standalone API files exist (main.py, runtime.py, requirements.txt).
+    
+    Creates these files if they don't exist. This allows customization - if you
+    modify main.py or runtime.py, they won't be overwritten on subsequent generations.
+    
+    Args:
+        dest: Destination directory (generated_output/{api_slug}/)
+        api_slug: API slug identifier (e.g., "stripe")
+    
+    Raises:
+        OSError: If files cannot be written
+    """
+    import sys
+    
+    # Ensure destination directory exists
+    ensure_dir(dest)
+    
     # main.py
     main_file = dest / "main.py"
     if not main_file.exists():
+        print(f"[_ensure_standalone_files] Creating main.py at {main_file}", file=sys.stderr)
         main_content = f'''"""Standalone FastAPI application for {api_slug.title()} API mock."""
 
 from __future__ import annotations
@@ -261,9 +304,8 @@ async def load_seed_data() -> None:
             
             dataset = seed_data.get("dataset", {{}})
             
-            # Import runtime and auth
+            # Import runtime
             import runtime
-            import auth
             
             # Load into runtime storage
             for component_name, records in dataset.items():
@@ -271,20 +313,20 @@ async def load_seed_data() -> None:
                     runtime.insert_component_record("{api_slug}", component_name, record)
             
             # Distribute account-scoped components (like balance) to each mock account
-            # Get all mock account IDs from auth module
+            # Get all mock account IDs from auth module if it exists
             account_scoped_components = ["balance", "balance_transaction"]
             mock_accounts = []
             
             try:
-                # Try to get mock accounts from auth module
+                # Try to get mock accounts from auth module (if it exists)
                 from auth import _MOCK_API_KEYS
                 mock_accounts = [
                     info.get("account_id") 
                     for info in _MOCK_API_KEYS.values() 
                     if info.get("account_id")
                 ]
-            except Exception:
-                # Fallback to default accounts if auth.py structure changes
+            except (ImportError, AttributeError, KeyError):
+                # Auth module doesn't exist or doesn't have expected structure - use default accounts
                 mock_accounts = ["acct_default", "acct_123456", "acct_production"]
             
             # Distribute account-scoped data to each account
@@ -331,10 +373,14 @@ if __name__ == "__main__":
     )
 '''
         main_file.write_text(main_content, encoding="utf-8")
+        print(f"[_ensure_standalone_files] Created main.py", file=sys.stderr)
+    else:
+        print(f"[_ensure_standalone_files] main.py already exists, skipping", file=sys.stderr)
     
     # runtime.py - only create if missing (may have been customized)
     runtime_file = dest / "runtime.py"
     if not runtime_file.exists():
+        print(f"[_ensure_standalone_files] Creating runtime.py at {runtime_file}", file=sys.stderr)
         runtime_content = '''"""Standalone in-memory runtime for the API mock."""
 
 from __future__ import annotations
@@ -499,8 +545,15 @@ def _derive_record_key(payload: dict[str, Any]) -> str:
     return str(uuid4())
 '''
         runtime_file.write_text(runtime_content, encoding="utf-8")
+        print(f"[_ensure_standalone_files] Created runtime.py", file=sys.stderr)
+    else:
+        print(f"[_ensure_standalone_files] runtime.py already exists, skipping", file=sys.stderr)
     
     # requirements.txt
     req_file = dest / "requirements.txt"
     if not req_file.exists():
+        print(f"[_ensure_standalone_files] Creating requirements.txt at {req_file}", file=sys.stderr)
         req_file.write_text("fastapi>=0.115.0,<1.0.0\nuvicorn[standard]>=0.30.0,<1.0.0\n", encoding="utf-8")
+        print(f"[_ensure_standalone_files] Created requirements.txt", file=sys.stderr)
+    else:
+        print(f"[_ensure_standalone_files] requirements.txt already exists, skipping", file=sys.stderr)

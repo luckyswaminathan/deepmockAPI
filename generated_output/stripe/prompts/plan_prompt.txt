@@ -1,3 +1,0 @@
-## Plan prompt placeholder
-API slug: stripe
-Generated at: 2025-11-03T22:56:29.861246+00:00

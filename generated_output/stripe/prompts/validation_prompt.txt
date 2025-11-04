@@ -1,3 +1,0 @@
-## Validation prompt placeholder
-Errors: 75
-Warnings: 75

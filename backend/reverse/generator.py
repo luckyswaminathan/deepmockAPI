@@ -78,6 +78,27 @@ def generate(plan: ReversePlan | None, api_slug: str) -> GenerationReport:
         print(f"[generator] ERROR: Data generation failed for {api_slug}: {e}", file=sys.stderr)
         traceback.print_exc(file=sys.stderr)
 
+    # Automatically sync standalone API files (main.py, runtime.py, requirements.txt)
+    # This creates a complete standalone FastAPI application in generated_output/{api_slug}/
+    # that can be run independently without the main backend
+    import sys
+    try:
+        from reverse import package_manager
+        print(f"[generator] Starting sync of standalone API for {api_slug}...", file=sys.stderr)
+        standalone_path = package_manager.sync_standalone_api(api_slug)
+        print(f"[generator] ✓ Synced standalone API to {standalone_path}", file=sys.stderr)
+        print(f"[generator] ✓ Created: main.py, runtime.py, requirements.txt", file=sys.stderr)
+    except FileNotFoundError as e:
+        # This happens if code hasn't been generated yet - that's ok, we just generated it
+        print(f"[generator] NOTE: Standalone sync skipped - {e}", file=sys.stderr)
+        print(f"[generator] Run /reverse/apply to create standalone files", file=sys.stderr)
+    except Exception as e:
+        # Don't fail generation if standalone sync fails, but log the error clearly
+        import traceback
+        print(f"[generator] ERROR: Failed to sync standalone API for {api_slug}: {e}", file=sys.stderr)
+        traceback.print_exc(file=sys.stderr)
+        print(f"[generator] Generation completed, but standalone files may be missing.", file=sys.stderr)
+
     return GenerationReport(
         api_slug=resolved_plan.api_slug,
         output_dir=str(root),

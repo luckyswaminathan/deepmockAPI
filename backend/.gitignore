@@ -14,5 +14,5 @@ __pycache__/
 .env.production.local
 __pycache__/
 .hypothesis/
-
+schemas/*
 reverse/generated/*

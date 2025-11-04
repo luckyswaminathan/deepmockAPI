@@ -300,22 +300,50 @@ def main(argv: list[str] | None = None) -> int:
             mounts.append((manifest, "/workspace/manifest.yaml"))
         
         # Mount output directory if provided
+        generated_output_dir_env = None
         if args.output_dir:
             output_dir = args.output_dir.resolve()
             output_dir.mkdir(parents=True, exist_ok=True)
-            # Mount to the generated directory inside container
-            mounts.append((output_dir, "/app/reverse/generated"))
-            print(f"[run_generation_job] Mounting output directory: {output_dir} -> /app/reverse/generated")
+            
+            # Determine if output_dir points to generated_output root or a subdirectory
+            # If output_dir ends with api_slug, it's a subdirectory, otherwise it's the root
+            if output_dir.name == args.api_slug:
+                # output_dir is ./generated_output/stripe - mount parent as generated_output
+                generated_output_root = output_dir.parent
+                # Also need to mount for code generation (reverse/generated/)
+                code_gen_dir = generated_output_root.parent / "backend" / "reverse" / "generated"
+                code_gen_dir.mkdir(parents=True, exist_ok=True)
+                mounts.append((code_gen_dir, "/app/reverse/generated"))
+                print(f"[run_generation_job] Mounting code generation directory: {code_gen_dir} -> /app/reverse/generated")
+            else:
+                # output_dir is ./generated_output - use it as generated_output root
+                generated_output_root = output_dir
+                # Also mount backend/reverse/generated for code generation
+                code_gen_dir = generated_output_root.parent / "backend" / "reverse" / "generated"
+                code_gen_dir.mkdir(parents=True, exist_ok=True)
+                mounts.append((code_gen_dir, "/app/reverse/generated"))
+                print(f"[run_generation_job] Mounting code generation directory: {code_gen_dir} -> /app/reverse/generated")
+            
+            # Mount generated_output for standalone API files (main.py, runtime.py, etc.)
+            generated_output_root.mkdir(parents=True, exist_ok=True)
+            mounts.append((generated_output_root, "/app/generated_output"))
+            print(f"[run_generation_job] Mounting generated_output: {generated_output_root} -> /app/generated_output")
+            # Set environment variable so sync_standalone_api knows where to write
+            generated_output_dir_env = "/app/generated_output"
+
+        docker_env = {
+            "_DATABASE_URL": database_url,
+            "API_SLUG": args.api_slug,
+            "API_MANIFEST": "/workspace/manifest.yaml",
+        }
+        if generated_output_dir_env:
+            docker_env["GENERATED_OUTPUT_DIR"] = generated_output_dir_env
 
         run_cmd = _build_docker_run_command(
             image=args.image,
             container_name=job_container,
             network=network_name,
-            env={
-                "_DATABASE_URL": database_url,
-                "API_SLUG": args.api_slug,
-                "API_MANIFEST": "/workspace/manifest.yaml",
-            },
+            env=docker_env,
             mounts=mounts,
             command=command,
         )
