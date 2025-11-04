@@ -336,7 +336,17 @@ def _render_operation_body(route: RoutePlan, operation: OperationPlan) -> list[s
         ]
 
     if operation.type == "create":
-        return [
+        prelude: list[str] = []
+        # Inject all path params into payload for owner/resource scoping
+        for p in extract_path_params(route.path):
+            prelude.append(f'    payload["{p}"] = {p}')
+        # Ensure stable id using the primary identifier (last path param if present)
+        path_params = extract_path_params(route.path)
+        if path_params:
+            primary_param = path_params[-1]
+            prelude.append(f'    payload["id"] = {primary_param}')
+            prelude.append(f'    payload["record_key"] = {primary_param}')
+        return prelude + [
             f'    created = generated_runtime.insert_component_record(API_SLUG, "{component}", payload)',
             "    return created",
         ]
@@ -347,10 +357,16 @@ def _render_operation_body(route: RoutePlan, operation: OperationPlan) -> list[s
             return [
                 '    raise HTTPException(status_code=501, detail="Unable to determine identifier for update operation.")'
             ]
-        return [
-            f'    updated = generated_runtime.update_component_record(API_SLUG, "{component}", "{field}", {param}, payload)',
-            "    if updated is None:",
-            '        raise HTTPException(status_code=404, detail="Record not found.")',
+        prelude: list[str] = []
+        # Inject all path params into payload for owner/resource scoping
+        for p in extract_path_params(route.path):
+            prelude.append(f'    payload["{p}"] = {p}')
+        # Ensure stable id using the selected identifier and align record_key for upsert
+        prelude.append(f'    payload["id"] = {param}')
+        prelude.append(f'    payload["record_key"] = {param}')
+        # Perform upsert via insert_component_record
+        return prelude + [
+            f'    updated = generated_runtime.insert_component_record(API_SLUG, "{component}", payload)',
             "    return updated",
         ]
 
@@ -377,39 +393,10 @@ def _select_primary_filter(route: RoutePlan, operation: OperationPlan) -> Tuple[
     if not path_params:
         return ("id", None)
     
-    # For nested resources, prioritize the LAST path parameter (usually the resource ID)
-    # Prefer filters that match the last parameter (e.g., {id} over {account})
+    # Always treat the LAST path parameter as the canonical record identifier
+    # regardless of its name (e.g., "account", "charge", etc.).
     primary_param = path_params[-1]
-    
-    # Check if primary_param is an ID-like parameter
-    is_id_like = (
-        primary_param.lower() in ("id", "uuid", "key") or 
-        primary_param.lower().endswith("_id")
-    )
-    
-    # Look for a filter matching the last path parameter (resource ID)
-    for op_filter in operation.filters:
-        if op_filter.value_source.startswith("path."):
-            param = op_filter.value_source.split(".", 1)[1]
-            if param == primary_param:
-                # Use "id" as field name if parameter is ID-like
-                if is_id_like:
-                    return "id", param
-                return op_filter.field, param
-    
-    # Fallback: if no matching filter found, use the last parameter
-    # If it's ID-like, use "id" as field name, otherwise use param name as field name
-    if is_id_like:
-        return "id", primary_param
-    
-    # Last resort: use first filter if available, or default to primary_param
-    if operation.filters:
-        first_filter = operation.filters[0]
-        if first_filter.value_source.startswith("path."):
-            param = first_filter.value_source.split(".", 1)[1]
-            return first_filter.field, param
-    
-    return primary_param, primary_param
+    return "id", primary_param
 
 
 def _write_prompts(root: Path, plan: ReversePlan) -> list[str]:

@@ -537,11 +537,34 @@ def remove_dataset(api_slug: str) -> None:
 
 
 def _derive_record_key(payload: dict[str, Any]) -> str:
-    """Derive a key from a payload."""
+    """Derive a stable upsert key from payload.
+
+    Priority:
+    1) Explicit 'record_key' if provided
+    2) Account/customer scoped: f"{account}:{id}" or f"{customer}:{id}"
+    3) First available among 'id', 'uuid', 'uid', 'key'
+    4) New UUID4
+    """
+    # 1) Explicit record_key
+    record_key = payload.get("record_key")
+    if record_key is not None:
+        return str(record_key)
+
+    # 2) Scoped owner:id keys
+    account = payload.get("account")
+    customer = payload.get("customer")
+    resource_id = payload.get("id")
+    if resource_id is not None and (account is not None or customer is not None):
+        owner = account if account is not None else customer
+        return f"{owner}:{resource_id}"
+
+    # 3) Fallback identifiers
     for candidate in ("id", "uuid", "uid", "key"):
         value = payload.get(candidate)
         if value is not None:
             return str(value)
+    
+    # 4) Last resort
     return str(uuid4())
 '''
         runtime_file.write_text(runtime_content, encoding="utf-8")

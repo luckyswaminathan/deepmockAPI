@@ -31,7 +31,11 @@ def fetch_component_record(
 
 
 def insert_component_record(api_slug: str, component_name: str, payload: dict[str, Any]) -> dict[str, Any]:
-    """Insert or update a record."""
+    """Insert or update (upsert) a record via merge semantics.
+
+    If a record with the same derived key exists, merge fields while preserving
+    the existing 'id' and any unspecified fields. If no record exists, insert.
+    """
     record = dict(payload)
     key = _derive_record_key(record)
     record.setdefault("id", key)
@@ -43,8 +47,13 @@ def insert_component_record(api_slug: str, component_name: str, payload: dict[st
     for i, existing_record in enumerate(records):
         existing_key = existing_record.get("id") or _derive_record_key(existing_record)
         if existing_key == key:
-            records[i] = record
-            return record.copy()
+            merged = dict(existing_record)
+            merged.update(record)
+            # Preserve canonical id from existing record
+            if "id" in existing_record:
+                merged["id"] = existing_record["id"]
+            records[i] = merged
+            return merged.copy()
     
     records.append(record)
     return record.copy()
@@ -154,9 +163,32 @@ def remove_dataset(api_slug: str) -> None:
 
 
 def _derive_record_key(payload: dict[str, Any]) -> str:
-    """Derive a key from a payload."""
+    """Derive a stable upsert key from payload.
+
+    Priority:
+    1) Explicit 'record_key' if provided
+    2) Account/customer scoped: f"{account}:{id}" or f"{customer}:{id}"
+    3) First available among 'id', 'uuid', 'uid', 'key'
+    4) New UUID4
+    """
+    # 1) Explicit record_key
+    record_key = payload.get("record_key")
+    if record_key is not None:
+        return str(record_key)
+
+    # 2) Scoped owner:id keys
+    account = payload.get("account")
+    customer = payload.get("customer")
+    resource_id = payload.get("id")
+    if resource_id is not None and (account is not None or customer is not None):
+        owner = account if account is not None else customer
+        return f"{owner}:{resource_id}"
+
+    # 3) Fallback identifiers
     for candidate in ("id", "uuid", "uid", "key"):
         value = payload.get(candidate)
         if value is not None:
             return str(value)
+    
+    # 4) Last resort
     return str(uuid4())

@@ -114,7 +114,12 @@ def insert_component_record(api_slug: str, component_name: str, payload: dict[st
         ).first()
 
         if existing:
-            existing.payload = record
+            merged = dict(existing.payload)
+            merged.update(record)
+            # Preserve canonical id and record_key
+            if "id" in existing.payload:
+                merged["id"] = existing.payload["id"]
+            existing.payload = merged
         else:
             session.add(
                 GeneratedRecord(
