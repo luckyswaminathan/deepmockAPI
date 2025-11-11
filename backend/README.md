@@ -9,6 +9,24 @@ Prerequisites
 Setup & Run
 -----------
 
+### Zero-Config RL Dev Stack (recommended)
+
+Spin up PostgreSQL, Redis (pre-configured for LFU), and the backend—with `RL_ENABLED=true`—in one command using the root-level `docker-compose.rl.yml`:
+
+```bash
+# From repository root
+docker compose -f docker-compose.rl.yml up --build
+```
+
+What you get:
+- `postgres:16` with `deepmock/deepmock` credentials and a persistent `deepmock_pg` volume
+- `redis:7` configured with the LFU eviction policy the RL tracker expects
+- `uvicorn backend.main:app` running on `http://localhost:8000` with `RL_ENABLED=true`, `_DATABASE_URL`, and `REDIS_URL` already wired to the containers
+
+Once the stack is healthy you can immediately upload an OpenAPI file, auto-generate mock routes, and use the `/rl/*` endpoints without any extra environment setup. Stop everything with `Ctrl+C`, or run in the background via `docker compose -f docker-compose.rl.yml up -d`.
+
+### Manual setup
+
 ### 1. Initialize Database with Docker
 
 Start a local PostgreSQL instance:
@@ -259,5 +277,4 @@ Visit
 - Dashboard & health: `http://localhost:8000/`
 - Interactive docs (Swagger): `http://localhost:8000/docs`
 - Alternative docs (ReDoc): `http://localhost:8000/redoc`
-
 
