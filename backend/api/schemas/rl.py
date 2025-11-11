@@ -5,16 +5,32 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 # Goal Management
+class RewardCondition(BaseModel):
+    component: str
+    field: str
+    operator: str = "equals"
+    value: Any
+    reward: float = 0.1
+
+
+class RewardConfig(BaseModel):
+    invalid_status_penalty: float = -0.2
+    success_bonus: float = 1.0
+    progress_weight: float = 0.3
+    custom_conditions: List[RewardCondition] = Field(default_factory=list)
+
+
 class CreateGoalRequest(BaseModel):
     api_slug: str
     goal_state: Dict[str, Any]  # target_components or target_conditions
     description: Optional[str] = None
     start_state_id: Optional[str] = None
     seed_data: Optional[Dict[str, List[Dict[str, Any]]]] = None
+    reward_config: Optional[RewardConfig] = None
 
 
 class GoalResponse(BaseModel):
@@ -23,6 +39,7 @@ class GoalResponse(BaseModel):
     description: Optional[str]
     start_state_id: str
     goal_state: Dict[str, Any]
+    reward_config: Optional[RewardConfig]
     created_at: datetime
 
 
@@ -47,6 +64,7 @@ class ExecuteActionRequest(BaseModel):
     path: str
     params: Optional[Dict[str, Any]] = None
     body: Optional[Dict[str, Any]] = None
+    headers: Optional[Dict[str, str]] = None
 
 
 class ExecuteActionResponse(BaseModel):
@@ -55,6 +73,8 @@ class ExecuteActionResponse(BaseModel):
     reward: float
     done: bool
     reason: str
+    response_status: int
+    response_body: Optional[Any]
 
 
 class ResetEpisodeRequest(BaseModel):
@@ -111,4 +131,3 @@ class SessionResponse(BaseModel):
     start_state_id: str
     actions: List[str]
     created_at: datetime
-

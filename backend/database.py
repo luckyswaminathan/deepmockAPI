@@ -78,6 +78,30 @@ class GeneratedRecord(SQLModel, table=True):
     )
 
 
+class RLStateRecord(SQLModel, table=True):
+    __tablename__ = "rl_states"
+    __table_args__ = {"extend_existing": True}
+
+    state_id: str = Field(sa_column=Column(String(100), primary_key=True, nullable=False))
+    api_slug: str = Field(sa_column=Column(String(100), nullable=False, index=False))  # Index created separately if needed
+    parent_state_id: Optional[str] = Field(
+        default=None,
+        sa_column=Column(String(100), nullable=True, index=False),  # Index created separately if needed
+    )
+    action_path: list[str] = Field(
+        default_factory=list,
+        sa_column=Column(_schema_type(), nullable=False),
+    )
+    modified_components: dict[str, Any] = Field(
+        default_factory=dict,
+        sa_column=Column(_schema_type(), nullable=False),
+    )
+    created_at: Optional[datetime] = Field(
+        default=None,
+        sa_column=Column(DateTime(timezone=True), server_default=func.now(), nullable=False),
+    )
+
+
 @lru_cache(maxsize=1)
 def get_database_url() -> str:
     url = os.getenv("_DATABASE_URL")
@@ -104,7 +128,32 @@ def init_core_tables() -> None:
     import sys
     try:
         engine = get_engine()
-        SQLModel.metadata.create_all(engine)
+        # Use checkfirst=True to avoid errors if tables/indexes already exist
+        SQLModel.metadata.create_all(engine, checkfirst=True)
+        
+        # Create indexes separately if they don't exist (for RLStateRecord)
+        # This avoids duplicate index errors during hot reload
+        from sqlalchemy import Index, inspect
+        inspector = inspect(engine)
+        
+        # Check and create indexes for rl_states table if needed
+        if inspector.has_table("rl_states"):
+            existing_indexes = {idx["name"] for idx in inspector.get_indexes("rl_states")}
+            
+            # Create api_slug index if it doesn't exist
+            if "ix_rl_states_api_slug" not in existing_indexes:
+                try:
+                    Index("ix_rl_states_api_slug", RLStateRecord.api_slug).create(engine, checkfirst=True)
+                except Exception:
+                    pass  # Index might already exist, ignore
+            
+            # Create parent_state_id index if it doesn't exist
+            if "ix_rl_states_parent_state_id" not in existing_indexes:
+                try:
+                    Index("ix_rl_states_parent_state_id", RLStateRecord.parent_state_id).create(engine, checkfirst=True)
+                except Exception:
+                    pass  # Index might already exist, ignore
+        
         print("[database] Core tables initialized successfully", file=sys.stderr)
     except Exception as e:
         import traceback

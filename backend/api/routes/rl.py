@@ -6,7 +6,10 @@ import json
 from datetime import datetime
 from uuid import uuid4
 
-from fastapi import APIRouter, HTTPException
+import httpx
+from typing import Any
+
+from fastapi import APIRouter, HTTPException, Request
 
 from ..schemas.rl import (
     CreateGoalRequest,
@@ -54,6 +57,7 @@ def create_goal(payload: CreateGoalRequest) -> GoalResponse:
             description=payload.description,
             start_state_id=payload.start_state_id,
             seed_data=payload.seed_data,
+            reward_config=payload.reward_config.dict() if payload.reward_config else None,
         )
         
         goal = _goal_manager.get_goal(goal_id)
@@ -63,6 +67,7 @@ def create_goal(payload: CreateGoalRequest) -> GoalResponse:
             description=goal.description,
             start_state_id=goal.start_state_id,
             goal_state=goal.goal_state,
+            reward_config=goal.reward_config,
             created_at=goal.created_at,
         )
     except Exception as e:
@@ -80,6 +85,7 @@ def get_goal(goal_id: str) -> GoalResponse:
             description=goal.description,
             start_state_id=goal.start_state_id,
             goal_state=goal.goal_state,
+            reward_config=goal.reward_config,
             created_at=goal.created_at,
         )
     except ValueError as e:
@@ -104,9 +110,10 @@ def start_episode(goal_id: str, payload: StartEpisodeRequest) -> EpisodeResponse
             done=False,
         )
         
-        # Store episode
+        # Store episode and seed session cache
         episode_json = model_to_json(episode)
         _redis.set(f"episode:{episode_id}", episode_json)
+        _ensure_episode_session(episode, goal.api_slug)
         
         return EpisodeResponse(
             episode_id=episode.episode_id,
@@ -145,53 +152,90 @@ def get_episode(episode_id: str) -> EpisodeResponse:
 
 
 @router.post("/episodes/{episode_id}/actions", response_model=ExecuteActionResponse)
-def execute_action(episode_id: str, payload: ExecuteActionRequest) -> ExecuteActionResponse:
-    """Execute an action in an episode."""
-    # Get episode
+async def execute_action(episode_id: str, payload: ExecuteActionRequest, request: Request) -> ExecuteActionResponse:
+    """Execute an action by proxying to the generated API and tracking the result."""
     episode_json = _redis.get(f"episode:{episode_id}")
     if not episode_json:
         raise HTTPException(status_code=404, detail=f"Episode {episode_id} not found")
-    
     episode = json_to_model(Episode, episode_json)
-    
     if episode.done:
         raise HTTPException(status_code=400, detail="Episode is already done")
-    
-    # Record action
+    goal = _goal_manager.get_goal(episode.goal_id)
+    api_slug = goal.api_slug
+    session_id = _ensure_episode_session(episode, api_slug)
+
+    target_path = payload.path or "/"
+    if not target_path.startswith("/"):
+        target_path = f"/{target_path}"
+    if not target_path.startswith("/generated/"):
+        target_path = f"/generated/{api_slug}{target_path}"
+
+    headers = dict(payload.headers or {})
+    headers.setdefault("X-RL-Session-Id", session_id)
+    headers.setdefault("X-RL-State-Id", episode.current_state_id)
+
+    method = payload.method.upper()
+    try:
+        async with httpx.AsyncClient(app=request.app, base_url="http://rl-internal") as client:
+            response = await client.request(
+                method,
+                target_path,
+                params=payload.params or {},
+                json=payload.body,
+                headers=headers,
+            )
+    except httpx.HTTPError as exc:
+        raise HTTPException(status_code=502, detail=f"Failed to execute action: {exc}") from exc
+
+    response_body: Any = None
+    content_type = response.headers.get("content-type", "")
+    if "application/json" in content_type.lower():
+        try:
+            response_body = response.json()
+        except ValueError:
+            response_body = response.text
+    else:
+        response_body = response.text
+
+    action_id = response.headers.get("X-RL-Action-Id")
+    next_state_id = response.headers.get("X-RL-Next-State-Id") or episode.current_state_id
+    if not action_id:
+        action_id, next_state_id = _action_tracker.record_action(
+            state_id=episode.current_state_id,
+            method=method,
+            path=target_path,
+            params=payload.params or {},
+            request_body=payload.body,
+            response_status=response.status_code,
+            response_body=response_body if isinstance(response_body, dict) else None,
+        )
+
     previous_state_id = episode.current_state_id
-    action_id, next_state_id = _action_tracker.record_action(
-        state_id=episode.current_state_id,
-        method=payload.method,
-        path=payload.path,
-        params=payload.params or {},
-        request_body=payload.body,
-        response_status=200,  # Assume success for now
-        response_body=payload.body,  # Simplified
-    )
-    
-    # Compute reward
     reward, done, reason = _reward_calculator.compute_reward(
         goal_id=episode.goal_id,
         current_state_id=next_state_id,
         previous_state_id=previous_state_id,
+        response_status=response.status_code,
+        response_body=response_body if isinstance(response_body, dict) else None,
     )
-    
-    # Update episode
+
     episode.current_state_id = next_state_id
     episode.action_history.append(action_id)
     episode.reward = reward
     episode.done = done
-    
-    # Store updated episode
+    episode.updated_at = datetime.utcnow()
     episode_json = model_to_json(episode)
     _redis.set(f"episode:{episode_id}", episode_json)
-    
+    _update_episode_session(session_id, next_state_id, action_id)
+
     return ExecuteActionResponse(
         action_id=action_id,
         next_state_id=next_state_id,
         reward=reward,
         done=done,
         reason=reason,
+        response_status=response.status_code,
+        response_body=response_body,
     )
 
 
@@ -356,3 +400,41 @@ def get_session(session_id: str) -> SessionResponse:
         created_at=datetime.fromisoformat(session_data["created_at"]),
     )
 
+
+def _ensure_episode_session(episode: Episode, api_slug: str) -> str:
+    session_key = f"session:{episode.episode_id}"
+    session_json = _redis.get(session_key)
+    if session_json:
+        data = json.loads(session_json)
+        data["current_state_id"] = episode.current_state_id
+        _redis.set(session_key, json.dumps(data))
+        return data["session_id"]
+    session_data = {
+        "session_id": episode.episode_id,
+        "api_slug": api_slug,
+        "current_state_id": episode.current_state_id,
+        "start_state_id": episode.current_state_id,
+        "actions": [],
+        "created_at": datetime.utcnow().isoformat(),
+    }
+    _redis.set(session_key, json.dumps(session_data))
+    return episode.episode_id
+
+
+def _update_episode_session(session_id: str, state_id: str, action_id: str) -> None:
+    session_key = f"session:{session_id}"
+    session_json = _redis.get(session_key)
+    if session_json:
+        data = json.loads(session_json)
+    else:
+        data = {
+            "session_id": session_id,
+            "api_slug": "unknown",
+            "current_state_id": state_id,
+            "start_state_id": state_id,
+            "actions": [],
+            "created_at": datetime.utcnow().isoformat(),
+        }
+    data["current_state_id"] = state_id
+    data.setdefault("actions", []).append(action_id)
+    _redis.set(session_key, json.dumps(data))

@@ -24,10 +24,11 @@ except ImportError:
 
 # Import database models and functions
 try:
-    from database import GeneratedRecord, db_session
+    from database import GeneratedRecord, RLStateRecord, db_session
     from sqlmodel import delete, select
 except ImportError:
     GeneratedRecord = None
+    RLStateRecord = None
     db_session = None
     delete = None
     select = None
@@ -147,16 +148,8 @@ class StateManager:
             modified_components=merged_components,
         )
         
-        # Store in Redis
-        state_json = model_to_json(state)
-        self.redis.set(self._state_key(state_id), state_json)
-        
-        # Update parent's children set
-        if parent_state_id:
-            self.redis.sadd(self._state_children_key(parent_state_id), state_id)
-        
-        # Update API states index
-        self.redis.sadd(self._api_states_key(api_slug), state_id)
+        self._cache_state(state, add_parent_link=bool(parent_state_id))
+        self._persist_state(state)
         
         print(f"[StateManager] Created state {state_id} for {api_slug}", file=sys.stderr)
         return state_id
@@ -185,21 +178,57 @@ class StateManager:
         raise ValueError(f"State {state_id} not found in cache and reconstruction disabled")
     
     def reconstruct_state(self, state_id: str) -> State:
-        """
-        Reconstruct state from parent state + action path.
-        
-        This is called when a state is evicted from Redis (LFU cache miss).
-        """
-        # Try to get state metadata (might be stored separately)
-        # For now, we'll need to store action_path in a separate key for reconstruction
-        # This is a limitation - we need to ensure action_path is always available
-        
-        # TODO: Store action_path separately for reconstruction
-        # For now, raise error if state is completely missing
-        raise ValueError(
-            f"Cannot reconstruct state {state_id}: state data not available. "
-            "Consider storing action_path separately for reconstruction."
+        """Reconstruct state from durable storage when cache misses."""
+        if RLStateRecord is None or db_session is None:
+            raise ValueError(
+                f"State {state_id} not found in cache and no durable storage configured"
+            )
+        with db_session() as session:
+            record = session.exec(
+                select(RLStateRecord).where(RLStateRecord.state_id == state_id)
+            ).first()
+        if not record:
+            raise ValueError(f"State {state_id} not found in durable store")
+        state = State(
+            state_id=record.state_id,
+            api_slug=record.api_slug,
+            parent_state_id=record.parent_state_id,
+            action_path=list(record.action_path or []),
+            modified_components=dict(record.modified_components or {}),
+            created_at=record.created_at,
         )
+        self._cache_state(state)
+        return state
+
+    def _cache_state(self, state: State, *, add_parent_link: bool = True) -> None:
+        state_json = model_to_json(state)
+        self.redis.set(self._state_key(state.state_id), state_json)
+        self.redis.sadd(self._api_states_key(state.api_slug), state.state_id)
+        if add_parent_link and state.parent_state_id:
+            self.redis.sadd(self._state_children_key(state.parent_state_id), state.state_id)
+
+    def _persist_state(self, state: State) -> None:
+        if RLStateRecord is None or db_session is None:
+            return
+        with db_session() as session:
+            existing = session.exec(
+                select(RLStateRecord).where(RLStateRecord.state_id == state.state_id)
+            ).first()
+            if existing:
+                existing.api_slug = state.api_slug
+                existing.parent_state_id = state.parent_state_id
+                existing.action_path = list(state.action_path)
+                existing.modified_components = dict(state.modified_components)
+            else:
+                session.add(
+                    RLStateRecord(
+                        state_id=state.state_id,
+                        api_slug=state.api_slug,
+                        parent_state_id=state.parent_state_id,
+                        action_path=list(state.action_path),
+                        modified_components=dict(state.modified_components),
+                    )
+                )
     
     def detect_modified_components(
         self, api_slug: str, parent_state_id: Optional[str] = None
@@ -368,9 +397,8 @@ class StateManager:
             modified_components=initial_components,
         )
         
-        state_json = model_to_json(state)
-        self.redis.set(self._state_key(state_id), state_json)
-        self.redis.sadd(self._api_states_key(api_slug), state_id)
+        self._cache_state(state, add_parent_link=False)
+        self._persist_state(state)
         
         return state_id
     
@@ -383,4 +411,3 @@ class StateManager:
         """Get sequence of action IDs leading to this state."""
         state = self.get_state(state_id, reconstruct_if_missing=True)
         return state.action_path.copy()
-

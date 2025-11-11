@@ -3,10 +3,10 @@
 from __future__ import annotations
 
 import sys
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 from uuid import uuid4
 
-from .models import Goal
+from .models import Goal, RewardConfig
 from .redis_client import get_redis_client
 from .state_manager import StateManager
 from .utils import model_to_json, json_to_model
@@ -34,6 +34,7 @@ class GoalManager:
         description: Optional[str] = None,
         start_state_id: Optional[str] = None,
         seed_data: Optional[Dict[str, List[Dict[str, Any]]]] = None,
+        reward_config: Optional[Dict[str, Any]] = None,
     ) -> str:
         """
         Create a new goal.
@@ -56,12 +57,17 @@ class GoalManager:
         
         # Create goal
         goal_id = f"goal_{uuid4().hex[:16]}"
+        config_obj = None
+        if reward_config:
+            config_obj = reward_config if isinstance(reward_config, RewardConfig) else RewardConfig(**reward_config)
+
         goal = Goal(
             goal_id=goal_id,
             api_slug=api_slug,
             description=description,
             start_state_id=start_state_id,
             goal_state=goal_state,
+            reward_config=config_obj,
         )
         
         # Store in Redis
@@ -237,4 +243,3 @@ class GoalManager:
                     return False
         
         return True
-

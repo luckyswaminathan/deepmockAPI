@@ -137,7 +137,23 @@ export type GoalResponse = {
   description?: string | null;
   start_state_id: string;
   goal_state: Record<string, unknown>;
+  reward_config?: RewardConfig | null;
   created_at: string;
+};
+
+export type RewardCondition = {
+  component: string;
+  field: string;
+  operator?: string;
+  value: unknown;
+  reward?: number;
+};
+
+export type RewardConfig = {
+  invalid_status_penalty?: number;
+  success_bonus?: number;
+  progress_weight?: number;
+  custom_conditions?: RewardCondition[];
 };
 
 export type CreateGoalPayload = {
@@ -146,6 +162,7 @@ export type CreateGoalPayload = {
   description?: string;
   start_state_id?: string | null;
   seed_data?: ComponentDataset;
+  reward_config?: RewardConfig;
 };
 
 export async function createGoal(payload: CreateGoalPayload): Promise<GoalResponse> {

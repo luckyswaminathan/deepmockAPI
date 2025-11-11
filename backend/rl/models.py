@@ -37,6 +37,25 @@ class Action(BaseModel):
     timestamp: datetime = Field(default_factory=datetime.utcnow)
 
 
+class RewardCondition(BaseModel):
+    """Simple condition that awards additional reward when matched."""
+
+    component: str
+    field: str
+    operator: str = "equals"  # equals, contains, gt, gte, lt, lte
+    value: Any
+    reward: float = 0.1
+
+
+class RewardConfig(BaseModel):
+    """Configuration for shaping rewards beyond basic goal completion."""
+
+    invalid_status_penalty: float = -0.2
+    success_bonus: float = 1.0
+    progress_weight: float = 0.3
+    custom_conditions: List[RewardCondition] = Field(default_factory=list)
+
+
 class Goal(BaseModel):
     """Represents a goal state for RL training."""
     
@@ -45,6 +64,7 @@ class Goal(BaseModel):
     description: Optional[str] = None
     start_state_id: str
     goal_state: Dict[str, Any]  # Target modified_components or conditions
+    reward_config: Optional[RewardConfig] = None
     created_at: datetime = Field(default_factory=datetime.utcnow)
     metadata: Dict[str, Any] = Field(default_factory=dict)
 
@@ -61,4 +81,3 @@ class Episode(BaseModel):
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
     metadata: Dict[str, Any] = Field(default_factory=dict)
-
