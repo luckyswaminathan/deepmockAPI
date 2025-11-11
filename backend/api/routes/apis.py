@@ -27,7 +27,13 @@ from ingestion import (
 from reverse.models import RouteInventoryEntry
 from reverse.planner import build_plan, load_route_inventory
 from reverse.spec_loader import ingest_spec as reverse_ingest_spec
-from reverse import validator
+from reverse import (
+    data_synthesizer,
+    generator,
+    package_manager,
+    runtime,
+    validator,
+)
 
 router = APIRouter(prefix="/apis", tags=["apis"])
 
@@ -64,14 +70,57 @@ async def upload_openapi_spec(
     except (RuntimeError, TypeError) as exc:
         raise HTTPException(status_code=500, detail=f"Failed to stage routes: {exc}") from exc
 
-    # Automatically generate plan after upload
+    # Automatically generate and apply API after upload
     try:
         plan = build_plan(result.api_slug)
         validator.validate_plan(plan)
+        
+        # Generate code
+        generator.generate(plan, result.api_slug)
+        
+        # Generate data for ALL components using dependency graph
+        dataset = None
+        try:
+            dataset = data_synthesizer.synthesize_all_components(
+                result.api_slug,
+                count_per_component=None,  # Uses default of 3 per component
+                store_in_db=False,  # We'll use replace_dataset to store all at once
+            )
+            
+            # Store all generated records in GeneratedRecord database table
+            if dataset:
+                runtime.replace_dataset(result.api_slug, dataset)
+        except Exception as e:
+            # Don't fail if data generation fails
+            print(f"Warning: Data generation failed for {result.api_slug}: {e}")
+        
+        # Sync to generated_apis (for import in main backend)
+        package_manager.sync_generated_package(result.api_slug)
+        
+        # Sync to generated_output (standalone API with main.py, runtime.py, etc.)
+        package_manager.sync_standalone_api(result.api_slug)
+        
+        # Priority 2: Create initial state when API is generated
+        try:
+            from rl.state_manager import StateManager
+            state_manager = StateManager()
+            initial_state_id = state_manager.get_initial_state(
+                result.api_slug, 
+                seed_data=dataset if dataset else None
+            )
+            print(f"[upload] Created initial state {initial_state_id} for {result.api_slug}")
+        except Exception as e:
+            # Don't fail upload if RL state creation fails
+            print(f"Warning: Failed to create initial RL state for {result.api_slug}: {e}")
+        
+        # Note: Routes are auto-mounted on server startup, so no need to mount here
+        print(f"[upload] Successfully generated and applied API: {result.api_slug}")
     except Exception as exc:
-        # Log but don't fail the upload if plan generation fails
-        # The plan can be generated later via /reverse/plan endpoint
-        pass
+        # Log but don't fail the upload if generation fails
+        # The API can be generated later via /reverse/generate and /reverse/apply endpoints
+        print(f"Warning: Auto-generation failed for {result.api_slug}: {exc}")
+        import traceback
+        traceback.print_exc()
 
     return IngestionResponse(
         api_slug=result.api_slug,

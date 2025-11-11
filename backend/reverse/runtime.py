@@ -22,6 +22,10 @@ def mount_generated_routes(app: FastAPI, api_slug: str, *, prefix: Optional[str]
         raise RuntimeError(f"Generated routes module for '{api_slug}' does not expose a router.")
 
     app.include_router(router, prefix=prefix or f"/generated/{api_slug}")
+    # FastAPI caches the OpenAPI schema after the first /docs request. Reset it so the new
+    # generated routes become visible without forcing a server restart.
+    if hasattr(app, "openapi_schema"):
+        app.openapi_schema = None
     _mounted_routers.add(api_slug)
 
 
@@ -191,13 +195,98 @@ def _import_router_module(api_slug: str):
         f"generated_apis.{api_slug}.routes",
         f"reverse.generated.{api_slug}.code.routes",
     ]
-    last_error: Optional[ModuleNotFoundError] = None
+    last_error: Optional[Exception] = None
     for module_path in module_paths:
         try:
-            return importlib.import_module(module_path)
+            # Temporarily patch sys.modules to help with runtime import
+            # The generated routes try to import 'runtime' locally, but we want them
+            # to use 'reverse.runtime' when imported as a module
+            import sys
+            original_runtime = sys.modules.get("runtime")
+            
+            # If runtime module doesn't exist, try to import reverse.runtime
+            if "runtime" not in sys.modules:
+                try:
+                    from reverse import runtime as reverse_runtime
+                    sys.modules["runtime"] = reverse_runtime
+                except ImportError:
+                    pass
+            
+            module = importlib.import_module(module_path)
+            
+            # Restore original runtime if it existed
+            if original_runtime is not None:
+                sys.modules["runtime"] = original_runtime
+            elif "runtime" in sys.modules and original_runtime is None:
+                # Only remove if we added it
+                try:
+                    del sys.modules["runtime"]
+                except KeyError:
+                    pass
+            
+            # Verify router exists
+            if hasattr(module, "router"):
+                return module
+            else:
+                raise RuntimeError(f"Module {module_path} does not have a 'router' attribute")
         except ModuleNotFoundError as exc:
             last_error = exc
-    raise RuntimeError(f"Generated routes module not found for API slug '{api_slug}'.") from last_error
+        except Exception as exc:
+            # Catch other import errors (syntax errors, etc.)
+            last_error = exc
+            import sys
+            print(f"[runtime] Error importing {module_path}: {exc}", file=sys.stderr)
+            import traceback
+            traceback.print_exc(file=sys.stderr)
+    
+    error_msg = f"Generated routes module not found for API slug '{api_slug}'. "
+    error_msg += f"Tried: {', '.join(module_paths)}"
+    if last_error:
+        error_msg += f" Last error: {last_error}"
+    raise RuntimeError(error_msg) from last_error
+
+
+def discover_generated_apis() -> list[str]:
+    """
+    Discover all generated APIs by scanning the generated directory.
+    
+    Returns:
+        List of API slugs that have generated routes.
+    """
+    from pathlib import Path
+    
+    # Check both possible locations
+    possible_roots = [
+        Path(__file__).parent / "generated",  # backend/reverse/generated
+        Path(__file__).parent.parent / "generated_apis",  # backend/generated_apis
+    ]
+    
+    api_slugs = []
+    for root in possible_roots:
+        if not root.exists():
+            continue
+        
+        # Look for subdirectories with code/routes.py
+        for item in root.iterdir():
+            if item.is_dir() and not item.name.startswith("_"):
+                routes_file = item / "code" / "routes.py"
+                if routes_file.exists():
+                    api_slugs.append(item.name)
+                else:
+                    # Also check generated_apis structure (routes.py directly)
+                    alt_routes_file = item / "routes.py"
+                    if alt_routes_file.exists():
+                        api_slugs.append(item.name)
+    
+    # Remove duplicates while preserving order
+    seen = set()
+    unique_slugs = []
+    for slug in api_slugs:
+        if slug not in seen:
+            seen.add(slug)
+            unique_slugs.append(slug)
+    
+    return unique_slugs
 
 
 def _derive_record_key(payload: dict[str, Any]) -> str:

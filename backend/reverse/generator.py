@@ -225,9 +225,18 @@ def _build_function_params(route: RoutePlan, operation: OperationPlan) -> list[s
 def _make_function_name(route: RoutePlan) -> str:
     components = split_path_components(route.path)
     suffix = "_".join(components) if components else "root"
-    suffix = suffix.replace("-", "_")
+    # Sanitize invalid Python identifier characters
+    # Replace dashes, dots, and other special chars with underscores
+    suffix = suffix.replace("-", "_").replace(".", "_").replace("/", "_")
+    # Remove any consecutive underscores and leading/trailing underscores
+    while "__" in suffix:
+        suffix = suffix.replace("__", "_")
+    suffix = suffix.strip("_")
+    # Ensure it starts with a letter or underscore (Python identifier requirement)
+    if suffix and not (suffix[0].isalpha() or suffix[0] == "_"):
+        suffix = f"_{suffix}"
     method = route.method.lower()
-    return f"{method}_{suffix}"
+    return f"{method}_{suffix}" if suffix else method
 
 
 def _render_services_module() -> str:

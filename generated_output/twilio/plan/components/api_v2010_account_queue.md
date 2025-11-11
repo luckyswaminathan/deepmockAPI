@@ -1,0 +1,55 @@
+# Component Plan: `api.v2010.account.queue`
+
+**API Slug:** `twilio`
+**Total Routes:** 3
+
+## Supported Operations
+- **`create`**: Create a new record for the component.
+- **`read_one`**: Fetch a single record by identifier.
+
+## Routes
+
+### GET Routes (1)
+
+#### `GET /2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json`
+**Summary:** Fetch an instance of a queue identified by the QueueSid
+**Status:** planned
+
+**Operations:**
+- **read_one**
+  - Component: `api.v2010.account.queue`
+  - Filters:
+    - `AccountSid` eq `path.AccountSid`
+    - `sid` eq `path.Sid`
+  - Notes:
+    - Response body references #/components/schemas/api.v2010.account.queue
+    - Query parameters: AccountSid, Sid
+
+### POST Routes (2)
+
+#### `POST /2010-04-01/Accounts/{AccountSid}/Queues.json`
+**Summary:** Create a queue
+**Status:** planned
+
+**Operations:**
+- **create**
+  - Component: `api.v2010.account.queue`
+  - Filters:
+    - `AccountSid` eq `path.AccountSid`
+  - Notes:
+    - Response body references #/components/schemas/api.v2010.account.queue
+    - Query parameters: AccountSid
+
+#### `POST /2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json`
+**Summary:** Update the queue with the new parameters
+**Status:** planned
+
+**Operations:**
+- **create**
+  - Component: `api.v2010.account.queue`
+  - Filters:
+    - `AccountSid` eq `path.AccountSid`
+    - `sid` eq `path.Sid`
+  - Notes:
+    - Response body references #/components/schemas/api.v2010.account.queue
+    - Query parameters: AccountSid, Sid

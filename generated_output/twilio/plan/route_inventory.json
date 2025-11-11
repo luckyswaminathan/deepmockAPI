@@ -1,0 +1,4064 @@
+[
+  {
+    "method": "POST",
+    "operation_id": "CreateAccount",
+    "path": "/2010-04-01/Accounts.json",
+    "path_parameters": [],
+    "query_parameters": [],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account",
+    "summary": "Create a new Twilio Subaccount from the account making the request",
+    "tags": [
+      "Api20100401Account"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListAccount",
+    "path": "/2010-04-01/Accounts.json",
+    "path_parameters": [],
+    "query_parameters": [
+      "FriendlyName",
+      "Status",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieves a collection of Accounts belonging to the account used to make the request",
+    "tags": [
+      "Api20100401Account"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchAccount",
+    "path": "/2010-04-01/Accounts/{Sid}.json",
+    "path_parameters": [
+      "Sid"
+    ],
+    "query_parameters": [
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account",
+    "summary": "Fetch the account specified by the provided Account Sid",
+    "tags": [
+      "Api20100401Account"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "UpdateAccount",
+    "path": "/2010-04-01/Accounts/{Sid}.json",
+    "path_parameters": [
+      "Sid"
+    ],
+    "query_parameters": [
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account",
+    "summary": "Modify the properties of a given Account",
+    "tags": [
+      "Api20100401Account"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateAddress",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Addresses.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "AccountSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.address",
+    "summary": "",
+    "tags": [
+      "Api20100401Address"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListAddress",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Addresses.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "CustomerName",
+      "FriendlyName",
+      "EmergencyEnabled",
+      "IsoCountry",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401Address"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteAddress",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401Address"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchAddress",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.address",
+    "summary": "",
+    "tags": [
+      "Api20100401Address"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "UpdateAddress",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.address",
+    "summary": "",
+    "tags": [
+      "Api20100401Address"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateApplication",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Applications.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "AccountSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.application",
+    "summary": "Create a new application within your account",
+    "tags": [
+      "Api20100401Application"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListApplication",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Applications.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "FriendlyName",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve a list of applications representing an application within the requesting account",
+    "tags": [
+      "Api20100401Application"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteApplication",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Delete the application by the specified application sid",
+    "tags": [
+      "Api20100401Application"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchApplication",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.application",
+    "summary": "Fetch the application specified by the provided sid",
+    "tags": [
+      "Api20100401Application"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "UpdateApplication",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.application",
+    "summary": "Updates the application's properties",
+    "tags": [
+      "Api20100401Application"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchAuthorizedConnectApp",
+    "path": "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "ConnectAppSid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "ConnectAppSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.authorized_connect_app",
+    "summary": "Fetch an instance of an authorized-connect-app",
+    "tags": [
+      "Api20100401AuthorizedConnectApp"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListAuthorizedConnectApp",
+    "path": "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve a list of authorized-connect-apps belonging to the account used to make the request",
+    "tags": [
+      "Api20100401AuthorizedConnectApp"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListAvailablePhoneNumberCountry",
+    "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401AvailablePhoneNumberCountry"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchAvailablePhoneNumberCountry",
+    "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json",
+    "path_parameters": [
+      "AccountSid",
+      "CountryCode"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "CountryCode"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.available_phone_number_country",
+    "summary": "",
+    "tags": [
+      "Api20100401AvailablePhoneNumberCountry"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListAvailablePhoneNumberLocal",
+    "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Local.json",
+    "path_parameters": [
+      "AccountSid",
+      "CountryCode"
+    ],
+    "query_parameters": [
+      "AreaCode",
+      "Contains",
+      "SmsEnabled",
+      "MmsEnabled",
+      "VoiceEnabled",
+      "ExcludeAllAddressRequired",
+      "ExcludeLocalAddressRequired",
+      "ExcludeForeignAddressRequired",
+      "Beta",
+      "NearNumber",
+      "NearLatLong",
+      "Distance",
+      "InPostalCode",
+      "InRegion",
+      "InRateCenter",
+      "InLata",
+      "InLocality",
+      "FaxEnabled",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401Local"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListAvailablePhoneNumberMachineToMachine",
+    "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/MachineToMachine.json",
+    "path_parameters": [
+      "AccountSid",
+      "CountryCode"
+    ],
+    "query_parameters": [
+      "AreaCode",
+      "Contains",
+      "SmsEnabled",
+      "MmsEnabled",
+      "VoiceEnabled",
+      "ExcludeAllAddressRequired",
+      "ExcludeLocalAddressRequired",
+      "ExcludeForeignAddressRequired",
+      "Beta",
+      "NearNumber",
+      "NearLatLong",
+      "Distance",
+      "InPostalCode",
+      "InRegion",
+      "InRateCenter",
+      "InLata",
+      "InLocality",
+      "FaxEnabled",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401MachineToMachine"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListAvailablePhoneNumberMobile",
+    "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Mobile.json",
+    "path_parameters": [
+      "AccountSid",
+      "CountryCode"
+    ],
+    "query_parameters": [
+      "AreaCode",
+      "Contains",
+      "SmsEnabled",
+      "MmsEnabled",
+      "VoiceEnabled",
+      "ExcludeAllAddressRequired",
+      "ExcludeLocalAddressRequired",
+      "ExcludeForeignAddressRequired",
+      "Beta",
+      "NearNumber",
+      "NearLatLong",
+      "Distance",
+      "InPostalCode",
+      "InRegion",
+      "InRateCenter",
+      "InLata",
+      "InLocality",
+      "FaxEnabled",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401Mobile"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListAvailablePhoneNumberNational",
+    "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/National.json",
+    "path_parameters": [
+      "AccountSid",
+      "CountryCode"
+    ],
+    "query_parameters": [
+      "AreaCode",
+      "Contains",
+      "SmsEnabled",
+      "MmsEnabled",
+      "VoiceEnabled",
+      "ExcludeAllAddressRequired",
+      "ExcludeLocalAddressRequired",
+      "ExcludeForeignAddressRequired",
+      "Beta",
+      "NearNumber",
+      "NearLatLong",
+      "Distance",
+      "InPostalCode",
+      "InRegion",
+      "InRateCenter",
+      "InLata",
+      "InLocality",
+      "FaxEnabled",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401National"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListAvailablePhoneNumberSharedCost",
+    "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/SharedCost.json",
+    "path_parameters": [
+      "AccountSid",
+      "CountryCode"
+    ],
+    "query_parameters": [
+      "AreaCode",
+      "Contains",
+      "SmsEnabled",
+      "MmsEnabled",
+      "VoiceEnabled",
+      "ExcludeAllAddressRequired",
+      "ExcludeLocalAddressRequired",
+      "ExcludeForeignAddressRequired",
+      "Beta",
+      "NearNumber",
+      "NearLatLong",
+      "Distance",
+      "InPostalCode",
+      "InRegion",
+      "InRateCenter",
+      "InLata",
+      "InLocality",
+      "FaxEnabled",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401SharedCost"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListAvailablePhoneNumberTollFree",
+    "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/TollFree.json",
+    "path_parameters": [
+      "AccountSid",
+      "CountryCode"
+    ],
+    "query_parameters": [
+      "AreaCode",
+      "Contains",
+      "SmsEnabled",
+      "MmsEnabled",
+      "VoiceEnabled",
+      "ExcludeAllAddressRequired",
+      "ExcludeLocalAddressRequired",
+      "ExcludeForeignAddressRequired",
+      "Beta",
+      "NearNumber",
+      "NearLatLong",
+      "Distance",
+      "InPostalCode",
+      "InRegion",
+      "InRateCenter",
+      "InLata",
+      "InLocality",
+      "FaxEnabled",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401TollFree"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListAvailablePhoneNumberVoip",
+    "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Voip.json",
+    "path_parameters": [
+      "AccountSid",
+      "CountryCode"
+    ],
+    "query_parameters": [
+      "AreaCode",
+      "Contains",
+      "SmsEnabled",
+      "MmsEnabled",
+      "VoiceEnabled",
+      "ExcludeAllAddressRequired",
+      "ExcludeLocalAddressRequired",
+      "ExcludeForeignAddressRequired",
+      "Beta",
+      "NearNumber",
+      "NearLatLong",
+      "Distance",
+      "InPostalCode",
+      "InRegion",
+      "InRateCenter",
+      "InLata",
+      "InLocality",
+      "FaxEnabled",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401Voip"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchBalance",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Balance.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "AccountSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.balance",
+    "summary": "Fetch the balance for an Account based on Account Sid. Balance changes may not be reflected immediately. Child accounts do not contain balance information",
+    "tags": [
+      "Api20100401Balance"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateCall",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "AccountSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.call",
+    "summary": "Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client connections",
+    "tags": [
+      "Api20100401Call"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListCall",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "To",
+      "From",
+      "ParentCallSid",
+      "Status",
+      "StartTime",
+      "StartTime<",
+      "StartTime>",
+      "EndTime",
+      "EndTime<",
+      "EndTime>",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieves a collection of calls made to and from your account",
+    "tags": [
+      "Api20100401Call"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteCall",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Delete a Call record from your account. Once the record is deleted, it will no longer appear in the API and Account Portal logs.",
+    "tags": [
+      "Api20100401Call"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchCall",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.call",
+    "summary": "Fetch the call specified by the provided Call SID",
+    "tags": [
+      "Api20100401Call"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "UpdateCall",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.call",
+    "summary": "Initiates a call redirect or terminates a call",
+    "tags": [
+      "Api20100401Call"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListCallEvent",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json",
+    "path_parameters": [
+      "AccountSid",
+      "CallSid"
+    ],
+    "query_parameters": [
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve a list of all events for a call.",
+    "tags": [
+      "Api20100401Event"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchCallNotification",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "CallSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "CallSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.call.call_notification-instance",
+    "summary": "",
+    "tags": [
+      "Api20100401CallNotification"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListCallNotification",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications.json",
+    "path_parameters": [
+      "AccountSid",
+      "CallSid"
+    ],
+    "query_parameters": [
+      "Log",
+      "MessageDate",
+      "MessageDate<",
+      "MessageDate>",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401CallNotification"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateCallRecording",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json",
+    "path_parameters": [
+      "AccountSid",
+      "CallSid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "CallSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.call.call_recording",
+    "summary": "Create a recording for the call",
+    "tags": [
+      "Api20100401CallRecording"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListCallRecording",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json",
+    "path_parameters": [
+      "AccountSid",
+      "CallSid"
+    ],
+    "query_parameters": [
+      "DateCreated",
+      "DateCreated<",
+      "DateCreated>",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve a list of recordings belonging to the call used to make the request",
+    "tags": [
+      "Api20100401CallRecording"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "UpdateCallRecording",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "CallSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "CallSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.call.call_recording",
+    "summary": "Changes the status of the recording to paused, stopped, or in-progress. Note: Pass `Twilio.CURRENT` instead of recording sid to reference current active recording.",
+    "tags": [
+      "Api20100401CallRecording"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchCallRecording",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "CallSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "CallSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.call.call_recording",
+    "summary": "Fetch an instance of a recording for a call",
+    "tags": [
+      "Api20100401CallRecording"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteCallRecording",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "CallSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "CallSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Delete a recording from your account",
+    "tags": [
+      "Api20100401CallRecording"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchConference",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.conference",
+    "summary": "Fetch an instance of a conference",
+    "tags": [
+      "Api20100401Conference"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "UpdateConference",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.conference",
+    "summary": "",
+    "tags": [
+      "Api20100401Conference"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListConference",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Conferences.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "DateCreated",
+      "DateCreated<",
+      "DateCreated>",
+      "DateUpdated",
+      "DateUpdated<",
+      "DateUpdated>",
+      "FriendlyName",
+      "Status",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve a list of conferences belonging to the account used to make the request",
+    "tags": [
+      "Api20100401Conference"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListConferenceRecording",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings.json",
+    "path_parameters": [
+      "AccountSid",
+      "ConferenceSid"
+    ],
+    "query_parameters": [
+      "DateCreated",
+      "DateCreated<",
+      "DateCreated>",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve a list of recordings belonging to the call used to make the request",
+    "tags": [
+      "Api20100401ConferenceRecording"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "UpdateConferenceRecording",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "ConferenceSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "ConferenceSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.conference.conference_recording",
+    "summary": "Changes the status of the recording to paused, stopped, or in-progress. Note: To use `Twilio.CURRENT`, pass it as recording sid.",
+    "tags": [
+      "Api20100401ConferenceRecording"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchConferenceRecording",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "ConferenceSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "ConferenceSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.conference.conference_recording",
+    "summary": "Fetch an instance of a recording for a call",
+    "tags": [
+      "Api20100401ConferenceRecording"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteConferenceRecording",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "ConferenceSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "ConferenceSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Delete a recording from your account",
+    "tags": [
+      "Api20100401ConferenceRecording"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchConnectApp",
+    "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.connect_app",
+    "summary": "Fetch an instance of a connect-app",
+    "tags": [
+      "Api20100401ConnectApp"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "UpdateConnectApp",
+    "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.connect_app",
+    "summary": "Update a connect-app with the specified parameters",
+    "tags": [
+      "Api20100401ConnectApp"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteConnectApp",
+    "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Delete an instance of a connect-app",
+    "tags": [
+      "Api20100401ConnectApp"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListConnectApp",
+    "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve a list of connect-apps belonging to the account used to make the request",
+    "tags": [
+      "Api20100401ConnectApp"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListDependentPhoneNumber",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{AddressSid}/DependentPhoneNumbers.json",
+    "path_parameters": [
+      "AccountSid",
+      "AddressSid"
+    ],
+    "query_parameters": [
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401DependentPhoneNumber"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "UpdateIncomingPhoneNumber",
+    "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.incoming_phone_number",
+    "summary": "Update an incoming-phone-number instance.",
+    "tags": [
+      "Api20100401IncomingPhoneNumber"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchIncomingPhoneNumber",
+    "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.incoming_phone_number",
+    "summary": "Fetch an incoming-phone-number belonging to the account used to make the request.",
+    "tags": [
+      "Api20100401IncomingPhoneNumber"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteIncomingPhoneNumber",
+    "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Delete a phone-numbers belonging to the account used to make the request.",
+    "tags": [
+      "Api20100401IncomingPhoneNumber"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListIncomingPhoneNumber",
+    "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "Beta",
+      "FriendlyName",
+      "PhoneNumber",
+      "Origin",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve a list of incoming-phone-numbers belonging to the account used to make the request.",
+    "tags": [
+      "Api20100401IncomingPhoneNumber"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateIncomingPhoneNumber",
+    "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "AccountSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.incoming_phone_number",
+    "summary": "Purchase a phone-number for the account.",
+    "tags": [
+      "Api20100401IncomingPhoneNumber"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchIncomingPhoneNumberAssignedAddOn",
+    "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "ResourceSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "ResourceSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.incoming_phone_number.incoming_phone_number_assigned_add_on",
+    "summary": "Fetch an instance of an Add-on installation currently assigned to this Number.",
+    "tags": [
+      "Api20100401AssignedAddOn"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteIncomingPhoneNumberAssignedAddOn",
+    "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "ResourceSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "ResourceSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Remove the assignment of an Add-on installation from the Number specified.",
+    "tags": [
+      "Api20100401AssignedAddOn"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListIncomingPhoneNumberAssignedAddOn",
+    "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json",
+    "path_parameters": [
+      "AccountSid",
+      "ResourceSid"
+    ],
+    "query_parameters": [
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve a list of Add-on installations currently assigned to this Number.",
+    "tags": [
+      "Api20100401AssignedAddOn"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateIncomingPhoneNumberAssignedAddOn",
+    "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json",
+    "path_parameters": [
+      "AccountSid",
+      "ResourceSid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "ResourceSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.incoming_phone_number.incoming_phone_number_assigned_add_on",
+    "summary": "Assign an Add-on installation to the Number specified.",
+    "tags": [
+      "Api20100401AssignedAddOn"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchIncomingPhoneNumberAssignedAddOnExtension",
+    "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "ResourceSid",
+      "AssignedAddOnSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "ResourceSid",
+      "AssignedAddOnSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.incoming_phone_number.incoming_phone_number_assigned_add_on.incoming_phone_number_assigned_add_on_extension",
+    "summary": "Fetch an instance of an Extension for the Assigned Add-on.",
+    "tags": [
+      "Api20100401AssignedAddOnExtension"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListIncomingPhoneNumberAssignedAddOnExtension",
+    "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions.json",
+    "path_parameters": [
+      "AccountSid",
+      "ResourceSid",
+      "AssignedAddOnSid"
+    ],
+    "query_parameters": [
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve a list of Extensions for the Assigned Add-on.",
+    "tags": [
+      "Api20100401AssignedAddOnExtension"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListIncomingPhoneNumberLocal",
+    "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "Beta",
+      "FriendlyName",
+      "PhoneNumber",
+      "Origin",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401IncomingPhoneNumberLocal"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateIncomingPhoneNumberLocal",
+    "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "AccountSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.incoming_phone_number.incoming_phone_number_local",
+    "summary": "",
+    "tags": [
+      "Api20100401IncomingPhoneNumberLocal"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListIncomingPhoneNumberMobile",
+    "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "Beta",
+      "FriendlyName",
+      "PhoneNumber",
+      "Origin",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401IncomingPhoneNumberMobile"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateIncomingPhoneNumberMobile",
+    "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "AccountSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.incoming_phone_number.incoming_phone_number_mobile",
+    "summary": "",
+    "tags": [
+      "Api20100401IncomingPhoneNumberMobile"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListIncomingPhoneNumberTollFree",
+    "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "Beta",
+      "FriendlyName",
+      "PhoneNumber",
+      "Origin",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401IncomingPhoneNumberTollFree"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateIncomingPhoneNumberTollFree",
+    "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "AccountSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.incoming_phone_number.incoming_phone_number_toll_free",
+    "summary": "",
+    "tags": [
+      "Api20100401IncomingPhoneNumberTollFree"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchKey",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.key",
+    "summary": "",
+    "tags": [
+      "Api20100401Key"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "UpdateKey",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.key",
+    "summary": "",
+    "tags": [
+      "Api20100401Key"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteKey",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401Key"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListKey",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Keys.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401Key"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateNewKey",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Keys.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "AccountSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.new_key",
+    "summary": "",
+    "tags": [
+      "Api20100401NewKey"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteMedia",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "MessageSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "MessageSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Delete the Media resource.",
+    "tags": [
+      "Api20100401Media"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchMedia",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "MessageSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "MessageSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.message.media",
+    "summary": "Fetch a single Media resource associated with a specific Message resource",
+    "tags": [
+      "Api20100401Media"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListMedia",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media.json",
+    "path_parameters": [
+      "AccountSid",
+      "MessageSid"
+    ],
+    "query_parameters": [
+      "DateCreated",
+      "DateCreated<",
+      "DateCreated>",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Read a list of Media resources associated with a specific Message resource",
+    "tags": [
+      "Api20100401Media"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchMember",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "QueueSid",
+      "CallSid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "QueueSid",
+      "CallSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.queue.member",
+    "summary": "Fetch a specific member from the queue",
+    "tags": [
+      "Api20100401Member"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "UpdateMember",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "QueueSid",
+      "CallSid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "QueueSid",
+      "CallSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.queue.member",
+    "summary": "Dequeue a member from a queue and have the member's call begin executing the TwiML document at that URL",
+    "tags": [
+      "Api20100401Member"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListMember",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members.json",
+    "path_parameters": [
+      "AccountSid",
+      "QueueSid"
+    ],
+    "query_parameters": [
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve the members of the queue",
+    "tags": [
+      "Api20100401Member"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateMessage",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "AccountSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.message",
+    "summary": "Send a message",
+    "tags": [
+      "Api20100401Message"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListMessage",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "To",
+      "From",
+      "DateSent",
+      "DateSent<",
+      "DateSent>",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve a list of Message resources associated with a Twilio Account",
+    "tags": [
+      "Api20100401Message"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteMessage",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Deletes a Message resource from your account",
+    "tags": [
+      "Api20100401Message"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchMessage",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.message",
+    "summary": "Fetch a specific Message",
+    "tags": [
+      "Api20100401Message"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "UpdateMessage",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.message",
+    "summary": "Update a Message resource (used to redact Message `body` text and to cancel not-yet-sent messages)",
+    "tags": [
+      "Api20100401Message"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateMessageFeedback",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Feedback.json",
+    "path_parameters": [
+      "AccountSid",
+      "MessageSid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "MessageSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.message.message_feedback",
+    "summary": "Create Message Feedback to confirm a tracked user action was performed by the recipient of the associated Message",
+    "tags": [
+      "Api20100401Feedback"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateNewSigningKey",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "AccountSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.new_signing_key",
+    "summary": "Create a new Signing Key for the account making the request.",
+    "tags": [
+      "Api20100401NewSigningKey"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListSigningKey",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401SigningKey"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchNotification",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Notifications/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.notification-instance",
+    "summary": "Fetch a notification belonging to the account used to make the request",
+    "tags": [
+      "Api20100401Notification"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListNotification",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Notifications.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "Log",
+      "MessageDate",
+      "MessageDate<",
+      "MessageDate>",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve a list of notifications belonging to the account used to make the request",
+    "tags": [
+      "Api20100401Notification"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchOutgoingCallerId",
+    "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.outgoing_caller_id",
+    "summary": "Fetch an outgoing-caller-id belonging to the account used to make the request",
+    "tags": [
+      "Api20100401OutgoingCallerId"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "UpdateOutgoingCallerId",
+    "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.outgoing_caller_id",
+    "summary": "Updates the caller-id",
+    "tags": [
+      "Api20100401OutgoingCallerId"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteOutgoingCallerId",
+    "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Delete the caller-id specified from the account",
+    "tags": [
+      "Api20100401OutgoingCallerId"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListOutgoingCallerId",
+    "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "PhoneNumber",
+      "FriendlyName",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve a list of outgoing-caller-ids belonging to the account used to make the request",
+    "tags": [
+      "Api20100401OutgoingCallerId"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateValidationRequest",
+    "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "AccountSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.validation_request",
+    "summary": "",
+    "tags": [
+      "Api20100401ValidationRequest"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchParticipant",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "ConferenceSid",
+      "CallSid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "ConferenceSid",
+      "CallSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.conference.participant",
+    "summary": "Fetch an instance of a participant",
+    "tags": [
+      "Api20100401Participant"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "UpdateParticipant",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "ConferenceSid",
+      "CallSid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "ConferenceSid",
+      "CallSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.conference.participant",
+    "summary": "Update the properties of the participant",
+    "tags": [
+      "Api20100401Participant"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteParticipant",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "ConferenceSid",
+      "CallSid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "ConferenceSid",
+      "CallSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Kick a participant from a given conference",
+    "tags": [
+      "Api20100401Participant"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateParticipant",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json",
+    "path_parameters": [
+      "AccountSid",
+      "ConferenceSid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "ConferenceSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.conference.participant",
+    "summary": "",
+    "tags": [
+      "Api20100401Participant"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListParticipant",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json",
+    "path_parameters": [
+      "AccountSid",
+      "ConferenceSid"
+    ],
+    "query_parameters": [
+      "Muted",
+      "Hold",
+      "Coaching",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve a list of participants belonging to the account used to make the request",
+    "tags": [
+      "Api20100401Participant"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreatePayments",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments.json",
+    "path_parameters": [
+      "AccountSid",
+      "CallSid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "CallSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.call.payments",
+    "summary": "create an instance of payments. This will start a new payments session",
+    "tags": [
+      "Api20100401Payment"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "UpdatePayments",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "CallSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "CallSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.call.payments",
+    "summary": "update an instance of payments with different phases of payment flows.",
+    "tags": [
+      "Api20100401Payment"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchQueue",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.queue",
+    "summary": "Fetch an instance of a queue identified by the QueueSid",
+    "tags": [
+      "Api20100401Queue"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "UpdateQueue",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.queue",
+    "summary": "Update the queue with the new parameters",
+    "tags": [
+      "Api20100401Queue"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteQueue",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Remove an empty queue",
+    "tags": [
+      "Api20100401Queue"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListQueue",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve a list of queues belonging to the account used to make the request",
+    "tags": [
+      "Api20100401Queue"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateQueue",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "AccountSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.queue",
+    "summary": "Create a queue",
+    "tags": [
+      "Api20100401Queue"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateRealtimeTranscription",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions.json",
+    "path_parameters": [
+      "AccountSid",
+      "CallSid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "CallSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.call.realtime_transcription",
+    "summary": "Create a Transcription",
+    "tags": [
+      "Api20100401CallTranscription"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "UpdateRealtimeTranscription",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "CallSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "CallSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.call.realtime_transcription",
+    "summary": "Stop a Transcription using either the SID of the Transcription resource or the `name` used when creating the resource",
+    "tags": [
+      "Api20100401CallTranscription"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchRecording",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "IncludeSoftDeleted"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.recording",
+    "summary": "Fetch an instance of a recording",
+    "tags": [
+      "Api20100401Recording"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteRecording",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Delete a recording from your account",
+    "tags": [
+      "Api20100401Recording"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListRecording",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Recordings.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "DateCreated",
+      "DateCreated<",
+      "DateCreated>",
+      "CallSid",
+      "ConferenceSid",
+      "IncludeSoftDeleted",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve a list of recordings belonging to the account used to make the request",
+    "tags": [
+      "Api20100401Recording"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchRecordingAddOnResult",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "ReferenceSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "ReferenceSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.recording.recording_add_on_result",
+    "summary": "Fetch an instance of an AddOnResult",
+    "tags": [
+      "Api20100401AddOnResult"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteRecordingAddOnResult",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "ReferenceSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "ReferenceSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Delete a result and purge all associated Payloads",
+    "tags": [
+      "Api20100401AddOnResult"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListRecordingAddOnResult",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json",
+    "path_parameters": [
+      "AccountSid",
+      "ReferenceSid"
+    ],
+    "query_parameters": [
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve a list of results belonging to the recording",
+    "tags": [
+      "Api20100401AddOnResult"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchRecordingAddOnResultPayload",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "ReferenceSid",
+      "AddOnResultSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "ReferenceSid",
+      "AddOnResultSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.recording.recording_add_on_result.recording_add_on_result_payload",
+    "summary": "Fetch an instance of a result payload",
+    "tags": [
+      "Api20100401Payload"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteRecordingAddOnResultPayload",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "ReferenceSid",
+      "AddOnResultSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "ReferenceSid",
+      "AddOnResultSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Delete a payload from the result along with all associated Data",
+    "tags": [
+      "Api20100401Payload"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListRecordingAddOnResultPayload",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads.json",
+    "path_parameters": [
+      "AccountSid",
+      "ReferenceSid",
+      "AddOnResultSid"
+    ],
+    "query_parameters": [
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve a list of payloads belonging to the AddOnResult",
+    "tags": [
+      "Api20100401Payload"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchRecordingAddOnResultPayloadData",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{PayloadSid}/Data.json",
+    "path_parameters": [
+      "AccountSid",
+      "ReferenceSid",
+      "AddOnResultSid",
+      "PayloadSid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "ReferenceSid",
+      "AddOnResultSid",
+      "PayloadSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Fetch an instance of a result payload",
+    "tags": [
+      "Api20100401Data"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchRecordingTranscription",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "RecordingSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "RecordingSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.recording.recording_transcription",
+    "summary": "",
+    "tags": [
+      "Api20100401RecordingTranscription"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteRecordingTranscription",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "RecordingSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "RecordingSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401RecordingTranscription"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListRecordingTranscription",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions.json",
+    "path_parameters": [
+      "AccountSid",
+      "RecordingSid"
+    ],
+    "query_parameters": [
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401RecordingTranscription"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchShortCode",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.short_code",
+    "summary": "Fetch an instance of a short code",
+    "tags": [
+      "Api20100401ShortCode"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "UpdateShortCode",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.short_code",
+    "summary": "Update a short code with the following parameters",
+    "tags": [
+      "Api20100401ShortCode"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListShortCode",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "FriendlyName",
+      "ShortCode",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve a list of short-codes belonging to the account used to make the request",
+    "tags": [
+      "Api20100401ShortCode"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchSigningKey",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.signing_key",
+    "summary": "",
+    "tags": [
+      "Api20100401SigningKey"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "UpdateSigningKey",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.signing_key",
+    "summary": "",
+    "tags": [
+      "Api20100401SigningKey"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteSigningKey",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401SigningKey"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateSipAuthCallsCredentialListMapping",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json",
+    "path_parameters": [
+      "AccountSid",
+      "DomainSid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "DomainSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.sip.sip_domain.sip_auth.sip_auth_calls.sip_auth_calls_credential_list_mapping",
+    "summary": "Create a new credential list mapping resource",
+    "tags": [
+      "Api20100401AuthCallsCredentialListMapping"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListSipAuthCallsCredentialListMapping",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json",
+    "path_parameters": [
+      "AccountSid",
+      "DomainSid"
+    ],
+    "query_parameters": [
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve a list of credential list mappings belonging to the domain used in the request",
+    "tags": [
+      "Api20100401AuthCallsCredentialListMapping"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchSipAuthCallsCredentialListMapping",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "DomainSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "DomainSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.sip.sip_domain.sip_auth.sip_auth_calls.sip_auth_calls_credential_list_mapping",
+    "summary": "Fetch a specific instance of a credential list mapping",
+    "tags": [
+      "Api20100401AuthCallsCredentialListMapping"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteSipAuthCallsCredentialListMapping",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "DomainSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "DomainSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Delete a credential list mapping from the requested domain",
+    "tags": [
+      "Api20100401AuthCallsCredentialListMapping"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateSipAuthCallsIpAccessControlListMapping",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json",
+    "path_parameters": [
+      "AccountSid",
+      "DomainSid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "DomainSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.sip.sip_domain.sip_auth.sip_auth_calls.sip_auth_calls_ip_access_control_list_mapping",
+    "summary": "Create a new IP Access Control List mapping",
+    "tags": [
+      "Api20100401AuthCallsIpAccessControlListMapping"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListSipAuthCallsIpAccessControlListMapping",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json",
+    "path_parameters": [
+      "AccountSid",
+      "DomainSid"
+    ],
+    "query_parameters": [
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve a list of IP Access Control List mappings belonging to the domain used in the request",
+    "tags": [
+      "Api20100401AuthCallsIpAccessControlListMapping"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchSipAuthCallsIpAccessControlListMapping",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "DomainSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "DomainSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.sip.sip_domain.sip_auth.sip_auth_calls.sip_auth_calls_ip_access_control_list_mapping",
+    "summary": "Fetch a specific instance of an IP Access Control List mapping",
+    "tags": [
+      "Api20100401AuthCallsIpAccessControlListMapping"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteSipAuthCallsIpAccessControlListMapping",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "DomainSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "DomainSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Delete an IP Access Control List mapping from the requested domain",
+    "tags": [
+      "Api20100401AuthCallsIpAccessControlListMapping"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateSipAuthRegistrationsCredentialListMapping",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings.json",
+    "path_parameters": [
+      "AccountSid",
+      "DomainSid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "DomainSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.sip.sip_domain.sip_auth.sip_auth_registrations.sip_auth_registrations_credential_list_mapping",
+    "summary": "Create a new credential list mapping resource",
+    "tags": [
+      "Api20100401AuthRegistrationsCredentialListMapping"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListSipAuthRegistrationsCredentialListMapping",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings.json",
+    "path_parameters": [
+      "AccountSid",
+      "DomainSid"
+    ],
+    "query_parameters": [
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve a list of credential list mappings belonging to the domain used in the request",
+    "tags": [
+      "Api20100401AuthRegistrationsCredentialListMapping"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchSipAuthRegistrationsCredentialListMapping",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "DomainSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "DomainSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.sip.sip_domain.sip_auth.sip_auth_registrations.sip_auth_registrations_credential_list_mapping",
+    "summary": "Fetch a specific instance of a credential list mapping",
+    "tags": [
+      "Api20100401AuthRegistrationsCredentialListMapping"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteSipAuthRegistrationsCredentialListMapping",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "DomainSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "DomainSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Delete a credential list mapping from the requested domain",
+    "tags": [
+      "Api20100401AuthRegistrationsCredentialListMapping"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListSipCredential",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json",
+    "path_parameters": [
+      "AccountSid",
+      "CredentialListSid"
+    ],
+    "query_parameters": [
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve a list of credentials.",
+    "tags": [
+      "Api20100401Credential"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateSipCredential",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json",
+    "path_parameters": [
+      "AccountSid",
+      "CredentialListSid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "CredentialListSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.sip.sip_credential_list.sip_credential",
+    "summary": "Create a new credential resource.",
+    "tags": [
+      "Api20100401Credential"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchSipCredential",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "CredentialListSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "CredentialListSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.sip.sip_credential_list.sip_credential",
+    "summary": "Fetch a single credential.",
+    "tags": [
+      "Api20100401Credential"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "UpdateSipCredential",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "CredentialListSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "CredentialListSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.sip.sip_credential_list.sip_credential",
+    "summary": "Update a credential resource.",
+    "tags": [
+      "Api20100401Credential"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteSipCredential",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "CredentialListSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "CredentialListSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Delete a credential resource.",
+    "tags": [
+      "Api20100401Credential"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListSipCredentialList",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Get All Credential Lists",
+    "tags": [
+      "Api20100401CredentialList"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateSipCredentialList",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "AccountSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.sip.sip_credential_list",
+    "summary": "Create a Credential List",
+    "tags": [
+      "Api20100401CredentialList"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchSipCredentialList",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.sip.sip_credential_list",
+    "summary": "Get a Credential List",
+    "tags": [
+      "Api20100401CredentialList"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "UpdateSipCredentialList",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.sip.sip_credential_list",
+    "summary": "Update a Credential List",
+    "tags": [
+      "Api20100401CredentialList"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteSipCredentialList",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Delete a Credential List",
+    "tags": [
+      "Api20100401CredentialList"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateSipCredentialListMapping",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json",
+    "path_parameters": [
+      "AccountSid",
+      "DomainSid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "DomainSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.sip.sip_domain.sip_credential_list_mapping",
+    "summary": "Create a CredentialListMapping resource for an account.",
+    "tags": [
+      "Api20100401CredentialListMapping"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListSipCredentialListMapping",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json",
+    "path_parameters": [
+      "AccountSid",
+      "DomainSid"
+    ],
+    "query_parameters": [
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Read multiple CredentialListMapping resources from an account.",
+    "tags": [
+      "Api20100401CredentialListMapping"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchSipCredentialListMapping",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "DomainSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "DomainSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.sip.sip_domain.sip_credential_list_mapping",
+    "summary": "Fetch a single CredentialListMapping resource from an account.",
+    "tags": [
+      "Api20100401CredentialListMapping"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteSipCredentialListMapping",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "DomainSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "DomainSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Delete a CredentialListMapping resource from an account.",
+    "tags": [
+      "Api20100401CredentialListMapping"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListSipDomain",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve a list of domains belonging to the account used to make the request",
+    "tags": [
+      "Api20100401Domain"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateSipDomain",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "AccountSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.sip.sip_domain",
+    "summary": "Create a new Domain",
+    "tags": [
+      "Api20100401Domain"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchSipDomain",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.sip.sip_domain",
+    "summary": "Fetch an instance of a Domain",
+    "tags": [
+      "Api20100401Domain"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "UpdateSipDomain",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.sip.sip_domain",
+    "summary": "Update the attributes of a domain",
+    "tags": [
+      "Api20100401Domain"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteSipDomain",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Delete an instance of a Domain",
+    "tags": [
+      "Api20100401Domain"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListSipIpAccessControlList",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve a list of IpAccessControlLists that belong to the account used to make the request",
+    "tags": [
+      "Api20100401IpAccessControlList"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateSipIpAccessControlList",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "AccountSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.sip.sip_ip_access_control_list",
+    "summary": "Create a new IpAccessControlList resource",
+    "tags": [
+      "Api20100401IpAccessControlList"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchSipIpAccessControlList",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.sip.sip_ip_access_control_list",
+    "summary": "Fetch a specific instance of an IpAccessControlList",
+    "tags": [
+      "Api20100401IpAccessControlList"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "UpdateSipIpAccessControlList",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.sip.sip_ip_access_control_list",
+    "summary": "Rename an IpAccessControlList",
+    "tags": [
+      "Api20100401IpAccessControlList"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteSipIpAccessControlList",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Delete an IpAccessControlList from the requested account",
+    "tags": [
+      "Api20100401IpAccessControlList"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchSipIpAccessControlListMapping",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "DomainSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "DomainSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.sip.sip_domain.sip_ip_access_control_list_mapping",
+    "summary": "Fetch an IpAccessControlListMapping resource.",
+    "tags": [
+      "Api20100401IpAccessControlListMapping"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteSipIpAccessControlListMapping",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "DomainSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "DomainSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Delete an IpAccessControlListMapping resource.",
+    "tags": [
+      "Api20100401IpAccessControlListMapping"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateSipIpAccessControlListMapping",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json",
+    "path_parameters": [
+      "AccountSid",
+      "DomainSid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "DomainSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.sip.sip_domain.sip_ip_access_control_list_mapping",
+    "summary": "Create a new IpAccessControlListMapping resource.",
+    "tags": [
+      "Api20100401IpAccessControlListMapping"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListSipIpAccessControlListMapping",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json",
+    "path_parameters": [
+      "AccountSid",
+      "DomainSid"
+    ],
+    "query_parameters": [
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve a list of IpAccessControlListMapping resources.",
+    "tags": [
+      "Api20100401IpAccessControlListMapping"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListSipIpAddress",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json",
+    "path_parameters": [
+      "AccountSid",
+      "IpAccessControlListSid"
+    ],
+    "query_parameters": [
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Read multiple IpAddress resources.",
+    "tags": [
+      "Api20100401SipIpAddress"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateSipIpAddress",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json",
+    "path_parameters": [
+      "AccountSid",
+      "IpAccessControlListSid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "IpAccessControlListSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.sip.sip_ip_access_control_list.sip_ip_address",
+    "summary": "Create a new IpAddress resource.",
+    "tags": [
+      "Api20100401SipIpAddress"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchSipIpAddress",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "IpAccessControlListSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "IpAccessControlListSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.sip.sip_ip_access_control_list.sip_ip_address",
+    "summary": "Read one IpAddress resource.",
+    "tags": [
+      "Api20100401SipIpAddress"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "UpdateSipIpAddress",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "IpAccessControlListSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "IpAccessControlListSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.sip.sip_ip_access_control_list.sip_ip_address",
+    "summary": "Update an IpAddress resource.",
+    "tags": [
+      "Api20100401SipIpAddress"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteSipIpAddress",
+    "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "IpAccessControlListSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "IpAccessControlListSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Delete an IpAddress resource.",
+    "tags": [
+      "Api20100401SipIpAddress"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateSiprec",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec.json",
+    "path_parameters": [
+      "AccountSid",
+      "CallSid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "CallSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.call.siprec",
+    "summary": "Create a Siprec",
+    "tags": [
+      "Api20100401Siprec"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "UpdateSiprec",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "CallSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "CallSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.call.siprec",
+    "summary": "Stop a Siprec using either the SID of the Siprec resource or the `name` used when creating the resource",
+    "tags": [
+      "Api20100401Siprec"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateStream",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams.json",
+    "path_parameters": [
+      "AccountSid",
+      "CallSid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "CallSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.call.stream",
+    "summary": "Create a Stream",
+    "tags": [
+      "Api20100401Stream"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "UpdateStream",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "CallSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "CallSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.call.stream",
+    "summary": "Stop a Stream using either the SID of the Stream resource or the `name` used when creating the resource",
+    "tags": [
+      "Api20100401Stream"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateToken",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Tokens.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "AccountSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.token",
+    "summary": "Create a new token for ICE servers",
+    "tags": [
+      "Api20100401Token"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchTranscription",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.transcription",
+    "summary": "Fetch an instance of a Transcription",
+    "tags": [
+      "Api20100401Transcription"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteTranscription",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Delete a transcription from the account used to make the request",
+    "tags": [
+      "Api20100401Transcription"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListTranscription",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Transcriptions.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve a list of transcriptions belonging to the account used to make the request",
+    "tags": [
+      "Api20100401Transcription"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListUsageRecord",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "Category",
+      "StartDate",
+      "EndDate",
+      "IncludeSubaccounts",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve a list of usage-records belonging to the account used to make the request",
+    "tags": [
+      "Api20100401Record"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListUsageRecordAllTime",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/AllTime.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "Category",
+      "StartDate",
+      "EndDate",
+      "IncludeSubaccounts",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401AllTime"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListUsageRecordDaily",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Daily.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "Category",
+      "StartDate",
+      "EndDate",
+      "IncludeSubaccounts",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401Daily"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListUsageRecordLastMonth",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/LastMonth.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "Category",
+      "StartDate",
+      "EndDate",
+      "IncludeSubaccounts",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401LastMonth"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListUsageRecordMonthly",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Monthly.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "Category",
+      "StartDate",
+      "EndDate",
+      "IncludeSubaccounts",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401Monthly"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListUsageRecordThisMonth",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/ThisMonth.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "Category",
+      "StartDate",
+      "EndDate",
+      "IncludeSubaccounts",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401ThisMonth"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListUsageRecordToday",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Today.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "Category",
+      "StartDate",
+      "EndDate",
+      "IncludeSubaccounts",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401Today"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListUsageRecordYearly",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yearly.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "Category",
+      "StartDate",
+      "EndDate",
+      "IncludeSubaccounts",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401Yearly"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListUsageRecordYesterday",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yesterday.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "Category",
+      "StartDate",
+      "EndDate",
+      "IncludeSubaccounts",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401Yesterday"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "FetchUsageTrigger",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.usage.usage_trigger",
+    "summary": "Fetch and instance of a usage-trigger",
+    "tags": [
+      "Api20100401Trigger"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "UpdateUsageTrigger",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.usage.usage_trigger",
+    "summary": "Update an instance of a usage trigger",
+    "tags": [
+      "Api20100401Trigger"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteUsageTrigger",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "",
+    "tags": [
+      "Api20100401Trigger"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateUsageTrigger",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "AccountSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.usage.usage_trigger",
+    "summary": "Create a new UsageTrigger",
+    "tags": [
+      "Api20100401Trigger"
+    ]
+  },
+  {
+    "method": "GET",
+    "operation_id": "ListUsageTrigger",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json",
+    "path_parameters": [
+      "AccountSid"
+    ],
+    "query_parameters": [
+      "Recurring",
+      "TriggerBy",
+      "UsageCategory",
+      "PageSize",
+      "Page",
+      "PageToken"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Retrieve a list of usage-triggers belonging to the account used to make the request",
+    "tags": [
+      "Api20100401Trigger"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateUserDefinedMessage",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessages.json",
+    "path_parameters": [
+      "AccountSid",
+      "CallSid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "CallSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.call.user_defined_message",
+    "summary": "Create a new User Defined Message for the given Call SID.",
+    "tags": [
+      "Api20100401UserDefinedMessage"
+    ]
+  },
+  {
+    "method": "POST",
+    "operation_id": "CreateUserDefinedMessageSubscription",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions.json",
+    "path_parameters": [
+      "AccountSid",
+      "CallSid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "CallSid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/api.v2010.account.call.user_defined_message_subscription",
+    "summary": "Subscribe to User Defined Messages for a given Call SID.",
+    "tags": [
+      "Api20100401UserDefinedMessageSubscription"
+    ]
+  },
+  {
+    "method": "DELETE",
+    "operation_id": "DeleteUserDefinedMessageSubscription",
+    "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions/{Sid}.json",
+    "path_parameters": [
+      "AccountSid",
+      "CallSid",
+      "Sid"
+    ],
+    "query_parameters": [
+      "AccountSid",
+      "CallSid",
+      "Sid"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": null,
+    "summary": "Delete a specific User Defined Message Subscription.",
+    "tags": [
+      "Api20100401UserDefinedMessageSubscription"
+    ]
+  }
+]

@@ -1,0 +1,4559 @@
+{
+  "api_slug": "twilio",
+  "generated_at": "2025-11-11T19:58:09.532515+00:00",
+  "routes": [
+    {
+      "component": "api.v2010.account",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account",
+          "filters": [],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts.json",
+      "status": "planned",
+      "summary": "Create a new Twilio Subaccount from the account making the request",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts.json",
+      "status": "needs_mapping",
+      "summary": "Retrieves a collection of Accounts belonging to the account used to make the request",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account",
+          "filters": [
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account",
+            "Query parameters: Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{Sid}.json",
+      "status": "planned",
+      "summary": "Fetch the account specified by the provided Account Sid",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account",
+          "filters": [
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account",
+            "Query parameters: Sid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{Sid}.json",
+      "status": "planned",
+      "summary": "Modify the properties of a given Account",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.address",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.address",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.address",
+            "Query parameters: AccountSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses.json",
+      "status": "planned",
+      "summary": "",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.address",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.address",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.address",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+      "status": "planned",
+      "summary": "",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.address",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.address",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.address",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json",
+      "status": "planned",
+      "summary": "",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.application",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.application",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.application",
+            "Query parameters: AccountSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications.json",
+      "status": "planned",
+      "summary": "Create a new application within your account",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve a list of applications representing an application within the requesting account",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "Delete the application by the specified application sid",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.application",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.application",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.application",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
+      "status": "planned",
+      "summary": "Fetch the application specified by the provided sid",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.application",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.application",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.application",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json",
+      "status": "planned",
+      "summary": "Updates the application's properties",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.authorized_connect_app",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.authorized_connect_app",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "ConnectAppSid",
+              "operator": "eq",
+              "value_source": "path.ConnectAppSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.authorized_connect_app",
+            "Query parameters: AccountSid, ConnectAppSid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json",
+      "status": "planned",
+      "summary": "Fetch an instance of an authorized-connect-app",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve a list of authorized-connect-apps belonging to the account used to make the request",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.available_phone_number_country",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.available_phone_number_country",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "CountryCode",
+              "operator": "eq",
+              "value_source": "path.CountryCode"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.available_phone_number_country",
+            "Query parameters: AccountSid, CountryCode"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json",
+      "status": "planned",
+      "summary": "",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Local.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/MachineToMachine.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Mobile.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/National.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/SharedCost.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/TollFree.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Voip.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.balance",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.balance",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.balance",
+            "Query parameters: AccountSid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Balance.json",
+      "status": "planned",
+      "summary": "Fetch the balance for an Account based on Account Sid. Balance changes may not be reflected immediately. Child accounts do not contain balance information",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.call",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.call",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.call",
+            "Query parameters: AccountSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
+      "status": "planned",
+      "summary": "Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client connections",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
+      "status": "needs_mapping",
+      "summary": "Retrieves a collection of calls made to and from your account",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "Delete a Call record from your account. Once the record is deleted, it will no longer appear in the API and Account Portal logs.",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.call",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.call",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.call",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+      "status": "planned",
+      "summary": "Fetch the call specified by the provided Call SID",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.call",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.call",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.call",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json",
+      "status": "planned",
+      "summary": "Initiates a call redirect or terminates a call",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve a list of all events for a call.",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.call.call_notification-instance",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.call.call_notification-instance",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "CallSid",
+              "operator": "eq",
+              "value_source": "path.CallSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.call.call_notification-instance",
+            "Query parameters: AccountSid, CallSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications/{Sid}.json",
+      "status": "planned",
+      "summary": "",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.call.call_recording",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.call.call_recording",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "CallSid",
+              "operator": "eq",
+              "value_source": "path.CallSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.call.call_recording",
+            "Query parameters: AccountSid, CallSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json",
+      "status": "planned",
+      "summary": "Create a recording for the call",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve a list of recordings belonging to the call used to make the request",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.call.call_recording",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.call.call_recording",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "CallSid",
+              "operator": "eq",
+              "value_source": "path.CallSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.call.call_recording",
+            "Query parameters: AccountSid, CallSid, Sid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+      "status": "planned",
+      "summary": "Changes the status of the recording to paused, stopped, or in-progress. Note: Pass `Twilio.CURRENT` instead of recording sid to reference current active recording.",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.call.call_recording",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.call.call_recording",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "CallSid",
+              "operator": "eq",
+              "value_source": "path.CallSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.call.call_recording",
+            "Query parameters: AccountSid, CallSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+      "status": "planned",
+      "summary": "Fetch an instance of a recording for a call",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "Delete a recording from your account",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.conference",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.conference",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.conference",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json",
+      "status": "planned",
+      "summary": "Fetch an instance of a conference",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.conference",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.conference",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.conference",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json",
+      "status": "planned",
+      "summary": "",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve a list of conferences belonging to the account used to make the request",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve a list of recordings belonging to the call used to make the request",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.conference.conference_recording",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.conference.conference_recording",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "ConferenceSid",
+              "operator": "eq",
+              "value_source": "path.ConferenceSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.conference.conference_recording",
+            "Query parameters: AccountSid, ConferenceSid, Sid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json",
+      "status": "planned",
+      "summary": "Changes the status of the recording to paused, stopped, or in-progress. Note: To use `Twilio.CURRENT`, pass it as recording sid.",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.conference.conference_recording",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.conference.conference_recording",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "ConferenceSid",
+              "operator": "eq",
+              "value_source": "path.ConferenceSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.conference.conference_recording",
+            "Query parameters: AccountSid, ConferenceSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json",
+      "status": "planned",
+      "summary": "Fetch an instance of a recording for a call",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "Delete a recording from your account",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.connect_app",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.connect_app",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.connect_app",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json",
+      "status": "planned",
+      "summary": "Fetch an instance of a connect-app",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.connect_app",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.connect_app",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.connect_app",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json",
+      "status": "planned",
+      "summary": "Update a connect-app with the specified parameters",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "Delete an instance of a connect-app",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/ConnectApps.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve a list of connect-apps belonging to the account used to make the request",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Addresses/{AddressSid}/DependentPhoneNumbers.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.incoming_phone_number",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.incoming_phone_number",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.incoming_phone_number",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+      "status": "planned",
+      "summary": "Update an incoming-phone-number instance.",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.incoming_phone_number",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.incoming_phone_number",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.incoming_phone_number",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+      "status": "planned",
+      "summary": "Fetch an incoming-phone-number belonging to the account used to make the request.",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "Delete a phone-numbers belonging to the account used to make the request.",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve a list of incoming-phone-numbers belonging to the account used to make the request.",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.incoming_phone_number",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.incoming_phone_number",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.incoming_phone_number",
+            "Query parameters: AccountSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+      "status": "planned",
+      "summary": "Purchase a phone-number for the account.",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.incoming_phone_number.incoming_phone_number_assigned_add_on",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.incoming_phone_number.incoming_phone_number_assigned_add_on",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "ResourceSid",
+              "operator": "eq",
+              "value_source": "path.ResourceSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.incoming_phone_number.incoming_phone_number_assigned_add_on",
+            "Query parameters: AccountSid, ResourceSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json",
+      "status": "planned",
+      "summary": "Fetch an instance of an Add-on installation currently assigned to this Number.",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "Remove the assignment of an Add-on installation from the Number specified.",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve a list of Add-on installations currently assigned to this Number.",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.incoming_phone_number.incoming_phone_number_assigned_add_on",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.incoming_phone_number.incoming_phone_number_assigned_add_on",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "ResourceSid",
+              "operator": "eq",
+              "value_source": "path.ResourceSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.incoming_phone_number.incoming_phone_number_assigned_add_on",
+            "Query parameters: AccountSid, ResourceSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json",
+      "status": "planned",
+      "summary": "Assign an Add-on installation to the Number specified.",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.incoming_phone_number.incoming_phone_number_assigned_add_on.incoming_phone_number_assigned_add_on_extension",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.incoming_phone_number.incoming_phone_number_assigned_add_on.incoming_phone_number_assigned_add_on_extension",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "ResourceSid",
+              "operator": "eq",
+              "value_source": "path.ResourceSid"
+            },
+            {
+              "field": "AssignedAddOnSid",
+              "operator": "eq",
+              "value_source": "path.AssignedAddOnSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.incoming_phone_number.incoming_phone_number_assigned_add_on.incoming_phone_number_assigned_add_on_extension",
+            "Query parameters: AccountSid, ResourceSid, AssignedAddOnSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions/{Sid}.json",
+      "status": "planned",
+      "summary": "Fetch an instance of an Extension for the Assigned Add-on.",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve a list of Extensions for the Assigned Add-on.",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.incoming_phone_number.incoming_phone_number_local",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.incoming_phone_number.incoming_phone_number_local",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.incoming_phone_number.incoming_phone_number_local",
+            "Query parameters: AccountSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json",
+      "status": "planned",
+      "summary": "",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.incoming_phone_number.incoming_phone_number_mobile",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.incoming_phone_number.incoming_phone_number_mobile",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.incoming_phone_number.incoming_phone_number_mobile",
+            "Query parameters: AccountSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json",
+      "status": "planned",
+      "summary": "",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.incoming_phone_number.incoming_phone_number_toll_free",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.incoming_phone_number.incoming_phone_number_toll_free",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.incoming_phone_number.incoming_phone_number_toll_free",
+            "Query parameters: AccountSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json",
+      "status": "planned",
+      "summary": "",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.key",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.key",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.key",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json",
+      "status": "planned",
+      "summary": "",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.key",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.key",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.key",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json",
+      "status": "planned",
+      "summary": "",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Keys.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.new_key",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.new_key",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.new_key",
+            "Query parameters: AccountSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Keys.json",
+      "status": "planned",
+      "summary": "",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "Delete the Media resource.",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.message.media",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.message.media",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "MessageSid",
+              "operator": "eq",
+              "value_source": "path.MessageSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.message.media",
+            "Query parameters: AccountSid, MessageSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json",
+      "status": "planned",
+      "summary": "Fetch a single Media resource associated with a specific Message resource",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media.json",
+      "status": "needs_mapping",
+      "summary": "Read a list of Media resources associated with a specific Message resource",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.queue.member",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.queue.member",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "QueueSid",
+              "operator": "eq",
+              "value_source": "path.QueueSid"
+            },
+            {
+              "field": "CallSid",
+              "operator": "eq",
+              "value_source": "path.CallSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.queue.member",
+            "Query parameters: AccountSid, QueueSid, CallSid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json",
+      "status": "planned",
+      "summary": "Fetch a specific member from the queue",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.queue.member",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.queue.member",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "QueueSid",
+              "operator": "eq",
+              "value_source": "path.QueueSid"
+            },
+            {
+              "field": "CallSid",
+              "operator": "eq",
+              "value_source": "path.CallSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.queue.member",
+            "Query parameters: AccountSid, QueueSid, CallSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json",
+      "status": "planned",
+      "summary": "Dequeue a member from a queue and have the member's call begin executing the TwiML document at that URL",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve the members of the queue",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.message",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.message",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.message",
+            "Query parameters: AccountSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+      "status": "planned",
+      "summary": "Send a message",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve a list of Message resources associated with a Twilio Account",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "Deletes a Message resource from your account",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.message",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.message",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.message",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "status": "planned",
+      "summary": "Fetch a specific Message",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.message",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.message",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.message",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json",
+      "status": "planned",
+      "summary": "Update a Message resource (used to redact Message `body` text and to cancel not-yet-sent messages)",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.message.message_feedback",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.message.message_feedback",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "MessageSid",
+              "operator": "eq",
+              "value_source": "path.MessageSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.message.message_feedback",
+            "Query parameters: AccountSid, MessageSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Feedback.json",
+      "status": "planned",
+      "summary": "Create Message Feedback to confirm a tracked user action was performed by the recipient of the associated Message",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.new_signing_key",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.new_signing_key",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.new_signing_key",
+            "Query parameters: AccountSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json",
+      "status": "planned",
+      "summary": "Create a new Signing Key for the account making the request.",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.notification-instance",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.notification-instance",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.notification-instance",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Notifications/{Sid}.json",
+      "status": "planned",
+      "summary": "Fetch a notification belonging to the account used to make the request",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Notifications.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve a list of notifications belonging to the account used to make the request",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.outgoing_caller_id",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.outgoing_caller_id",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.outgoing_caller_id",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json",
+      "status": "planned",
+      "summary": "Fetch an outgoing-caller-id belonging to the account used to make the request",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.outgoing_caller_id",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.outgoing_caller_id",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.outgoing_caller_id",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json",
+      "status": "planned",
+      "summary": "Updates the caller-id",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "Delete the caller-id specified from the account",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve a list of outgoing-caller-ids belonging to the account used to make the request",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.validation_request",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.validation_request",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.validation_request",
+            "Query parameters: AccountSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json",
+      "status": "planned",
+      "summary": "",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.conference.participant",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.conference.participant",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "ConferenceSid",
+              "operator": "eq",
+              "value_source": "path.ConferenceSid"
+            },
+            {
+              "field": "CallSid",
+              "operator": "eq",
+              "value_source": "path.CallSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.conference.participant",
+            "Query parameters: AccountSid, ConferenceSid, CallSid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json",
+      "status": "planned",
+      "summary": "Fetch an instance of a participant",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.conference.participant",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.conference.participant",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "ConferenceSid",
+              "operator": "eq",
+              "value_source": "path.ConferenceSid"
+            },
+            {
+              "field": "CallSid",
+              "operator": "eq",
+              "value_source": "path.CallSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.conference.participant",
+            "Query parameters: AccountSid, ConferenceSid, CallSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json",
+      "status": "planned",
+      "summary": "Update the properties of the participant",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json",
+      "status": "needs_mapping",
+      "summary": "Kick a participant from a given conference",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.conference.participant",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.conference.participant",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "ConferenceSid",
+              "operator": "eq",
+              "value_source": "path.ConferenceSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.conference.participant",
+            "Query parameters: AccountSid, ConferenceSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json",
+      "status": "planned",
+      "summary": "",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve a list of participants belonging to the account used to make the request",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.call.payments",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.call.payments",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "CallSid",
+              "operator": "eq",
+              "value_source": "path.CallSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.call.payments",
+            "Query parameters: AccountSid, CallSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments.json",
+      "status": "planned",
+      "summary": "create an instance of payments. This will start a new payments session",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.call.payments",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.call.payments",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "CallSid",
+              "operator": "eq",
+              "value_source": "path.CallSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.call.payments",
+            "Query parameters: AccountSid, CallSid, Sid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments/{Sid}.json",
+      "status": "planned",
+      "summary": "update an instance of payments with different phases of payment flows.",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.queue",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.queue",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.queue",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json",
+      "status": "planned",
+      "summary": "Fetch an instance of a queue identified by the QueueSid",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.queue",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.queue",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.queue",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json",
+      "status": "planned",
+      "summary": "Update the queue with the new parameters",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "Remove an empty queue",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve a list of queues belonging to the account used to make the request",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.queue",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.queue",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.queue",
+            "Query parameters: AccountSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Queues.json",
+      "status": "planned",
+      "summary": "Create a queue",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.call.realtime_transcription",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.call.realtime_transcription",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "CallSid",
+              "operator": "eq",
+              "value_source": "path.CallSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.call.realtime_transcription",
+            "Query parameters: AccountSid, CallSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions.json",
+      "status": "planned",
+      "summary": "Create a Transcription",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.call.realtime_transcription",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.call.realtime_transcription",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "CallSid",
+              "operator": "eq",
+              "value_source": "path.CallSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.call.realtime_transcription",
+            "Query parameters: AccountSid, CallSid, Sid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions/{Sid}.json",
+      "status": "planned",
+      "summary": "Stop a Transcription using either the SID of the Transcription resource or the `name` used when creating the resource",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.recording",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.recording",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.recording",
+            "Query parameters: IncludeSoftDeleted"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json",
+      "status": "planned",
+      "summary": "Fetch an instance of a recording",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "Delete a recording from your account",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve a list of recordings belonging to the account used to make the request",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.recording.recording_add_on_result",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.recording.recording_add_on_result",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "ReferenceSid",
+              "operator": "eq",
+              "value_source": "path.ReferenceSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.recording.recording_add_on_result",
+            "Query parameters: AccountSid, ReferenceSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json",
+      "status": "planned",
+      "summary": "Fetch an instance of an AddOnResult",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "Delete a result and purge all associated Payloads",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve a list of results belonging to the recording",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.recording.recording_add_on_result.recording_add_on_result_payload",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.recording.recording_add_on_result.recording_add_on_result_payload",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "ReferenceSid",
+              "operator": "eq",
+              "value_source": "path.ReferenceSid"
+            },
+            {
+              "field": "AddOnResultSid",
+              "operator": "eq",
+              "value_source": "path.AddOnResultSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.recording.recording_add_on_result.recording_add_on_result_payload",
+            "Query parameters: AccountSid, ReferenceSid, AddOnResultSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json",
+      "status": "planned",
+      "summary": "Fetch an instance of a result payload",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "Delete a payload from the result along with all associated Data",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve a list of payloads belonging to the AddOnResult",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{PayloadSid}/Data.json",
+      "status": "needs_mapping",
+      "summary": "Fetch an instance of a result payload",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.recording.recording_transcription",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.recording.recording_transcription",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "RecordingSid",
+              "operator": "eq",
+              "value_source": "path.RecordingSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.recording.recording_transcription",
+            "Query parameters: AccountSid, RecordingSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json",
+      "status": "planned",
+      "summary": "",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.short_code",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.short_code",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.short_code",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json",
+      "status": "planned",
+      "summary": "Fetch an instance of a short code",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.short_code",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.short_code",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.short_code",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json",
+      "status": "planned",
+      "summary": "Update a short code with the following parameters",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve a list of short-codes belonging to the account used to make the request",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.signing_key",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.signing_key",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.signing_key",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json",
+      "status": "planned",
+      "summary": "",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.signing_key",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.signing_key",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.signing_key",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json",
+      "status": "planned",
+      "summary": "",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.sip.sip_domain.sip_auth.sip_auth_calls.sip_auth_calls_credential_list_mapping",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.sip.sip_domain.sip_auth.sip_auth_calls.sip_auth_calls_credential_list_mapping",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "DomainSid",
+              "operator": "eq",
+              "value_source": "path.DomainSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.sip.sip_domain.sip_auth.sip_auth_calls.sip_auth_calls_credential_list_mapping",
+            "Query parameters: AccountSid, DomainSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json",
+      "status": "planned",
+      "summary": "Create a new credential list mapping resource",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve a list of credential list mappings belonging to the domain used in the request",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.sip.sip_domain.sip_auth.sip_auth_calls.sip_auth_calls_credential_list_mapping",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.sip.sip_domain.sip_auth.sip_auth_calls.sip_auth_calls_credential_list_mapping",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "DomainSid",
+              "operator": "eq",
+              "value_source": "path.DomainSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.sip.sip_domain.sip_auth.sip_auth_calls.sip_auth_calls_credential_list_mapping",
+            "Query parameters: AccountSid, DomainSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json",
+      "status": "planned",
+      "summary": "Fetch a specific instance of a credential list mapping",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "Delete a credential list mapping from the requested domain",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.sip.sip_domain.sip_auth.sip_auth_calls.sip_auth_calls_ip_access_control_list_mapping",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.sip.sip_domain.sip_auth.sip_auth_calls.sip_auth_calls_ip_access_control_list_mapping",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "DomainSid",
+              "operator": "eq",
+              "value_source": "path.DomainSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.sip.sip_domain.sip_auth.sip_auth_calls.sip_auth_calls_ip_access_control_list_mapping",
+            "Query parameters: AccountSid, DomainSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json",
+      "status": "planned",
+      "summary": "Create a new IP Access Control List mapping",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve a list of IP Access Control List mappings belonging to the domain used in the request",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.sip.sip_domain.sip_auth.sip_auth_calls.sip_auth_calls_ip_access_control_list_mapping",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.sip.sip_domain.sip_auth.sip_auth_calls.sip_auth_calls_ip_access_control_list_mapping",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "DomainSid",
+              "operator": "eq",
+              "value_source": "path.DomainSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.sip.sip_domain.sip_auth.sip_auth_calls.sip_auth_calls_ip_access_control_list_mapping",
+            "Query parameters: AccountSid, DomainSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json",
+      "status": "planned",
+      "summary": "Fetch a specific instance of an IP Access Control List mapping",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "Delete an IP Access Control List mapping from the requested domain",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.sip.sip_domain.sip_auth.sip_auth_registrations.sip_auth_registrations_credential_list_mapping",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.sip.sip_domain.sip_auth.sip_auth_registrations.sip_auth_registrations_credential_list_mapping",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "DomainSid",
+              "operator": "eq",
+              "value_source": "path.DomainSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.sip.sip_domain.sip_auth.sip_auth_registrations.sip_auth_registrations_credential_list_mapping",
+            "Query parameters: AccountSid, DomainSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings.json",
+      "status": "planned",
+      "summary": "Create a new credential list mapping resource",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve a list of credential list mappings belonging to the domain used in the request",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.sip.sip_domain.sip_auth.sip_auth_registrations.sip_auth_registrations_credential_list_mapping",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.sip.sip_domain.sip_auth.sip_auth_registrations.sip_auth_registrations_credential_list_mapping",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "DomainSid",
+              "operator": "eq",
+              "value_source": "path.DomainSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.sip.sip_domain.sip_auth.sip_auth_registrations.sip_auth_registrations_credential_list_mapping",
+            "Query parameters: AccountSid, DomainSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings/{Sid}.json",
+      "status": "planned",
+      "summary": "Fetch a specific instance of a credential list mapping",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "Delete a credential list mapping from the requested domain",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve a list of credentials.",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.sip.sip_credential_list.sip_credential",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.sip.sip_credential_list.sip_credential",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "CredentialListSid",
+              "operator": "eq",
+              "value_source": "path.CredentialListSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.sip.sip_credential_list.sip_credential",
+            "Query parameters: AccountSid, CredentialListSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json",
+      "status": "planned",
+      "summary": "Create a new credential resource.",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.sip.sip_credential_list.sip_credential",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.sip.sip_credential_list.sip_credential",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "CredentialListSid",
+              "operator": "eq",
+              "value_source": "path.CredentialListSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.sip.sip_credential_list.sip_credential",
+            "Query parameters: AccountSid, CredentialListSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json",
+      "status": "planned",
+      "summary": "Fetch a single credential.",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.sip.sip_credential_list.sip_credential",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.sip.sip_credential_list.sip_credential",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "CredentialListSid",
+              "operator": "eq",
+              "value_source": "path.CredentialListSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.sip.sip_credential_list.sip_credential",
+            "Query parameters: AccountSid, CredentialListSid, Sid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json",
+      "status": "planned",
+      "summary": "Update a credential resource.",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "Delete a credential resource.",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json",
+      "status": "needs_mapping",
+      "summary": "Get All Credential Lists",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.sip.sip_credential_list",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.sip.sip_credential_list",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.sip.sip_credential_list",
+            "Query parameters: AccountSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json",
+      "status": "planned",
+      "summary": "Create a Credential List",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.sip.sip_credential_list",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.sip.sip_credential_list",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.sip.sip_credential_list",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json",
+      "status": "planned",
+      "summary": "Get a Credential List",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.sip.sip_credential_list",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.sip.sip_credential_list",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.sip.sip_credential_list",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json",
+      "status": "planned",
+      "summary": "Update a Credential List",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "Delete a Credential List",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.sip.sip_domain.sip_credential_list_mapping",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.sip.sip_domain.sip_credential_list_mapping",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "DomainSid",
+              "operator": "eq",
+              "value_source": "path.DomainSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.sip.sip_domain.sip_credential_list_mapping",
+            "Query parameters: AccountSid, DomainSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json",
+      "status": "planned",
+      "summary": "Create a CredentialListMapping resource for an account.",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json",
+      "status": "needs_mapping",
+      "summary": "Read multiple CredentialListMapping resources from an account.",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.sip.sip_domain.sip_credential_list_mapping",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.sip.sip_domain.sip_credential_list_mapping",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "DomainSid",
+              "operator": "eq",
+              "value_source": "path.DomainSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.sip.sip_domain.sip_credential_list_mapping",
+            "Query parameters: AccountSid, DomainSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json",
+      "status": "planned",
+      "summary": "Fetch a single CredentialListMapping resource from an account.",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "Delete a CredentialListMapping resource from an account.",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve a list of domains belonging to the account used to make the request",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.sip.sip_domain",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.sip.sip_domain",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.sip.sip_domain",
+            "Query parameters: AccountSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json",
+      "status": "planned",
+      "summary": "Create a new Domain",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.sip.sip_domain",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.sip.sip_domain",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.sip.sip_domain",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json",
+      "status": "planned",
+      "summary": "Fetch an instance of a Domain",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.sip.sip_domain",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.sip.sip_domain",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.sip.sip_domain",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json",
+      "status": "planned",
+      "summary": "Update the attributes of a domain",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "Delete an instance of a Domain",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve a list of IpAccessControlLists that belong to the account used to make the request",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.sip.sip_ip_access_control_list",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.sip.sip_ip_access_control_list",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.sip.sip_ip_access_control_list",
+            "Query parameters: AccountSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json",
+      "status": "planned",
+      "summary": "Create a new IpAccessControlList resource",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.sip.sip_ip_access_control_list",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.sip.sip_ip_access_control_list",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.sip.sip_ip_access_control_list",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json",
+      "status": "planned",
+      "summary": "Fetch a specific instance of an IpAccessControlList",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.sip.sip_ip_access_control_list",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.sip.sip_ip_access_control_list",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.sip.sip_ip_access_control_list",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json",
+      "status": "planned",
+      "summary": "Rename an IpAccessControlList",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "Delete an IpAccessControlList from the requested account",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.sip.sip_domain.sip_ip_access_control_list_mapping",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.sip.sip_domain.sip_ip_access_control_list_mapping",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "DomainSid",
+              "operator": "eq",
+              "value_source": "path.DomainSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.sip.sip_domain.sip_ip_access_control_list_mapping",
+            "Query parameters: AccountSid, DomainSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json",
+      "status": "planned",
+      "summary": "Fetch an IpAccessControlListMapping resource.",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "Delete an IpAccessControlListMapping resource.",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.sip.sip_domain.sip_ip_access_control_list_mapping",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.sip.sip_domain.sip_ip_access_control_list_mapping",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "DomainSid",
+              "operator": "eq",
+              "value_source": "path.DomainSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.sip.sip_domain.sip_ip_access_control_list_mapping",
+            "Query parameters: AccountSid, DomainSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json",
+      "status": "planned",
+      "summary": "Create a new IpAccessControlListMapping resource.",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve a list of IpAccessControlListMapping resources.",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json",
+      "status": "needs_mapping",
+      "summary": "Read multiple IpAddress resources.",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.sip.sip_ip_access_control_list.sip_ip_address",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.sip.sip_ip_access_control_list.sip_ip_address",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "IpAccessControlListSid",
+              "operator": "eq",
+              "value_source": "path.IpAccessControlListSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.sip.sip_ip_access_control_list.sip_ip_address",
+            "Query parameters: AccountSid, IpAccessControlListSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json",
+      "status": "planned",
+      "summary": "Create a new IpAddress resource.",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.sip.sip_ip_access_control_list.sip_ip_address",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.sip.sip_ip_access_control_list.sip_ip_address",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "IpAccessControlListSid",
+              "operator": "eq",
+              "value_source": "path.IpAccessControlListSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.sip.sip_ip_access_control_list.sip_ip_address",
+            "Query parameters: AccountSid, IpAccessControlListSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json",
+      "status": "planned",
+      "summary": "Read one IpAddress resource.",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.sip.sip_ip_access_control_list.sip_ip_address",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.sip.sip_ip_access_control_list.sip_ip_address",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "IpAccessControlListSid",
+              "operator": "eq",
+              "value_source": "path.IpAccessControlListSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.sip.sip_ip_access_control_list.sip_ip_address",
+            "Query parameters: AccountSid, IpAccessControlListSid, Sid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json",
+      "status": "planned",
+      "summary": "Update an IpAddress resource.",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "Delete an IpAddress resource.",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.call.siprec",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.call.siprec",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "CallSid",
+              "operator": "eq",
+              "value_source": "path.CallSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.call.siprec",
+            "Query parameters: AccountSid, CallSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec.json",
+      "status": "planned",
+      "summary": "Create a Siprec",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.call.siprec",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.call.siprec",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "CallSid",
+              "operator": "eq",
+              "value_source": "path.CallSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.call.siprec",
+            "Query parameters: AccountSid, CallSid, Sid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec/{Sid}.json",
+      "status": "planned",
+      "summary": "Stop a Siprec using either the SID of the Siprec resource or the `name` used when creating the resource",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.call.stream",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.call.stream",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "CallSid",
+              "operator": "eq",
+              "value_source": "path.CallSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.call.stream",
+            "Query parameters: AccountSid, CallSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams.json",
+      "status": "planned",
+      "summary": "Create a Stream",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.call.stream",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.call.stream",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "CallSid",
+              "operator": "eq",
+              "value_source": "path.CallSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.call.stream",
+            "Query parameters: AccountSid, CallSid, Sid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams/{Sid}.json",
+      "status": "planned",
+      "summary": "Stop a Stream using either the SID of the Stream resource or the `name` used when creating the resource",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.token",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.token",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.token",
+            "Query parameters: AccountSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Tokens.json",
+      "status": "planned",
+      "summary": "Create a new token for ICE servers",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.transcription",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.transcription",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.transcription",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json",
+      "status": "planned",
+      "summary": "Fetch an instance of a Transcription",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "Delete a transcription from the account used to make the request",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Transcriptions.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve a list of transcriptions belonging to the account used to make the request",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve a list of usage-records belonging to the account used to make the request",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/AllTime.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Daily.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/LastMonth.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Monthly.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/ThisMonth.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Today.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yearly.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yesterday.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.usage.usage_trigger",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "api.v2010.account.usage.usage_trigger",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.usage.usage_trigger",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json",
+      "status": "planned",
+      "summary": "Fetch and instance of a usage-trigger",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.usage.usage_trigger",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.usage.usage_trigger",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "sid",
+              "operator": "eq",
+              "value_source": "path.Sid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.usage.usage_trigger",
+            "Query parameters: AccountSid, Sid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json",
+      "status": "planned",
+      "summary": "Update an instance of a usage trigger",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.usage.usage_trigger",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.usage.usage_trigger",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.usage.usage_trigger",
+            "Query parameters: AccountSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json",
+      "status": "planned",
+      "summary": "Create a new UsageTrigger",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "GET",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json",
+      "status": "needs_mapping",
+      "summary": "Retrieve a list of usage-triggers belonging to the account used to make the request",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    },
+    {
+      "component": "api.v2010.account.call.user_defined_message",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.call.user_defined_message",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "CallSid",
+              "operator": "eq",
+              "value_source": "path.CallSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.call.user_defined_message",
+            "Query parameters: AccountSid, CallSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessages.json",
+      "status": "planned",
+      "summary": "Create a new User Defined Message for the given Call SID.",
+      "warnings": []
+    },
+    {
+      "component": "api.v2010.account.call.user_defined_message_subscription",
+      "method": "POST",
+      "operations": [
+        {
+          "component": "api.v2010.account.call.user_defined_message_subscription",
+          "filters": [
+            {
+              "field": "AccountSid",
+              "operator": "eq",
+              "value_source": "path.AccountSid"
+            },
+            {
+              "field": "CallSid",
+              "operator": "eq",
+              "value_source": "path.CallSid"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/api.v2010.account.call.user_defined_message_subscription",
+            "Query parameters: AccountSid, CallSid"
+          ],
+          "type": "create"
+        }
+      ],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions.json",
+      "status": "planned",
+      "summary": "Subscribe to User Defined Messages for a given Call SID.",
+      "warnings": []
+    },
+    {
+      "component": null,
+      "method": "DELETE",
+      "operations": [],
+      "path": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions/{Sid}.json",
+      "status": "needs_mapping",
+      "summary": "Delete a specific User Defined Message Subscription.",
+      "warnings": [
+        "Unable to determine component from route path or schema references."
+      ]
+    }
+  ],
+  "validation": {
+    "errors": [
+      "Missing component mapping for GET /2010-04-01/Accounts.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Addresses.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Applications.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Local.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/MachineToMachine.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Mobile.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/National.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/SharedCost.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/TollFree.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Voip.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Calls.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Conferences.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/ConnectApps.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Addresses/{AddressSid}/DependentPhoneNumbers.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Keys.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Messages.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/SigningKeys.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Notifications.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Queues.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Recordings.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{PayloadSid}/Data.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings/{Sid}.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/SIP/Domains.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Transcriptions.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Usage/Records.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Usage/Records/AllTime.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Usage/Records/Daily.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Usage/Records/LastMonth.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Usage/Records/Monthly.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Usage/Records/ThisMonth.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Usage/Records/Today.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Usage/Records/Yearly.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Usage/Records/Yesterday.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json.",
+      "Missing component mapping for GET /2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json.",
+      "Missing component mapping for DELETE /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions/{Sid}.json."
+    ],
+    "warnings": [
+      "No component mapping found for GET /2010-04-01/Accounts.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Addresses.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Applications.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Local.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/MachineToMachine.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Mobile.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/National.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/SharedCost.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/TollFree.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Voip.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Calls.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Conferences.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/ConnectApps.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Addresses/{AddressSid}/DependentPhoneNumbers.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Keys.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Messages.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/SigningKeys.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Notifications.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Queues.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Recordings.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{PayloadSid}/Data.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings/{Sid}.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/SIP/Domains.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Transcriptions.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Usage/Records.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Usage/Records/AllTime.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Usage/Records/Daily.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Usage/Records/LastMonth.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Usage/Records/Monthly.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Usage/Records/ThisMonth.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Usage/Records/Today.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Usage/Records/Yearly.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Usage/Records/Yesterday.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json.",
+      "No component mapping found for GET /2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json.",
+      "No component mapping found for DELETE /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions/{Sid}.json.",
+      "GET /2010-04-01/Accounts.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Addresses.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Applications.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Local.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/MachineToMachine.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Mobile.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/National.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/SharedCost.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/TollFree.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Voip.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Calls.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Conferences.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/ConnectApps.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Addresses/{AddressSid}/DependentPhoneNumbers.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Keys.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Messages.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/SigningKeys.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Notifications.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Queues.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Recordings.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{PayloadSid}/Data.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings/{Sid}.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/SIP/Domains.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Transcriptions.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Usage/Records.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Usage/Records/AllTime.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Usage/Records/Daily.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Usage/Records/LastMonth.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Usage/Records/Monthly.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Usage/Records/ThisMonth.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Usage/Records/Today.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Usage/Records/Yearly.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Usage/Records/Yesterday.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json: Unable to determine component from route path or schema references.",
+      "GET /2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json: Unable to determine component from route path or schema references.",
+      "DELETE /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions/{Sid}.json: Unable to determine component from route path or schema references."
+    ]
+  }
+}

@@ -98,8 +98,16 @@ def get_engine() -> Engine:
 
 def init_core_tables() -> None:
     """Create registry tables if they do not already exist."""
-    engine = get_engine()
-    SQLModel.metadata.create_all(engine)
+    import sys
+    try:
+        engine = get_engine()
+        SQLModel.metadata.create_all(engine)
+        print("[database] Core tables initialized successfully", file=sys.stderr)
+    except Exception as e:
+        import traceback
+        print(f"[database] ERROR: Failed to create tables: {e}", file=sys.stderr)
+        traceback.print_exc(file=sys.stderr)
+        raise
 
 
 @contextmanager
