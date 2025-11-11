@@ -11,14 +11,14 @@ RUN apt-get update \
 
 WORKDIR /app
 
-COPY requirements.txt /app/requirements.txt
+COPY backend/requirements.txt /app/requirements.txt
 RUN pip install --upgrade pip \
     && pip install -r /app/requirements.txt
 
 COPY . /app
 
 # Install the backend package in editable mode so local changes are reflected.
-RUN pip install -e /app
+RUN pip install -e /app/backend
 
 ENV PYTHONPATH=/app/backend:/app
 

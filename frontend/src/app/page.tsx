@@ -10,11 +10,16 @@ export default async function Home() {
   }
   return (
     <main className="mx-auto max-w-5xl p-8">
-      <div className="flex items-center justify-between mb-6">
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-2xl font-semibold">DeepMock Dashboard</h1>
-        <Link href="/upload" className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">
-          Upload API Spec
-        </Link>
+        <div className="flex gap-3">
+          <Link href="/upload" className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">
+            Upload API Spec
+          </Link>
+          <Link href="/rl" className="rounded border border-blue-200 px-4 py-2 text-blue-700 hover:bg-blue-50">
+            RL Workflow Lab
+          </Link>
+        </div>
       </div>
       <div className="space-y-4">
         <h2 className="text-xl font-medium">APIs</h2>

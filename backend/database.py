@@ -24,6 +24,7 @@ def _schema_type() -> Any:
 
 class ApiRegistry(SQLModel, table=True):
     __tablename__ = "api_registry"
+    __table_args__ = {"extend_existing": True}
 
     id: Optional[int] = Field(default=None, primary_key=True)
     api_slug: str = Field(sa_column=Column(String(100), nullable=False, unique=True))
@@ -40,6 +41,7 @@ class ComponentRegistry(SQLModel, table=True):
     __tablename__ = "component_registry"
     __table_args__ = (
         UniqueConstraint("api_slug", "component_name", name="uq_component_registry_slug_component"),
+        {"extend_existing": True},
     )
 
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -62,6 +64,7 @@ class GeneratedRecord(SQLModel, table=True):
             "record_key",
             name="uq_generated_records_slug_component_key",
         ),
+        {"extend_existing": True},
     )
 
     id: Optional[int] = Field(default=None, primary_key=True)
