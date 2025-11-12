@@ -278,3 +278,45 @@ Visit
 - Interactive docs (Swagger): `http://localhost:8000/docs`
 - Alternative docs (ReDoc): `http://localhost:8000/redoc`
 
+RL Dataset Export & Fine-Tuning
+-------------------------------
+Once RL tracking is enabled (`RL_ENABLED=true`) and you have collected one or more episodes through `/rl/episodes/{episode_id}/actions`, convert those rollouts into JSONL corpora and trigger OpenAI jobs with the helper scripts under `backend/scripts/`.
+
+### 1. Export JSONL datasets
+
+```bash
+# Discover every stored episode (or pass --episode-id for a subset)
+python3 backend/scripts/export_rl_dataset.py \
+  --discover-all \
+  --output-dir generated_output/datasets \
+  --sft-min-reward 0.8
+```
+
+Outputs:
+- `generated_output/datasets/sft.jsonl`: chat-formatted demonstrations (system prompt + goal/state context → HTTP call) filtered by reward or terminal success.
+- `generated_output/datasets/ppo.jsonl`: transition-level rows with prompt, completion, shaped reward, done flag, and metadata (`episode_id`, `state_id`, `next_state_id`, etc.).
+
+Useful flags:
+- `--episode-id` (repeatable) / `--episodes-file` limit the export set.
+- `--goal-id` filters by goal.
+- `--done-only` keeps only terminal transitions in the SFT output. `--skip-sft` / `--skip-ppo` disable either file entirely.
+
+### 2. Upload + kick off fine-tunes
+
+```bash
+OPENAI_API_KEY=sk-... python3 backend/scripts/push_finetune.py \
+  --sft-file generated_output/datasets/sft.jsonl \
+  --sft-model gpt-4.1-mini \
+  --sft-suffix deepmock-stripe \
+  --ppo-file generated_output/datasets/ppo.jsonl \
+  --ppo-model ft:gpt-4.1-mini:your-org:deepmock-stripe \
+  --ppo-algorithm ppo
+```
+
+Behavior:
+- Each dataset is uploaded via `POST /v1/files` with the supplied purpose (`fine-tune` or `rl`).
+- Supplying an SFT file immediately triggers `POST /v1/fine_tuning/jobs` and prints the resulting model id (or pending placeholder) so you can reuse it for PPO.
+- Supplying a PPO file starts `POST /v1/rl/fine_tuning/jobs` against the provided (or freshly created) model using the algorithm you pass (`ppo` by default).
+- `--dry-run` prints the plan without hitting the API—handy for CI rehearsals.
+
+This closes the “collect → export → fine-tune” loop without leaving the repo.
