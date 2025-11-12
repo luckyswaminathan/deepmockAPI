@@ -2,12 +2,13 @@ import os
 from contextlib import contextmanager
 from datetime import datetime
 from functools import lru_cache
+from pathlib import Path
 from typing import Any, Iterator, Optional
 
 from dotenv import load_dotenv
 from sqlalchemy import Column, DateTime, Integer, String, UniqueConstraint, func
 from sqlalchemy.dialects.postgresql import JSONB
-from sqlalchemy.engine import Engine
+from sqlalchemy.engine import Engine, make_url
 from sqlalchemy.types import JSON
 from sqlmodel import Field, Session, SQLModel, create_engine
 
@@ -15,9 +16,40 @@ from sqlmodel import Field, Session, SQLModel, create_engine
 load_dotenv()
 
 
+BASE_DIR = Path(__file__).resolve().parent
+DEFAULT_SQLITE_PATH = (BASE_DIR / "deepmock.db").resolve()
+
+
+def _env_database_url() -> Optional[str]:
+    return os.getenv("_DATABASE_URL") or os.getenv("DATABASE_URL")
+
+
+def _default_sqlite_url() -> str:
+    return f"sqlite:///{DEFAULT_SQLITE_PATH}"
+
+
+def _normalize_sqlite_url(url: str) -> str:
+    try:
+        parsed = make_url(url)
+    except Exception:
+        return url
+
+    database = parsed.database
+    if not database or database == ":memory:":
+        return url
+
+    db_path = Path(database)
+    if not db_path.is_absolute():
+        db_path = (BASE_DIR / db_path).resolve()
+
+    return f"sqlite:///{db_path}"
+
+
 def _schema_type() -> Any:
-    url = os.getenv("_DATABASE_URL") or ""
-    if url.startswith("sqlite"):
+    # Use _env_database_url() directly to avoid circular dependency
+    # This is called during class definition, before get_database_url() is fully available
+    url = _env_database_url() or ""
+    if url.startswith("sqlite") or not url:
         return JSON
     return JSONB
 
@@ -104,22 +136,37 @@ class RLStateRecord(SQLModel, table=True):
 
 @lru_cache(maxsize=1)
 def get_database_url() -> str:
-    url = os.getenv("_DATABASE_URL")
-    if not url:
-        raise RuntimeError(
-            "DATABASE_URL environment variable is required (e.g., "
-            "'postgresql+psycopg://user:password@localhost:5432/deepmock')."
-        )
-    return url
+    url = _env_database_url()
+    if url:
+        if url.startswith("sqlite"):
+            return _normalize_sqlite_url(url)
+        return url
+    return _default_sqlite_url()
 
 
 @lru_cache(maxsize=1)
 def get_engine() -> Engine:
     url = get_database_url()
+    engine_kwargs: dict[str, Any] = {
+        "future": True,
+        "pool_pre_ping": True,
+    }
+    if url.startswith("sqlite"):
+        # Ensure the SQLite directory exists before connecting
+        try:
+            parsed = make_url(url)
+            database = parsed.database
+        except Exception:
+            database = None
+
+        if database and database != ":memory:":
+            db_path = Path(database)
+            db_path.parent.mkdir(parents=True, exist_ok=True)
+        engine_kwargs["connect_args"] = {"check_same_thread": False}
+
     return create_engine(
         url,
-        future=True,
-        pool_pre_ping=True,
+        **engine_kwargs,
     )
 
 

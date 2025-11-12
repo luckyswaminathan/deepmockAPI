@@ -8,6 +8,14 @@ import sys
 import time
 from pathlib import Path
 
+from sqlalchemy.engine import make_url
+
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+BACKEND_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_SQLITE_PATH = (BACKEND_ROOT / "deepmock.db").resolve()
+SQLITE_CONTAINER_MOUNT = "/workspace/sqlite-db"
+
 
 def _slugify(value: str) -> str:
     sanitized = "".join(ch if ch.isalnum() or ch in "-_" else "-" for ch in value.lower())
@@ -44,6 +52,19 @@ def _ensure_network(name: str) -> bool:
             f"Network '{name}' was created but cannot be inspected. Docker daemon may be having issues."
         )
     return True
+
+
+def _resolve_sqlite_path(url: str) -> Path:
+    parsed = make_url(url)
+    if not parsed.drivername.startswith("sqlite"):
+        raise ValueError("Database URL is not using the SQLite driver.")
+    database = parsed.database
+    if not database or database == ":memory:":
+        raise ValueError("SQLite database URL must reference a file on disk.")
+    host_path = Path(database)
+    if not host_path.is_absolute():
+        host_path = (REPO_ROOT / host_path).resolve()
+    return host_path
 
 
 def _start_postgres(
@@ -145,7 +166,7 @@ def _build_docker_run_command(
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Launch a per-API generation container wired up to a PostgreSQL instance."
+        description="Launch a per-API generation container wired up to a database (SQLite by default)."
     )
     parser.add_argument("--api-slug", required=True, help="Slug for the generated API job.")
     parser.add_argument(
@@ -185,9 +206,15 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         help="If provided, skip launching PostgreSQL and use this DSN inside the container.",
     )
     parser.add_argument(
+        "--database-backend",
+        choices=("sqlite", "postgres"),
+        default="sqlite",
+        help="Backend to use when no database URL is provided. Defaults to SQLite.",
+    )
+    parser.add_argument(
         "--keep-resources",
         action="store_true",
-        help="Skip cleanup to allow manual inspection (PostgreSQL container and network stay alive).",
+        help="Skip cleanup to allow manual inspection (transient containers/networks stay alive).",
     )
     parser.add_argument(
         "--network-name",
@@ -222,6 +249,7 @@ def main(argv: list[str] | None = None) -> int:
 
     created_network = False
     created_postgres = False
+    sqlite_host_path: Path | None = None
 
     try:
         created_network = _ensure_network(network_name)
@@ -242,48 +270,76 @@ def main(argv: list[str] | None = None) -> int:
         if env_db_url:
             print(f"[run_generation_job] Found database URL in environment: {'_DATABASE_URL' if os.getenv('_DATABASE_URL') else 'DATABASE_URL'}")
         
+        mounts: list[tuple[Path, str]] = []
+
         if not database_url:
-            print(f"[run_generation_job] No database URL provided. Creating transient PostgreSQL container...")
-            _start_postgres(
-                container_name=pg_container,
-                network=network_name,
-                image=args.postgres_image,
-                user=args.postgres_user,
-                password=args.postgres_password,
-                database=pg_db_name,
-            )
-            created_postgres = True
-            _wait_for_postgres(
-                network=network_name,
-                host=pg_container,
-                port=pg_port,
-                user=args.postgres_user,
-                password=args.postgres_password,
-                timeout=args.timeout,
-                image=args.postgres_image,
-            )
-            database_url = (
-                f"postgresql+psycopg://{args.postgres_user}:{args.postgres_password}"
-                f"@{pg_container}:{pg_port}/{pg_db_name}"
+            if args.database_backend == "postgres":
+                print("[run_generation_job] No database URL provided. Creating transient PostgreSQL container...")
+                _start_postgres(
+                    container_name=pg_container,
+                    network=network_name,
+                    image=args.postgres_image,
+                    user=args.postgres_user,
+                    password=args.postgres_password,
+                    database=pg_db_name,
+                )
+                created_postgres = True
+                _wait_for_postgres(
+                    network=network_name,
+                    host=pg_container,
+                    port=pg_port,
+                    user=args.postgres_user,
+                    password=args.postgres_password,
+                    timeout=args.timeout,
+                    image=args.postgres_image,
+                )
+                database_url = (
+                    f"postgresql+psycopg://{args.postgres_user}:{args.postgres_password}"
+                    f"@{pg_container}:{pg_port}/{pg_db_name}"
+                )
+            else:
+                sqlite_host_path = DEFAULT_SQLITE_PATH
+                sqlite_host_path.parent.mkdir(parents=True, exist_ok=True)
+                sqlite_host_path.touch(exist_ok=True)
+                database_url = f"sqlite:///{sqlite_host_path}"
+                print(f"[run_generation_job] No database URL provided. Using SQLite at {sqlite_host_path}")
+
+        if database_url.startswith("sqlite"):
+            try:
+                sqlite_host_path = _resolve_sqlite_path(database_url)
+            except ValueError as exc:
+                raise RuntimeError(f"Invalid SQLite database URL: {exc}") from exc
+            sqlite_host_path.parent.mkdir(parents=True, exist_ok=True)
+            sqlite_host_path.touch(exist_ok=True)
+
+            sqlite_mount = (sqlite_host_path.parent, SQLITE_CONTAINER_MOUNT)
+            if sqlite_mount not in mounts:
+                mounts.append(sqlite_mount)
+            database_url = f"sqlite:///{SQLITE_CONTAINER_MOUNT}/{sqlite_host_path.name}"
+            print(
+                f"[run_generation_job] Using SQLite database at {sqlite_host_path} "
+                f"(mounted to {SQLITE_CONTAINER_MOUNT}/{sqlite_host_path.name})"
             )
         else:
             # For Docker containers, localhost needs to be replaced with host.docker.internal (Mac/Windows)
             # or the actual host IP
             if database_url and ("localhost" in database_url or "127.0.0.1" in database_url):
-                # Replace localhost with host.docker.internal for Mac/Windows
-                # For Linux, might need to use host gateway IP or host network mode
                 import platform
+
                 if platform.system() in ("Darwin", "Windows"):
-                    database_url = database_url.replace("localhost", "host.docker.internal").replace("127.0.0.1", "host.docker.internal")
-                    print(f"[run_generation_job] Updated database URL to use host.docker.internal for Docker networking")
-            
-            db_info = database_url.split('@')[-1] if '@' in database_url else database_url
+                    database_url = database_url.replace("localhost", "host.docker.internal").replace(
+                        "127.0.0.1", "host.docker.internal"
+                    )
+                    print("[run_generation_job] Updated database URL to use host.docker.internal for Docker networking")
+
+            db_info = database_url.split("@")[-1] if "@" in database_url else database_url
             print(f"[run_generation_job] Using existing database: {db_info}")
             env_db_url = os.getenv("_DATABASE_URL") or os.getenv("DATABASE_URL")
             if env_db_url:
-                print(f"[run_generation_job] Source: Environment variable ({'DATABASE_URL' if os.getenv('DATABASE_URL') else '_DATABASE_URL'})")
+                source = "DATABASE_URL" if os.getenv("DATABASE_URL") else "_DATABASE_URL"
+                print(f"[run_generation_job] Source: Environment variable ({source})")
             elif args.shared_database_url:
-                print(f"[run_generation_job] Source: --shared-database-url argument")
+                print("[run_generation_job] Source: --shared-database-url argument")
 
         command = args.command or []
         if command[:1] == ["--"]:
@@ -295,7 +351,6 @@ def main(argv: list[str] | None = None) -> int:
                 command = ["reverse-generate", "--api-slug", args.api_slug]
 
         # Prepare volume mounts
-        mounts = []
         if manifest:
             mounts.append((manifest, "/workspace/manifest.yaml"))
         
@@ -359,10 +414,8 @@ def main(argv: list[str] | None = None) -> int:
             if created_network:
                 _run(["docker", "network", "rm", network_name], check=False)
         else:
-            print(
-                f"[run_generation_job] Resources kept alive. Network={network_name} "
-                f"Postgres={'running' if created_postgres else 'not created'}."
-            )
+            status = "running" if created_postgres else "not created (SQLite or external DB)"
+            print(f"[run_generation_job] Resources kept alive. Network={network_name} Postgres={status}.")
     return 0
 
 

@@ -99,29 +99,22 @@ class RLMiddleware(BaseHTTPMiddleware):
         response_body = None
         
         # Priority 1: Capture response body properly
-        # Wrap the response to capture the body as it streams
-        captured_body_parts = []
+        # Note: We can't easily capture streaming response bodies without blocking
+        # For now, we'll rely on database state detection for tracking changes
+        # Response body capture would require a more complex streaming wrapper
+        # that's not compatible with FastAPI's async response handling
         
-        async def capture_response_body():
-            """Capture response body while streaming."""
-            async for chunk in response.body_iterator:
-                captured_body_parts.append(chunk)
-                yield chunk
-        
-        # Replace response body iterator with our capture wrapper
-        original_body_iterator = response.body_iterator
-        response.body_iterator = capture_response_body()
-        
-        # Try to parse captured body (will be available after response is consumed)
-        # For now, we'll record the action and update response_body later if needed
-        # The action tracker can use database state detection as fallback
+        # Try to read response body if it's a simple response (not streaming)
+        # Most FastAPI responses return JSON which we can't easily intercept
+        # without breaking the streaming mechanism
         
         # Priority 3: Extract component name from route metadata
         # Try to get component from route's docstring or metadata
         component_name = self._extract_component_from_route(request, path, method)
         
         # Record action (async, don't block response)
-        # Note: response_body may be None initially, but action tracker can detect from DB
+        # Note: response_body is None - we rely on database state detection
+        # This is more reliable than trying to capture streaming response bodies
         try:
             action_id, next_state_id = self.action_tracker.record_action(
                 state_id=current_state_id,
@@ -130,22 +123,9 @@ class RLMiddleware(BaseHTTPMiddleware):
                 params=params,
                 request_body=request_body,
                 response_status=response_status,
-                response_body=response_body,  # May be None, will use DB detection
+                response_body=response_body,  # None - using DB detection instead
                 component_name=component_name,  # From route metadata
             )
-            
-            # Try to update response_body from captured body if available
-            if captured_body_parts:
-                try:
-                    full_body = b"".join(captured_body_parts)
-                    parsed_body = json.loads(full_body.decode('utf-8'))
-                    # Update action with response body if we got it
-                    # (This is best-effort, action already recorded)
-                    if parsed_body:
-                        # Could update action in Redis, but for now just log
-                        pass
-                except (json.JSONDecodeError, UnicodeDecodeError, TypeError):
-                    pass
             
             # Update session current state
             if session_id:

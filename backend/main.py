@@ -50,7 +50,7 @@ def on_startup() -> None:
         traceback.print_exc(file=sys.stderr)
         raise RuntimeError(
             "Failed to initialize database connection. "
-            "Ensure _DATABASE_URL is set to a valid PostgreSQL connection string. "
+            "Ensure _DATABASE_URL or DATABASE_URL points to a valid SQLite/PostgreSQL connection string. "
             f"Error: {exc}"
         ) from exc
     

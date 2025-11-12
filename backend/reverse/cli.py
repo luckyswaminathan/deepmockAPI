@@ -58,7 +58,7 @@ def main(argv: Optional[list[str]] = None) -> None:
     except RuntimeError as exc:
         raise RuntimeError(
             f"Failed to initialize database: {exc}. "
-            "Ensure _DATABASE_URL environment variable is set correctly."
+            "Ensure _DATABASE_URL or DATABASE_URL is set correctly (defaults to SQLite if unset)."
         ) from exc
 
     plan: ReversePlan | None = None

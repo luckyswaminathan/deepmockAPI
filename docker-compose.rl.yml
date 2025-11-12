@@ -1,19 +1,6 @@
 version: "3.9"
 
 services:
-  postgres:
-    image: postgres:16
-    container_name: deepmockAPI-postgres
-    restart: unless-stopped
-    environment:
-      POSTGRES_USER: deepmock
-      POSTGRES_PASSWORD: deepmock
-      POSTGRES_DB: deepmock
-    ports:
-      - "5432:5432"
-    volumes:
-      - deepmock_pg:/var/lib/postgresql/data
-
   redis:
     image: redis:7
     container_name: deepmock-redis
@@ -33,11 +20,10 @@ services:
       dockerfile: backend/Dockerfile
     container_name: deepmock-backend
     depends_on:
-      - postgres
       - redis
     environment:
-      _DATABASE_URL: postgresql+psycopg://deepmock:deepmock@postgres:5432/deepmock
-      DATABASE_URL: postgresql+psycopg://deepmock:deepmock@postgres:5432/deepmock
+      _DATABASE_URL: sqlite:////app/backend/deepmock.db
+      DATABASE_URL: sqlite:////app/backend/deepmock.db
       REDIS_URL: redis://redis:6379/0
       RL_ENABLED: "true"
     ports:
@@ -49,6 +35,3 @@ services:
       --host 0.0.0.0
       --port 8000
       --reload
-
-volumes:
-  deepmock_pg:

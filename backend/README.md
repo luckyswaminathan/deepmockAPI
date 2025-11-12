@@ -11,7 +11,7 @@ Setup & Run
 
 ### Zero-Config RL Dev Stack (recommended)
 
-Spin up PostgreSQL, Redis (pre-configured for LFU), and the backend—with `RL_ENABLED=true`—in one command using the root-level `docker-compose.rl.yml`:
+Spin up Redis (pre-configured for LFU) and the backend—with `RL_ENABLED=true` and an embedded SQLite database—in one command using the root-level `docker-compose.rl.yml`:
 
 ```bash
 # From repository root
@@ -19,32 +19,24 @@ docker compose -f docker-compose.rl.yml up --build
 ```
 
 What you get:
-- `postgres:16` with `deepmock/deepmock` credentials and a persistent `deepmock_pg` volume
 - `redis:7` configured with the LFU eviction policy the RL tracker expects
+- `backend/deepmock.db` mounted into the container and used as the SQLite datastore
 - `uvicorn backend.main:app` running on `http://localhost:8000` with `RL_ENABLED=true`, `_DATABASE_URL`, and `REDIS_URL` already wired to the containers
 
 Once the stack is healthy you can immediately upload an OpenAPI file, auto-generate mock routes, and use the `/rl/*` endpoints without any extra environment setup. Stop everything with `Ctrl+C`, or run in the background via `docker compose -f docker-compose.rl.yml up -d`.
 
 ### Manual setup
 
-### 1. Initialize Database with Docker
+### 1. Configure the Database (optional)
 
-Start a local PostgreSQL instance:
-
-```bash
-docker run --name deepmock-postgres \
-  -e POSTGRES_USER=deepmock \
-  -e POSTGRES_PASSWORD=deepmock \
-  -e POSTGRES_DB=deepmock \
-  -p 5432:5432 \
-  -v deepmock_pg:/var/lib/postgresql/data \
-  -d postgres:16
-```
-
-Set the database URL:
+No upfront work is required—the backend automatically creates and uses `backend/deepmock.db` (SQLite). To store data elsewhere, set `_DATABASE_URL` (or `DATABASE_URL`) before starting the app. A few examples:
 
 ```bash
-export DATABASE_URL="postgresql+psycopg://deepmock:deepmock@localhost:5432/deepmock"
+# Point to a different SQLite file (absolute path recommended)
+export _DATABASE_URL="sqlite:////Users/me/databases/deepmock.db"
+
+# Or keep using Postgres if you prefer
+export _DATABASE_URL="postgresql+psycopg://user:pass@localhost:5432/deepmock"
 ```
 
 ### 2. Start Backend Server
@@ -89,8 +81,6 @@ docker build -t deepmock-backend:latest backend
 Run generation (replace `{api_slug}` with your actual API slug from the upload response):
 
 ```bash
-export _DATABASE_URL="postgresql+psycopg://deepmock:deepmock@localhost:5432/deepmock"
-
 python3 backend/scripts/run_generation_job.py \
   --api-slug {api_slug} \
   --manifest backend/reverse/generated/{api_slug}/plan/plan.json \
@@ -99,7 +89,8 @@ python3 backend/scripts/run_generation_job.py \
 
 **Note:** The script automatically detects `_DATABASE_URL` or `DATABASE_URL` from your environment
 and uses your existing database (with `localhost` converted to `host.docker.internal` for Docker).
-If no database URL is set, it creates a transient empty PostgreSQL container.
+If no database URL is set, it mounts `backend/deepmock.db` (SQLite). Pass `--database-backend postgres`
+if you still want the script to launch a transient PostgreSQL container.
 
 **What happens:**
 - Generates code (routes, tests, services)
@@ -111,7 +102,7 @@ OpenAPI Ingestion Workflow
 ---------------------------
 1. Visit `http://localhost:8000/` for the dashboard.
 2. Upload an OpenAPI JSON or YAML file. Optionally provide a display name.
-3. The backend parses `components.schemas` and stores each component in PostgreSQL as a JSONB record,
+3. The backend parses `components.schemas` and stores each component in the database (SQLite by default) as a JSON/JSONB record,
    attaching a vendor field `x-deepmock-properties` that captures the derived property summary. No
    per-component tables are created, so large specs remain lightweight.
 4. Browse the ingested APIs and their component summaries directly from the dashboard. You can also
@@ -168,8 +159,6 @@ curl -X POST "http://localhost:8000/reverse/generate" \
 **Or via Docker CLI:**
 
 ```bash
-export _DATABASE_URL="postgresql+psycopg://deepmock:deepmock@localhost:5432/deepmock"
-
 # Replace {api_slug} with your API slug
 python3 backend/scripts/run_generation_job.py \
   --api-slug {api_slug} \

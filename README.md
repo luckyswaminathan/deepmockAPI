@@ -7,7 +7,7 @@ This repository contains a FastAPI backend (with background generation jobs) and
 - Node.js 18+ and npm (frontend only)
 
 ## 1. Run Backend Stack via Docker Compose
-From the repository root, bring up Postgres, Redis, and the FastAPI backend:
+From the repository root, bring up Redis and the FastAPI backend (which now uses SQLite by default):
 
 ```bash
 docker compose -f docker-compose.rl.yml up --build
@@ -15,7 +15,8 @@ docker compose -f docker-compose.rl.yml up --build
 
 What this does:
 - Builds the backend image if needed and starts it with live reload
-- Provisions PostgreSQL (`localhost:5432`) and Redis (`localhost:6379`)
+- Mounts `backend/deepmock.db` into the container and uses it as the SQLite datastore
+- Provisions Redis (`localhost:6379`) for RL flows
 - Exposes the FastAPI app at `http://localhost:8000`
 
 The logs for every service stream in the same terminal. When you are done, stop everything with `Ctrl+C` and optionally clean up with:
@@ -53,14 +54,13 @@ Build (once) and run the generation script, replacing `{api_slug}` with the slug
 ```bash
 docker compose -f docker-compose.rl.yml build backend  # only if you need a fresh image
 
-export _DATABASE_URL="postgresql+psycopg://deepmock:deepmock@localhost:5432/deepmock"
 python3 backend/scripts/run_generation_job.py \
   --api-slug {api_slug} \
   --manifest backend/reverse/generated/{api_slug}/plan/plan.json \
   --output-dir ./generated_output
 ```
 
-The script reads `_DATABASE_URL` / `DATABASE_URL`, rewrites `localhost` to `host.docker.internal` when run inside Docker, and falls back to a temporary Postgres container if neither variable is set. It generates code, data, and assets and syncs them into `generated_output/{api_slug}/`.
+By default the script reads `_DATABASE_URL` / `DATABASE_URL`. If neither is set it falls back to the shared SQLite file at `backend/deepmock.db`, mounts it into the container, and rewrites the DSN automatically. Pass `--database-backend postgres` if you still want a transient Postgres container. The job generates code, data, and assets and syncs them into `generated_output/{api_slug}/`.
 
 ## Alternative: Trigger Generation via API
 ```bash
@@ -82,8 +82,8 @@ python main.py
 
 ## Useful Notes
 - Backend CORS already allows `http://localhost:3000`.
-- If Postgres ever needs more locks, adjust the service command in `docker-compose.rl.yml`.
-- All generated data is stored in the `generated_records` table and mirrored to `generated_output/`.
+- All generated data is stored inside `backend/deepmock.db` (SQLite) and mirrored to `generated_output/`.
+- Use `_DATABASE_URL`/`DATABASE_URL` to point to a different SQLite or Postgres instance if desired.
 
 ## Project Structure
 ```
