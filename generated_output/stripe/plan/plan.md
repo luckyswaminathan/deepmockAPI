@@ -1,7 +1,7 @@
 # Reverse Engineering Plan for `stripe`
 
 **Total Routes:** 559
-**Generated At:** 2025-11-11T20:38:27.487361+00:00
+**Generated At:** 2025-11-13T01:42:32.158251+00:00
 
 ## Agent Directives
 1. Review the component summary below to understand the CRUD surface.

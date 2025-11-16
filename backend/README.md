@@ -267,6 +267,52 @@ Visit
 - Interactive docs (Swagger): `http://localhost:8000/docs`
 - Alternative docs (ReDoc): `http://localhost:8000/redoc`
 
+Rollout Driver
+--------------
+Use `backend/scripts/run_rollout_driver.py` to replay scripted HTTP traces against the RL API. You author a YAML or JSON config that points to the goals you care about (either by `goal_id` or a payload you POST to `/rl/goals`) and list the HTTP actions to execute for each episode.
+
+```yaml
+# rollout.yaml
+backend_url: http://localhost:8000
+scenarios:
+  - name: stripe-customer-happy
+    goal_file: goals/customer_with_card.json  # same payload you'd POST to /rl/goals
+    episodes: 3                               # repeat the action list three times
+    vars:
+      currency: usd                           # exposed to templates as {{ vars.currency }}
+      billing_email: customer@example.com
+    actions:
+      - method: POST
+        path: /v1/customers
+        body:
+          email: "{{ uuid4() }}@example.com"
+          name: "Customer {{ randrange(1000, 9999) }}"
+      - method: POST
+        path: /v1/payment_methods
+        body:
+          type: card
+          billing_details:
+            email: "{{ vars.billing_email }}"
+          card:
+            number: "4242424242424242"
+            exp_month: 1
+            exp_year: 2035
+            cvc: "111"
+```
+
+Each string value passes through a Jinja2 renderer so you can randomize payloads with helpers such as `uuid4()`, `randrange()`, `choice()`, and `now_iso()`. Multiple sequences per goal are supported by wrapping them under `action_sequences` instead of a single `actions` list.
+
+Run the driver (from the repo root) with:
+
+```bash
+python3 backend/scripts/run_rollout_driver.py --config rollout.yaml
+```
+
+Useful flags:
+- `--dry-run` prints the rendered requests without touching the API.
+- `--only <scenario-name>` scopes execution to specific scenarios.
+- `--max-actions` applies a hard stop per episode in addition to any per-sequence `max_actions`.
+
 RL Dataset Export & Fine-Tuning
 -------------------------------
 Once RL tracking is enabled (`RL_ENABLED=true`) and you have collected one or more episodes through `/rl/episodes/{episode_id}/actions`, convert those rollouts into JSONL corpora and trigger OpenAI jobs with the helper scripts under `backend/scripts/`.
