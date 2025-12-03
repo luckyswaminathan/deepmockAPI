@@ -1,6 +1,6 @@
 {
   "api_slug": "stripe",
-  "generated_at": "2025-11-13T01:42:32.158251+00:00",
+  "generated_at": "2025-12-03T19:57:03.918554+00:00",
   "routes": [
     {
       "component": "account",

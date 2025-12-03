@@ -1,7 +1,7 @@
 # Reverse Engineering Plan for `github`
 
 **Total Routes:** 952
-**Generated At:** 2025-11-11T20:05:08.945436+00:00
+**Generated At:** 2025-11-17T21:38:34.476583+00:00
 
 ## Agent Directives
 1. Review the component summary below to understand the CRUD surface.
@@ -156,7 +156,8 @@ Each component below has a dedicated plan file in `plan/components/` with detail
 | `license-content` | `read_one` | 1 | `plan/components/license-content.md` |
 | `locked-issue-event` | `update`, `delete` | 4 | `plan/components/locked-issue-event.md` |
 | `marketplace-purchase` | `read_one` | 2 | `plan/components/marketplace-purchase.md` |
-| `merged-upstream` | `create`, `read_one` | 2 | `plan/components/merged-upstream.md` |
+| `merge-group` | `read_one` | 1 | `plan/components/merge-group.md` |
+| `merged-upstream` | `create` | 1 | `plan/components/merged-upstream.md` |
 | `migration` | `create`, `read_one`, `read_many` | 6 | `plan/components/migration.md` |
 | `milestone` | `create`, `read_one`, `update_partial`, `delete` | 5 | `plan/components/milestone.md` |
 | `minimal-repository` | `create` | 1 | `plan/components/minimal-repository.md` |

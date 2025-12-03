@@ -1,6 +1,6 @@
 {
   "api_slug": "github",
-  "generated_at": "2025-11-11T20:05:08.945436+00:00",
+  "generated_at": "2025-11-17T21:38:34.476583+00:00",
   "routes": [
     {
       "component": "root",
@@ -16527,11 +16527,11 @@
       ]
     },
     {
-      "component": "merged-upstream",
+      "component": "merge-group",
       "method": "GET",
       "operations": [
         {
-          "component": "merged-upstream",
+          "component": "merge-group",
           "filters": [
             {
               "field": "owner",

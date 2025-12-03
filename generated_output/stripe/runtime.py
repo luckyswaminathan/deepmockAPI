@@ -31,11 +31,7 @@ def fetch_component_record(
 
 
 def insert_component_record(api_slug: str, component_name: str, payload: dict[str, Any]) -> dict[str, Any]:
-    """Insert or update (upsert) a record via merge semantics.
-
-    If a record with the same derived key exists, merge fields while preserving
-    the existing 'id' and any unspecified fields. If no record exists, insert.
-    """
+    """Insert or update a record."""
     record = dict(payload)
     key = _derive_record_key(record)
     record.setdefault("id", key)
@@ -47,13 +43,8 @@ def insert_component_record(api_slug: str, component_name: str, payload: dict[st
     for i, existing_record in enumerate(records):
         existing_key = existing_record.get("id") or _derive_record_key(existing_record)
         if existing_key == key:
-            merged = dict(existing_record)
-            merged.update(record)
-            # Preserve canonical id from existing record
-            if "id" in existing_record:
-                merged["id"] = existing_record["id"]
-            records[i] = merged
-            return merged.copy()
+            records[i] = record
+            return record.copy()
     
     records.append(record)
     return record.copy()

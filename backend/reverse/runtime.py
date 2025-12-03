@@ -7,7 +7,7 @@ from uuid import uuid4
 from fastapi import FastAPI
 from sqlmodel import delete, select
 
-from database import GeneratedRecord, db_session
+from database import ComponentRegistry, GeneratedRecord, db_session
 _mounted_routers: set[str] = set()
 
 
@@ -89,18 +89,25 @@ def fetch_component_records(api_slug: str, component_name: str) -> list[dict[str
             .where(GeneratedRecord.component_name == component_name)
             .order_by(GeneratedRecord.record_key.asc())
         ).all()
-        return [record.payload for record in records]
+        # Merge each record with schema defaults
+        return [_merge_with_schema_defaults(api_slug, component_name, record.payload) for record in records]
 
 
 def fetch_component_record(
     api_slug: str, component_name: str, field: str, value: Any
 ) -> Optional[dict[str, Any]]:
-    records = fetch_component_records(api_slug, component_name)
-    for record in records:
-        if str(record.get(field)) == str(value):
-            return record
-        if str(record.get("id")) == str(value):
-            return record
+    with db_session() as session:
+        records = session.exec(
+            select(GeneratedRecord)
+            .where(GeneratedRecord.api_slug == api_slug)
+            .where(GeneratedRecord.component_name == component_name)
+        ).all()
+        
+        for db_record in records:
+            payload = db_record.payload
+            if str(payload.get(field)) == str(value) or str(payload.get("id")) == str(value):
+                # Merge with schema defaults before returning
+                return _merge_with_schema_defaults(api_slug, component_name, payload)
     return None
 
 
@@ -124,6 +131,7 @@ def insert_component_record(api_slug: str, component_name: str, payload: dict[st
             if "id" in existing.payload:
                 merged["id"] = existing.payload["id"]
             existing.payload = merged
+            stored_record = merged
         else:
             session.add(
                 GeneratedRecord(
@@ -133,7 +141,10 @@ def insert_component_record(api_slug: str, component_name: str, payload: dict[st
                     payload=record,
                 )
             )
-    return record
+            stored_record = record
+    
+    # Merge with schema defaults before returning
+    return _merge_with_schema_defaults(api_slug, component_name, stored_record)
 
 
 def update_component_record(
@@ -166,7 +177,9 @@ def update_component_record(
         merged.setdefault("id", merged[field])
         target.payload = merged
         target.record_key = str(merged.get(field, target.record_key))
-        return merged
+        
+        # Merge with schema defaults before returning
+        return _merge_with_schema_defaults(api_slug, component_name, merged)
 
 
 def delete_component_record(api_slug: str, component_name: str, field: str, value: Any) -> bool:
@@ -295,3 +308,129 @@ def _derive_record_key(payload: dict[str, Any]) -> str:
         if value is not None:
             return str(value)
     return str(uuid4())
+
+
+def _extract_defaults_from_schema(schema: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Extract default values from OpenAPI schema.
+    
+    Recursively walks through schema properties and extracts default values.
+    Includes ALL properties from the schema, using type-appropriate defaults when no explicit default exists.
+    Skips additionalProperties.
+    """
+    defaults = {}
+    
+    if not isinstance(schema, dict):
+        return defaults
+    
+    # Skip additionalProperties - these are dynamic and shouldn't have defaults
+    if "additionalProperties" in schema:
+        # Don't process additionalProperties as a regular property
+        pass
+    
+    # Handle properties - include ALL properties, not just those with explicit defaults
+    properties = schema.get("properties", {})
+    if isinstance(properties, dict):
+        for prop_name, prop_schema in properties.items():
+            if not isinstance(prop_schema, dict):
+                continue
+            
+            # Skip properties that look like additionalProperties placeholders
+            if prop_name.startswith("additionalProp"):
+                continue
+            
+            # Check for explicit default value first
+            if "default" in prop_schema:
+                defaults[prop_name] = prop_schema["default"]
+            # Handle nested objects - recurse to get nested defaults
+            elif prop_schema.get("type") == "object":
+                nested_defaults = _extract_defaults_from_schema(prop_schema)
+                # Always include object, even if empty (use empty dict)
+                defaults[prop_name] = nested_defaults if nested_defaults else {}
+            # Handle arrays - use empty list as default
+            elif prop_schema.get("type") == "array":
+                defaults[prop_name] = []
+            # Handle booleans - default to False
+            elif prop_schema.get("type") == "boolean":
+                defaults[prop_name] = False
+            # Handle strings - use empty string, not null (unless nullable)
+            elif prop_schema.get("type") == "string":
+                if prop_schema.get("nullable", False):
+                    defaults[prop_name] = None
+                else:
+                    defaults[prop_name] = ""
+            # Handle numbers/integers - only set null if explicitly nullable
+            elif prop_schema.get("type") in ["integer", "number"]:
+                if prop_schema.get("nullable", False):
+                    defaults[prop_name] = None
+                # Don't set default for numbers - let them be missing
+            # Handle nullable fields - set to None only if explicitly nullable
+            elif prop_schema.get("nullable", False):
+                defaults[prop_name] = None
+            # For other types without explicit defaults, don't set a default
+            # (let them be missing from defaults dict)
+    
+    return defaults
+
+
+def _get_component_schema(api_slug: str, component_name: str) -> Optional[Dict[str, Any]]:
+    """Get component schema from ComponentRegistry."""
+    try:
+        with db_session() as session:
+            record = session.exec(
+                select(ComponentRegistry)
+                .where(ComponentRegistry.api_slug == api_slug)
+                .where(ComponentRegistry.component_name == component_name)
+            ).first()
+            
+            if record and record.schema_payload:
+                return record.schema_payload
+    except Exception:
+        # If schema lookup fails, return None (graceful degradation)
+        pass
+    return None
+
+
+def _merge_with_schema_defaults(
+    api_slug: str, component_name: str, record: Dict[str, Any]
+) -> Dict[str, Any]:
+    """
+    Merge a record with schema defaults.
+    
+    Returns a new dict with all schema fields populated with defaults where missing.
+    Preserves actual values from record, only fills in missing fields with defaults.
+    """
+    import sys
+    
+    schema = _get_component_schema(api_slug, component_name)
+    if not schema:
+        # If schema not found, return record as-is (graceful degradation)
+        print(
+            f"[runtime] Warning: Schema not found for {api_slug}/{component_name}, "
+            f"returning record without defaults",
+            file=sys.stderr
+        )
+        return record
+    
+    defaults = _extract_defaults_from_schema(schema)
+    
+    # Start with the actual record (preserve all existing values)
+    merged = dict(record)
+    
+    # Only add defaults for fields that are missing from the record
+    # Don't overwrite existing values (even if they're null - preserve user's data)
+    for key, default_value in defaults.items():
+        if key not in merged:
+            merged[key] = default_value
+        elif isinstance(merged[key], dict) and isinstance(default_value, dict):
+            # Merge nested objects: start with defaults, overlay with record values
+            nested_merged = default_value.copy()
+            nested_merged.update(merged[key])
+            merged[key] = nested_merged
+    
+    # Remove any additionalProp* keys that might have been added
+    keys_to_remove = [k for k in merged.keys() if k.startswith("additionalProp")]
+    for key in keys_to_remove:
+        merged.pop(key, None)
+    
+    return merged

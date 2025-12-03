@@ -160,9 +160,9 @@ def _render_routes_module(plan: ReversePlan) -> str:
     lines = [
         "from __future__ import annotations",
         "",
-        "from typing import Any, Dict",
+        "from typing import Any, Dict, Annotated",
         "",
-        "from fastapi import APIRouter, HTTPException",
+        "from fastapi import APIRouter, HTTPException, Body",
         "",
         "# Import local runtime module from parent directory",
         "import sys",
@@ -178,6 +178,8 @@ def _render_routes_module(plan: ReversePlan) -> str:
         f'API_SLUG = "{plan.api_slug}"',
         "",
         "router = APIRouter()",
+        "",
+        "JsonPayload = Annotated[Dict[str, Any], Body(example={})]",
         "",
     ]
 
@@ -218,7 +220,7 @@ def _build_function_params(route: RoutePlan, operation: OperationPlan) -> list[s
     for param in extract_path_params(route.path):
         params.append(f"{param}: str")
     if operation.type in {"create", "update", "update_partial"}:
-        params.append("payload: Dict[str, Any]")
+        params.append("payload: JsonPayload")
     return params
 
 

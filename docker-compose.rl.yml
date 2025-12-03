@@ -22,8 +22,9 @@ services:
     depends_on:
       - redis
     environment:
-      _DATABASE_URL: sqlite:////app/backend/deepmock.db
-      DATABASE_URL: sqlite:////app/backend/deepmock.db
+      # Store database in /tmp (not mounted from host) for ephemeral storage
+      _DATABASE_URL: sqlite:////tmp/deepmock.db
+      DATABASE_URL: sqlite:////tmp/deepmock.db
       REDIS_URL: redis://redis:6379/0
       RL_ENABLED: "true"
     ports:
