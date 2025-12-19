@@ -183,13 +183,24 @@ async def execute_action(episode_id: str, payload: ExecuteActionRequest, request
         async with httpx.AsyncClient(transport=transport) as client:
             # For ASGITransport, use absolute URL with dummy host (ignored internally)
             absolute_url = f"http://localhost{target_path}"
-            response = await client.request(
-                method,
-                absolute_url,
-                params=payload.params or {},
-                json=payload.body,
-                headers=headers,
-            )
+            
+            # Prepare request kwargs
+            request_kwargs = {
+                "method": method,
+                "url": absolute_url,
+                "params": payload.params or {},
+                "headers": headers,
+            }
+            
+            # Only include json body if it's not None and not empty
+            # For POST/PUT/PATCH, send empty dict if body is None to ensure Content-Type is set
+            if payload.body is not None:
+                request_kwargs["json"] = payload.body
+            elif method in {"POST", "PUT", "PATCH"}:
+                # For mutating methods, send empty dict to ensure Content-Type header is set
+                request_kwargs["json"] = {}
+            
+            response = await client.request(**request_kwargs)
     except httpx.HTTPError as exc:
         raise HTTPException(status_code=502, detail=f"Failed to execute action: {exc}") from exc
 

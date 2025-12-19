@@ -153,24 +153,25 @@ class GoalManager:
                 continue
             
             # Check if any current record matches any target record
-            # For now, simple matching: check if records with same IDs match
-            target_map = {
-                str(r.get("id", r.get("record_key", ""))): r
-                for r in target_records
-            }
-            current_map = {
-                str(r.get("id", r.get("record_key", ""))): r
-                for r in current_records
-            }
-            
-            # Check for exact matches
+            # Support wildcard IDs (e.g., "cus_*" matches any customer ID)
             exact_matches = 0
-            for record_id, target_record in target_map.items():
-                if record_id in current_map:
-                    current_record = current_map[record_id]
-                    # Check if records match (simplified: check key fields)
+            matched_current_records = set()
+            
+            for target_record in target_records:
+                target_id = str(target_record.get("id", target_record.get("record_key", "")))
+                
+                # Try to find matching current record
+                for current_record in current_records:
+                    # Skip if already matched
+                    current_record_key = id(current_record)
+                    if current_record_key in matched_current_records:
+                        continue
+                    
+                    # Check if records match (handles wildcards)
                     if self._records_match(current_record, target_record):
                         exact_matches += 1
+                        matched_current_records.add(current_record_key)
+                        break  # One match per target record
             
             if exact_matches == len(target_records):
                 matched_components += 1
@@ -230,16 +231,40 @@ class GoalManager:
             return False, 0.0, "No conditions match"
     
     def _records_match(self, record1: Dict[str, Any], record2: Dict[str, Any]) -> bool:
-        """Check if two records match (simplified comparison)."""
-        # For now, compare key fields
-        # Could be enhanced to do deep comparison or field-specific matching
-        key_fields = ["id", "name", "status", "type"]
+        """
+        Check if two records match (supports wildcards).
         
-        for field in key_fields:
-            val1 = record1.get(field)
-            val2 = record2.get(field)
-            if val1 is not None and val2 is not None:
-                if str(val1) != str(val2):
+        Wildcards:
+        - "*" matches anything (e.g., "cus_*" matches "cus_123", "cus_abc")
+        - Field comparison: if target has a field, current must match (or be wildcard)
+        """
+        # Compare all fields in target record (record2 is the target/goal)
+        for field, target_value in record2.items():
+            current_value = record1.get(field)
+            
+            # If target is "*", it matches anything (including None)
+            if str(target_value) == "*":
+                continue
+            
+            # If target value is None, skip (optional field)
+            if target_value is None:
+                continue
+            
+            # If current value is None and target is not "*", no match
+            if current_value is None:
+                return False
+            
+            # Compare values (support wildcard matching)
+            target_str = str(target_value)
+            current_str = str(current_value)
+            
+            # If target ends with "*", check prefix match
+            if target_str.endswith("*"):
+                prefix = target_str[:-1]
+                if not current_str.startswith(prefix):
                     return False
+            # Otherwise, exact match
+            elif current_str != target_str:
+                return False
         
         return True

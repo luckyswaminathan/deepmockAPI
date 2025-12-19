@@ -1,0 +1,14 @@
+{
+  "api_slug": "stripe",
+  "description": "Create a Stripe account (any ID)",
+  "goal_state": {
+    "target_components": {
+      "account": [
+        {
+          "id": "*"
+        }
+      ]
+    }
+  }
+}
+

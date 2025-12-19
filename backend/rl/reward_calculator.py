@@ -23,31 +23,43 @@ class RewardCalculator:
         response_status: Optional[int] = None,
         response_body: Optional[Any] = None,
     ) -> tuple[float, bool, str]:
-        """Compute shaped reward for the given goal/state."""
+        """
+        Compute simple reward: progress from start state toward goal.
+        
+        Reward is positive if closer to goal than start state, negative if further.
+        One episode = one attempt from start state to goal.
+        """
         goal = self.goal_manager.get_goal(goal_id)
-        done, reward, reason = self.goal_manager.check_goal_reached(goal_id, current_state_id)
-        config = goal.reward_config
+        start_state_id = goal.start_state_id
         
-        # Customize success reward if provided
-        if done and config and config.success_bonus is not None:
-            reward = config.success_bonus
+        # Check if goal is reached
+        done, current_reward, reason = self.goal_manager.check_goal_reached(goal_id, current_state_id)
         
-        # Add progress-based reward if previous state provided
-        if previous_state_id and not done:
-            progress_reward = self._compute_progress_reward(
-                goal_id, previous_state_id, current_state_id
-            )
-            weight = config.progress_weight if config else 0.3
-            reward = (1 - weight) * reward + weight * progress_reward
+        # If goal reached, give success reward
+        if done:
+            config = goal.reward_config
+            success_reward = config.success_bonus if (config and config.success_bonus is not None) else 1.0
+            return success_reward, True, reason
         
-        # Response-based penalties/bonuses
-        if config:
-            reward += self._apply_response_penalties(config, response_status)
-            reward += self._apply_custom_conditions(config, current_state_id)
+        # Compare current state to START state (not previous state)
+        # This gives reward based on progress from beginning of episode
+        _, start_reward, _ = self.goal_manager.check_goal_reached(goal_id, start_state_id)
         
-        # Clamp reward to sensible range
-        reward = max(-1.0, min(1.5, reward))
-        return reward, done, reason
+        # Simple reward: how much closer are we to goal compared to start?
+        progress = current_reward - start_reward
+        
+        # Reward is the progress (can be negative if we got further)
+        reward = progress
+        
+        # Small penalty for errors (but don't override progress)
+        if response_status and response_status >= 400:
+            error_penalty = -0.1  # Small penalty, don't overwhelm progress signal
+            reward += error_penalty
+        
+        # Clamp to reasonable range
+        reward = max(-1.0, min(1.0, reward))
+        
+        return reward, False, reason
     
     def _compute_progress_reward(
         self,
@@ -58,7 +70,7 @@ class RewardCalculator:
         """
         Compute reward based on progress towards goal.
         
-        Returns reward between 0.0 and 1.0 based on how much closer
+        Returns reward between -1.0 and 1.0 based on how much closer
         we are to the goal compared to previous state.
         """
         goal = self.goal_manager.get_goal(goal_id)
@@ -69,15 +81,17 @@ class RewardCalculator:
         _, prev_reward, _ = self.goal_manager.check_goal_reached(goal_id, previous_state_id)
         _, curr_reward, _ = self.goal_manager.check_goal_reached(goal_id, current_state_id)
         
-        # Progress reward: positive if we got closer, negative if we got further
+        # Progress reward: positive if we got closer, negative if we got further, 0 if no change
         progress = curr_reward - prev_reward
         
-        # Normalize to 0-1 range (progress can be negative)
-        # If progress is positive, reward it; if negative, penalize it
+        # Return progress directly (can be negative, zero, or positive)
+        # Scale positive progress up, keep negative progress as penalty
         if progress > 0:
             return min(1.0, progress * 2)  # Scale up positive progress
+        elif progress < 0:
+            return max(-1.0, progress * 2)  # Scale down negative progress (penalty)
         else:
-            return max(0.0, 1.0 + progress)  # Scale down negative progress
+            return 0.0  # No progress = no reward (was incorrectly returning 1.0)
     
     def _apply_response_penalties(
         self,
@@ -87,7 +101,13 @@ class RewardCalculator:
         if response_status is None:
             return 0.0
         if response_status >= 400:
-            return config.invalid_status_penalty
+            # Apply penalty even if config is None (use default)
+            penalty = config.invalid_status_penalty if config else -0.2
+            # Scale penalty by error severity
+            if response_status >= 500:
+                return penalty * 1.5  # Server errors are worse
+            elif response_status >= 400:
+                return penalty  # Client errors
         return 0.0
 
     def _apply_custom_conditions(

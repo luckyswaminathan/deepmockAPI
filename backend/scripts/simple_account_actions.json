@@ -1,0 +1,11 @@
+[
+  {
+    "method": "POST",
+    "path": "/v1/accounts",
+    "body": {
+      "type": "express",
+      "country": "US"
+    }
+  }
+]
+
