@@ -37,7 +37,13 @@ class RLMiddleware(BaseHTTPMiddleware):
             return await call_next(request)
         
         # Only track generated API routes
-        path = request.url.path
+        # Use scope["path"] directly to handle internal ASGI requests (no URL scheme)
+        try:
+            path = request.url.path
+        except (KeyError, AttributeError):
+            # Fallback for internal ASGI requests without URL scheme
+            path = request.scope.get("path", "")
+        
         if not path.startswith("/generated/"):
             return await call_next(request)
         

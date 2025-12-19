@@ -7,6 +7,7 @@ from datetime import datetime
 from uuid import uuid4
 
 import httpx
+from httpx import ASGITransport
 from typing import Any
 
 from fastapi import APIRouter, HTTPException, Request
@@ -176,10 +177,15 @@ async def execute_action(episode_id: str, payload: ExecuteActionRequest, request
 
     method = payload.method.upper()
     try:
-        async with httpx.AsyncClient(app=request.app, base_url="http://rl-internal") as client:
+        # Use ASGITransport to make internal requests to the FastAPI app
+        # ASGITransport expects absolute URLs, so we use a dummy scheme/host
+        transport = ASGITransport(app=request.app)
+        async with httpx.AsyncClient(transport=transport) as client:
+            # For ASGITransport, use absolute URL with dummy host (ignored internally)
+            absolute_url = f"http://localhost{target_path}"
             response = await client.request(
                 method,
-                target_path,
+                absolute_url,
                 params=payload.params or {},
                 json=payload.body,
                 headers=headers,

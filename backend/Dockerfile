@@ -5,9 +5,9 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=1
 
 # Install system dependencies required for psycopg and build tooling.
-RUN apt-get update \
-    && apt-get install --yes --no-install-recommends build-essential libpq-dev curl \
-    && rm -rf /var/lib/apt/lists/*
+# RUN apt-get update \
+#     && apt-get install --yes --no-install-recommends build-essential libpq-dev curl \
+#     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 

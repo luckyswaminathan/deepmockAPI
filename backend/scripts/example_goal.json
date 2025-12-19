@@ -1,0 +1,22 @@
+{
+  "api_slug": "stripe",
+  "description": "Create a customer with an active payment method",
+  "goal_state": {
+    "target_components": {
+      "customer": [
+        {
+          "id": "cus_*",
+          "email": "customer@example.com"
+        }
+      ],
+      "payment_method": [
+        {
+          "id": "pm_*",
+          "customer": "cus_*",
+          "type": "card"
+        }
+      ]
+    }
+  }
+}
+
