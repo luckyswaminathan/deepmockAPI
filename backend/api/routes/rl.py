@@ -9,11 +9,13 @@ from uuid import uuid4
 
 import httpx
 from httpx import ASGITransport
-from typing import Any
+from typing import Any, Optional
 
 from fastapi import APIRouter, HTTPException, Request
 
 from ..schemas.rl import (
+    ActionResponse,
+    ActionsListResponse,
     CreateGoalRequest,
     CreateSessionRequest,
     EpisodeResponse,
@@ -412,6 +414,58 @@ def restore_state(state_id: str, payload: RestoreStateRequest) -> RestoreStateRe
         raise HTTPException(status_code=404, detail=str(e)) from e
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e)) from e
+
+
+# Action Management
+@router.get("/actions", response_model=ActionsListResponse)
+def list_actions(limit: Optional[int] = None) -> ActionsListResponse:
+    """List all actions."""
+    try:
+        actions = _action_tracker.list_all_actions(limit=limit)
+        action_responses = [
+            ActionResponse(
+                action_id=action.action_id,
+                state_id=action.state_id,
+                next_state_id=action.next_state_id,
+                method=action.method,
+                path=action.path,
+                params=action.params,
+                request_body=action.request_body,
+                response_status=action.response_status,
+                response_body=action.response_body,
+                component_name=action.component_name,
+                timestamp=action.timestamp,
+            )
+            for action in actions
+        ]
+        return ActionsListResponse(
+            actions=action_responses,
+            total=len(action_responses),
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) from e
+
+
+@router.get("/actions/{action_id}", response_model=ActionResponse)
+def get_action(action_id: str) -> ActionResponse:
+    """Get action by ID."""
+    try:
+        action = _action_tracker.get_action(action_id)
+        return ActionResponse(
+            action_id=action.action_id,
+            state_id=action.state_id,
+            next_state_id=action.next_state_id,
+            method=action.method,
+            path=action.path,
+            params=action.params,
+            request_body=action.request_body,
+            response_status=action.response_status,
+            response_body=action.response_body,
+            component_name=action.component_name,
+            timestamp=action.timestamp,
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e)) from e
 
 
 # Session Management (simpler interface for RL agents)

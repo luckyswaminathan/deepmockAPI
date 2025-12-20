@@ -117,6 +117,26 @@ class RestoreStateResponse(BaseModel):
     message: str
 
 
+# Action Management
+class ActionResponse(BaseModel):
+    action_id: str
+    state_id: str
+    next_state_id: str
+    method: str
+    path: str
+    params: Dict[str, Any]
+    request_body: Optional[Dict[str, Any]]
+    response_status: int
+    response_body: Optional[Dict[str, Any]]
+    component_name: Optional[str]
+    timestamp: datetime
+
+
+class ActionsListResponse(BaseModel):
+    actions: List[ActionResponse]
+    total: int
+
+
 # Session Management (for tracking RL episodes)
 class CreateSessionRequest(BaseModel):
     api_slug: str

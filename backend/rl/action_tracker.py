@@ -180,4 +180,29 @@ class ActionTracker:
                 # Action might have been evicted, skip
                 continue
         return actions
+    
+    def list_all_actions(self, limit: Optional[int] = None) -> list[Action]:
+        """List all actions by scanning Redis keys."""
+        actions = []
+        cursor = 0
+        pattern = "action:*"
+        
+        while True:
+            cursor, keys = self.redis.scan(cursor, match=pattern, count=100)
+            for key in keys:
+                try:
+                    # Extract action_id from key (remove "action:" prefix)
+                    action_id = key.replace("action:", "", 1)
+                    action = self.get_action(action_id)
+                    actions.append(action)
+                    if limit and len(actions) >= limit:
+                        return actions
+                except ValueError:
+                    # Action might have been evicted, skip
+                    continue
+            
+            if cursor == 0:
+                break
+        
+        return actions
 
