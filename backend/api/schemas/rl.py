@@ -151,3 +151,52 @@ class SessionResponse(BaseModel):
     start_state_id: str
     actions: List[str]
     created_at: datetime
+
+
+# Observation and Action Masking
+class ObservationResponse(BaseModel):
+    """Observation for RL policy."""
+    required: List[str]
+    satisfied: List[str]
+    known_ids: Dict[str, List[str]]
+    last_k_components: List[str]
+    last_action_id: Optional[str]
+    last_status: Optional[int]
+    steps_remaining: int
+    top_k_routes: Optional[List[Dict[str, Any]]] = None
+
+
+class ValidActionsResponse(BaseModel):
+    """Valid actions at current state."""
+    state_id: str
+    valid_action_ids: List[str]
+    total_actions: int
+
+
+class TransitionInfo(BaseModel):
+    """Info for a transition."""
+    status: Optional[int] = None
+    component_name: Optional[str] = None
+    modified_components: Optional[Dict[str, List[Dict[str, Any]]]] = None
+
+
+class TransitionResponse(BaseModel):
+    """A single transition for PPO training."""
+    state_id: str
+    obs: Dict[str, Any]
+    action_id: str
+    reward: float
+    done: bool
+    next_state_id: str
+    info: Dict[str, Any]
+    timestamp: str
+
+
+class EpisodeTransitionsResponse(BaseModel):
+    """Transitions for an episode."""
+    episode_id: str
+    goal_id: str
+    transitions: List[TransitionResponse]
+    total_steps: int
+    total_reward: float
+    final_done: bool

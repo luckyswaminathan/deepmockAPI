@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Optional
+from typing import Any, Dict, Optional, Set
 
 from .goal_manager import GoalManager
 from .state_manager import StateManager
@@ -14,6 +14,10 @@ class RewardCalculator:
     def __init__(self, goal_manager: GoalManager, state_manager: StateManager):
         self.goal_manager = goal_manager
         self.state_manager = state_manager
+        # Track satisfied components per episode to prevent farming
+        self._episode_satisfied_components: Dict[str, Set[str]] = {}
+        # Track step counts per episode for step penalty
+        self._episode_step_counts: Dict[str, int] = {}
     
     def compute_reward(
         self,
@@ -22,15 +26,37 @@ class RewardCalculator:
         previous_state_id: Optional[str] = None,
         response_status: Optional[int] = None,
         response_body: Optional[Any] = None,
+        episode_id: Optional[str] = None,
     ) -> tuple[float, bool, str]:
         """
-        Compute simple reward: progress from start state toward goal.
+        Compute reward with proper shaping:
+        - Prevents component farming (only reward first-time satisfaction)
+        - Penalizes useless steps
+        - Penalizes failures
         
-        Reward is positive if closer to goal than start state, negative if further.
-        One episode = one attempt from start state to goal.
+        Args:
+            goal_id: Goal ID
+            current_state_id: Current state ID
+            previous_state_id: Previous state ID (optional)
+            response_status: HTTP response status code
+            response_body: Response body (optional)
+            episode_id: Episode ID for tracking satisfied components
+        
+        Returns:
+            Tuple of (reward, done, reason)
         """
         goal = self.goal_manager.get_goal(goal_id)
         start_state_id = goal.start_state_id
+        
+        # Initialize episode tracking (if episode_id provided)
+        already_satisfied = set()
+        if episode_id:
+            if episode_id not in self._episode_satisfied_components:
+                self._episode_satisfied_components[episode_id] = set()
+            if episode_id not in self._episode_step_counts:
+                self._episode_step_counts[episode_id] = 0
+            self._episode_step_counts[episode_id] += 1
+            already_satisfied = self._episode_satisfied_components[episode_id]
         
         # Check if goal is reached
         done, current_reward, reason = self.goal_manager.check_goal_reached(goal_id, current_state_id)
@@ -39,27 +65,82 @@ class RewardCalculator:
         if done:
             config = goal.reward_config
             success_reward = config.success_bonus if (config and config.success_bonus is not None) else 1.0
+            # Clear episode tracking
+            if episode_id:
+                self._episode_satisfied_components.pop(episode_id, None)
+                self._episode_step_counts.pop(episode_id, None)
             return success_reward, True, reason
         
-        # Compare current state to START state (not previous state)
-        # This gives reward based on progress from beginning of episode
-        _, start_reward, _ = self.goal_manager.check_goal_reached(goal_id, start_state_id)
+        # Extract required components from goal
+        required_components = self._extract_required_components(goal.goal_state)
         
-        # Simple reward: how much closer are we to goal compared to start?
-        progress = current_reward - start_reward
+        # Get current state to check which components are satisfied
+        current_state = self.state_manager.get_state(current_state_id, reconstruct_if_missing=True)
         
-        # Reward is the progress (can be negative if we got further)
-        reward = progress
+        # Compute component completion reward (prevent farming)
+        component_reward = 0.0
+        newly_satisfied = []
         
-        # Small penalty for errors (but don't override progress)
+        for component in required_components:
+            if component in current_state.modified_components:
+                records = current_state.modified_components[component]
+                if records and len(records) > 0:
+                    # Component is satisfied
+                    if component not in already_satisfied:
+                        # First time satisfying this component - give reward
+                        component_reward += 1.0 / len(required_components)
+                        newly_satisfied.append(component)
+                        if episode_id:
+                            already_satisfied.add(component)
+        
+        # Step penalty: small cost per step to encourage shortest solutions
+        step_penalty = -0.01
+        
+        # Failure penalty: penalize errors more strongly
+        failure_penalty = 0.0
         if response_status and response_status >= 400:
-            error_penalty = -0.1  # Small penalty, don't overwhelm progress signal
-            reward += error_penalty
+            # Stronger penalty for failures
+            if response_status >= 500:
+                failure_penalty = -0.3  # Server errors are worse
+            else:
+                failure_penalty = -0.2  # Client errors
+        
+        # Total reward
+        reward = component_reward + step_penalty + failure_penalty
+        
+        # Build reason string
+        reason_parts = []
+        if newly_satisfied:
+            reason_parts.append(f"satisfied: {', '.join(newly_satisfied)}")
+        if failure_penalty < 0:
+            reason_parts.append(f"error: {response_status}")
+        reason = "; ".join(reason_parts) if reason_parts else "no progress"
         
         # Clamp to reasonable range
         reward = max(-1.0, min(1.0, reward))
         
         return reward, False, reason
+    
+    def _extract_required_components(self, goal_state: Dict[str, Any]) -> list[str]:
+        """Extract list of required component types from goal state."""
+        required = []
+        
+        if "target_components" in goal_state:
+            required = list(goal_state["target_components"].keys())
+        elif "target_conditions" in goal_state:
+            # Extract unique component names from conditions
+            conditions = goal_state["target_conditions"]
+            required = list(set(c.get("component") for c in conditions if c.get("component")))
+        else:
+            # Treat goal_state as target_components
+            required = list(goal_state.keys())
+        
+        return required
+    
+    def reset_episode_tracking(self, episode_id: str) -> None:
+        """Reset tracking for an episode (call when episode starts/resets)."""
+        self._episode_satisfied_components.pop(episode_id, None)
+        self._episode_step_counts.pop(episode_id, None)
     
     def _compute_progress_reward(
         self,

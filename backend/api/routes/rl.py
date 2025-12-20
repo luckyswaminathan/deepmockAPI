@@ -9,9 +9,10 @@ from uuid import uuid4
 
 import httpx
 from httpx import ASGITransport
-from typing import Any, Optional
+from typing import Any, Dict, List, Optional
 
 from fastapi import APIRouter, HTTPException, Request
+from pydantic import BaseModel
 
 from ..schemas.rl import (
     ActionResponse,
@@ -19,9 +20,11 @@ from ..schemas.rl import (
     CreateGoalRequest,
     CreateSessionRequest,
     EpisodeResponse,
+    EpisodeTransitionsResponse,
     ExecuteActionRequest,
     ExecuteActionResponse,
     GoalResponse,
+    ObservationResponse,
     ResetEpisodeRequest,
     ResetEpisodeResponse,
     RestoreStateRequest,
@@ -31,13 +34,18 @@ from ..schemas.rl import (
     StateChildrenResponse,
     StatePathResponse,
     StateResponse,
+    TransitionResponse,
+    ValidActionsResponse,
 )
+from rl.action_masker import ActionMasker
 from rl.action_tracker import ActionTracker
 from rl.goal_manager import GoalManager
 from rl.models import Episode
+from rl.observation_encoder import ObservationEncoder
 from rl.redis_client import get_redis_client
 from rl.reward_calculator import RewardCalculator
 from rl.state_manager import StateManager
+from rl.transition_logger import TransitionLogger
 from rl.utils import json_to_model, model_to_json
 
 router = APIRouter(prefix="/rl", tags=["rl"])
@@ -47,6 +55,9 @@ _state_manager = StateManager()
 _action_tracker = ActionTracker(_state_manager)
 _goal_manager = GoalManager(_state_manager)
 _reward_calculator = RewardCalculator(_goal_manager, _state_manager)
+_observation_encoder = ObservationEncoder(_goal_manager, _state_manager)
+_action_masker = ActionMasker(_state_manager)
+_transition_logger = TransitionLogger(_observation_encoder)
 _redis = get_redis_client()
 
 
@@ -113,6 +124,9 @@ def start_episode(goal_id: str, payload: StartEpisodeRequest) -> EpisodeResponse
             reward=0.0,
             done=False,
         )
+        
+        # Reset episode tracking in reward calculator
+        _reward_calculator.reset_episode_tracking(episode_id)
         
         # Store episode and seed session cache
         episode_json = model_to_json(episode)
@@ -267,13 +281,14 @@ async def execute_action(episode_id: str, payload: ExecuteActionRequest, request
     # For reward calculation, compare to start state (each action is independent)
     previous_state_id = start_state_id
     
-    # Compute reward for this state transition
+    # Compute reward for this state transition (with episode_id for tracking)
     reward, done, reason = _reward_calculator.compute_reward(
         goal_id=episode.goal_id,
         current_state_id=next_state_id,
         previous_state_id=previous_state_id,
         response_status=response.status_code,
         response_body=response_body if isinstance(response_body, dict) else None,
+        episode_id=episode_id,
     )
     
     # Update the state with the computed reward (snapshot the reward)
@@ -286,6 +301,22 @@ async def execute_action(episode_id: str, payload: ExecuteActionRequest, request
     except Exception as e:
         # If state update fails, log but don't fail the request
         print(f"[RL] Failed to update state {next_state_id} with reward: {e}", file=sys.stderr)
+    
+    # Log transition for PPO training
+    info = {
+        "status": response.status_code,
+        "component_name": next_state.modified_components and list(next_state.modified_components.keys())[0] if next_state.modified_components else None,
+        "modified_components": dict(next_state.modified_components) if next_state.modified_components else None,
+    }
+    _transition_logger.log_transition(
+        goal_id=episode.goal_id,
+        state_id=start_state_id,
+        action_id=action_id,
+        reward=reward,
+        done=done,
+        next_state_id=next_state_id,
+        info=info,
+    )
 
     episode.current_state_id = next_state_id
     episode.action_history.append(action_id)
@@ -295,6 +326,10 @@ async def execute_action(episode_id: str, payload: ExecuteActionRequest, request
     episode_json = model_to_json(episode)
     _redis.set(f"episode:{episode_id}", episode_json)
     _update_episode_session(session_id, next_state_id, action_id)
+    
+    # If episode is done, finalize transitions
+    if done:
+        _transition_logger.finalize_episode(episode.goal_id, episode_id, save_to_file=True)
 
     return ExecuteActionResponse(
         action_id=action_id,
@@ -322,6 +357,9 @@ def reset_episode(episode_id: str, payload: ResetEpisodeRequest) -> ResetEpisode
     
     # Restore state
     _state_manager.restore_state(target_state_id)
+    
+    # Reset episode tracking in reward calculator
+    _reward_calculator.reset_episode_tracking(episode_id)
     
     # Reset episode
     episode.current_state_id = target_state_id
@@ -466,6 +504,82 @@ def get_action(action_id: str) -> ActionResponse:
         )
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e)) from e
+
+
+# Observation and Action Masking
+@router.get("/episodes/{episode_id}/observation", response_model=ObservationResponse)
+def get_episode_observation(episode_id: str) -> ObservationResponse:
+    """Get observation for current episode state."""
+    episode_json = _redis.get(f"episode:{episode_id}")
+    if not episode_json:
+        raise HTTPException(status_code=404, detail=f"Episode {episode_id} not found")
+    
+    episode = json_to_model(Episode, episode_json)
+    goal = _goal_manager.get_goal(episode.goal_id)
+    
+    obs = _observation_encoder.encode_observation(
+        goal_id=episode.goal_id,
+        state_id=episode.current_state_id,
+    )
+    
+    return ObservationResponse(**obs)
+
+
+class ValidActionsRequest(BaseModel):
+    """Request for valid actions."""
+    available_actions: List[Dict[str, Any]] = []
+
+
+@router.post("/episodes/{episode_id}/valid-actions", response_model=ValidActionsResponse)
+def get_valid_actions(
+    episode_id: str,
+    payload: ValidActionsRequest,
+) -> ValidActionsResponse:
+    """Get valid actions at current episode state."""
+    episode_json = _redis.get(f"episode:{episode_id}")
+    if not episode_json:
+        raise HTTPException(status_code=404, detail=f"Episode {episode_id} not found")
+    
+    episode = json_to_model(Episode, episode_json)
+    
+    valid_action_ids = _action_masker.get_valid_actions(
+        state_id=episode.current_state_id,
+        available_actions=payload.available_actions,
+    )
+    
+    return ValidActionsResponse(
+        state_id=episode.current_state_id,
+        valid_action_ids=valid_action_ids,
+        total_actions=len(payload.available_actions),
+    )
+
+
+@router.get("/episodes/{episode_id}/transitions", response_model=EpisodeTransitionsResponse)
+def get_episode_transitions(episode_id: str) -> EpisodeTransitionsResponse:
+    """Get transitions for an episode."""
+    episode_json = _redis.get(f"episode:{episode_id}")
+    if not episode_json:
+        raise HTTPException(status_code=404, detail=f"Episode {episode_id} not found")
+    
+    episode = json_to_model(Episode, episode_json)
+    
+    transitions_data = _transition_logger.get_episode_transitions(episode.goal_id)
+    
+    transitions = [
+        TransitionResponse(**t) for t in transitions_data
+    ]
+    
+    total_reward = sum(t.reward for t in transitions)
+    final_done = transitions[-1].done if transitions else False
+    
+    return EpisodeTransitionsResponse(
+        episode_id=episode_id,
+        goal_id=episode.goal_id,
+        transitions=transitions,
+        total_steps=len(transitions),
+        total_reward=total_reward,
+        final_done=final_done,
+    )
 
 
 # Session Management (simpler interface for RL agents)
