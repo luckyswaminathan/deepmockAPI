@@ -138,6 +138,9 @@ def test_reward_shaping(backend_url: str, episode_id: str, session: requests.Ses
             }
         }
         
+        print(f"  Route: POST /v1/customers")
+        print(f"  Body: {json.dumps(test_action['body'], indent=4)}")
+        
         resp = session.post(
             f"{backend_url}/rl/episodes/{episode_id}/actions",
             json=test_action,
@@ -147,6 +150,8 @@ def test_reward_shaping(backend_url: str, episode_id: str, session: requests.Ses
         if resp.status_code == 200:
             result = resp.json()
             reward = result.get("reward", 0.0)
+            status = result.get("response_status", 0)
+            print(f"  → Status: {status}")
             print(f"  → Reward for duplicate component: {reward:.3f}")
             
             # Reward should be low (just step penalty, no component reward)
@@ -168,6 +173,9 @@ def test_reward_shaping(backend_url: str, episode_id: str, session: requests.Ses
             "method": "GET",
             "path": "/v1/customers/invalid_id_12345",
         }
+        print(f"  Route: GET /v1/customers/invalid_id_12345")
+        print(f"  (Testing invalid resource access)")
+        
         resp = session.post(
             f"{backend_url}/rl/episodes/{episode_id}/actions",
             json=invalid_action,
@@ -177,6 +185,7 @@ def test_reward_shaping(backend_url: str, episode_id: str, session: requests.Ses
             result = resp.json()
             reward = result.get("reward", 0.0)
             status = result.get("response_status", 0)
+            print(f"  → Status: {status}")
             print(f"  → Reward for error ({status}): {reward:.3f}")
             if reward < -0.1:  # Should be penalized
                 print("  ✓ Failure penalty applied correctly")
@@ -215,10 +224,66 @@ def test_transition_logging(backend_url: str, episode_id: str) -> bool:
         
         transitions = result.get("transitions", [])
         if transitions:
-            print(f"\n  Sample transition (first):")
+            print(f"\n  All Transitions ({len(transitions)} total):")
+            print("  " + "-" * 76)
+            for i, transition in enumerate(transitions, 1):
+                action_id = transition.get('action_id', 'N/A')
+                info = transition.get("info", {})
+                component_name = info.get("component_name", "N/A")
+                status = info.get("status", "N/A")
+                
+                # Fetch action details to get route information
+                route_info = "N/A"
+                if action_id != "N/A":
+                    try:
+                        resp_action = requests.get(
+                            f"{backend_url}/rl/actions/{action_id}",
+                            timeout=10,
+                        )
+                        if resp_action.status_code == 200:
+                            action_data = resp_action.json()
+                            method = action_data.get("method", "N/A")
+                            path = action_data.get("path", "N/A")
+                            route_info = f"{method} {path}"
+                    except Exception:
+                        # If we can't fetch action, just use action_id
+                        pass
+                
+                print(f"  Transition {i}:")
+                print(f"    Route: {route_info}")
+                print(f"    Action ID: {action_id}")
+                print(f"    Reward: {transition.get('reward', 0.0):.3f}")
+                print(f"    Status: {status}")
+                print(f"    Component: {component_name}")
+                print(f"    Done: {transition.get('done', False)}")
+                print(f"    State ID: {transition.get('state_id', 'N/A')[:20]}...")
+                print(f"    Next State ID: {transition.get('next_state_id', 'N/A')[:20]}...")
+                if i < len(transitions):
+                    print()
+            
+            print(f"\n  Sample transition (first) details:")
             first_transition = transitions[0]
+            first_action_id = first_transition.get('action_id', 'N/A')
+            
+            # Fetch route for first transition
+            first_route = "N/A"
+            if first_action_id != "N/A":
+                try:
+                    resp_action = requests.get(
+                        f"{backend_url}/rl/actions/{first_action_id}",
+                        timeout=10,
+                    )
+                    if resp_action.status_code == 200:
+                        action_data = resp_action.json()
+                        method = action_data.get("method", "N/A")
+                        path = action_data.get("path", "N/A")
+                        first_route = f"{method} {path}"
+                except Exception:
+                    pass
+            
+            print(f"    Route: {first_route}")
             print(f"    State ID: {first_transition.get('state_id', 'N/A')}")
-            print(f"    Action ID: {first_transition.get('action_id', 'N/A')}")
+            print(f"    Action ID: {first_action_id}")
             print(f"    Reward: {first_transition.get('reward', 0.0):.3f}")
             print(f"    Done: {first_transition.get('done', False)}")
             print(f"    Has observation: {'obs' in first_transition}")
@@ -298,29 +363,85 @@ def run_full_test(backend_url: str, goal_file: Path, actions_file: Path) -> bool
     
     # Execute actions and test reward shaping
     print(f"\n5. Executing actions and testing reward shaping...")
+    print("=" * 80)
     total_reward = 0.0
+    all_steps = []
     
     for idx, action in enumerate(actions_data, start=1):
-        print(f"\n   Step {idx}: {action.get('method')} {action.get('path')}")
+        method = action.get('method', 'UNKNOWN')
+        path = action.get('path', 'UNKNOWN')
+        body = action.get('body')
+        params = action.get('params', {})
+        
+        print(f"\n   Step {idx}: {method} {path}")
+        print(f"   Route: {method} {path}")
+        if params:
+            print(f"   Params: {params}")
+        if body:
+            print(f"   Body: {json.dumps(body, indent=6)[:200]}...")  # Truncate long bodies
+        
         resp = session.post(
             f"{backend}/rl/episodes/{episode_id}/actions",
             json=action,
             timeout=60,
         )
         
+        step_info = {
+            "step": idx,
+            "method": method,
+            "path": path,
+            "params": params,
+            "body": body,
+        }
+        
         if resp.status_code >= 400:
-            print(f"   ✗ Action failed: {resp.status_code} {resp.text.strip()}")
+            error_msg = resp.text.strip()
+            print(f"   ✗ Action failed: {resp.status_code} {error_msg}")
+            step_info.update({
+                "status": resp.status_code,
+                "success": False,
+                "error": error_msg,
+            })
             # Continue anyway to test error handling
         else:
             result = resp.json()
             reward = result.get("reward", 0.0)
             total_reward += reward
             done = result.get("done", False)
-            print(f"   → reward={reward:.3f}, done={done}, status={result.get('response_status')}")
+            response_status = result.get("response_status", 0)
+            action_id = result.get("action_id", "N/A")
+            next_state_id = result.get("next_state_id", "N/A")
+            
+            print(f"   → Status: {response_status}")
+            print(f"   → Reward: {reward:.3f}")
+            print(f"   → Done: {done}")
+            print(f"   → Action ID: {action_id}")
+            print(f"   → Next State ID: {next_state_id}")
+            
+            step_info.update({
+                "status": response_status,
+                "success": True,
+                "reward": reward,
+                "done": done,
+                "action_id": action_id,
+                "next_state_id": next_state_id,
+            })
             
             if done:
                 print("   ✓ Goal reached!")
                 break
+        
+        all_steps.append(step_info)
+    
+    # Print summary of all steps
+    print("\n" + "=" * 80)
+    print("STEP SUMMARY")
+    print("=" * 80)
+    for step in all_steps:
+        status_icon = "✓" if step.get("success") else "✗"
+        print(f"{status_icon} Step {step['step']}: {step['method']} {step['path']} "
+              f"(Status: {step.get('status', 'N/A')}, Reward: {step.get('reward', 0.0):.3f})")
+    print("=" * 80)
     
     # Test reward shaping (pass session for executing test actions)
     if not test_reward_shaping(backend, episode_id, session):
