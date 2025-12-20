@@ -247,15 +247,46 @@ def main(argv: list[str] | None = None) -> int:
         next_state_id = result.get("next_state_id")
         state_history.append(next_state_id)  # Track state history
         
-        print(
-            "    -> reward={reward:.3f} done={done} next_state={next_state_id} status={status} (state_history: {step})".format(
-                reward=result.get("reward", 0.0),
-                done=result.get("done", False),
-                next_state_id=next_state_id,
-                status=result.get("response_status"),
-                step=len(state_history),
+        # Get state details for debugging
+        try:
+            resp_state = session.get(f"{backend}/rl/states/{next_state_id}")
+            if resp_state.status_code == 200:
+                state_data = resp_state.json()
+                parent_state_id = state_data.get("parent_state_id", "None")
+                components = state_data.get("modified_components", {})
+                component_names = list(components.keys()) if components else []
+                print(
+                    "    -> reward={reward:.3f} done={done} next_state={next_state_id} parent={parent} "
+                    "components={comps} status={status} (state_history: {step})".format(
+                        reward=result.get("reward", 0.0),
+                        done=result.get("done", False),
+                        next_state_id=next_state_id,
+                        parent=parent_state_id,
+                        comps=component_names[:3] if component_names else "[]",  # Show first 3 components
+                        status=result.get("response_status"),
+                        step=len(state_history),
+                    )
+                )
+            else:
+                print(
+                    "    -> reward={reward:.3f} done={done} next_state={next_state_id} status={status} (state_history: {step})".format(
+                        reward=result.get("reward", 0.0),
+                        done=result.get("done", False),
+                        next_state_id=next_state_id,
+                        status=result.get("response_status"),
+                        step=len(state_history),
+                    )
+                )
+        except Exception:
+            print(
+                "    -> reward={reward:.3f} done={done} next_state={next_state_id} status={status} (state_history: {step})".format(
+                    reward=result.get("reward", 0.0),
+                    done=result.get("done", False),
+                    next_state_id=next_state_id,
+                    status=result.get("response_status"),
+                    step=len(state_history),
+                )
             )
-        )
         if result.get("done"):
             print("[agent] Goal reached, stopping early")
             break

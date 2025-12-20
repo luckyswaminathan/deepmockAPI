@@ -80,78 +80,105 @@ class StateManager:
         parent_state_id: Optional[str] = None,
         action_id: Optional[str] = None,
         modified_components: Optional[Dict[str, List[Dict[str, Any]]]] = None,
+        reward: Optional[float] = None,
     ) -> str:
         """
-        Create a new state from parent state + modified components.
+        Create a new state by copying parent state snapshot and applying new changes.
+        
+        Each state is a complete snapshot of the database at that point.
+        The parent state's snapshot is deep copied, then updated with new changes.
         
         Args:
             api_slug: API identifier
             parent_state_id: Parent state ID (None for initial state)
             action_id: Action that led to this state
-            modified_components: Newly modified components. If None, detects from DB.
+            modified_components: Newly modified components from this action. If None, detects from DB.
+            reward: Reward at this state (computed after action)
         
         Returns:
             state_id
         """
-        # Get parent state's modified_components
+        # Deep copy parent state's snapshot
         parent_modified = {}
         action_path = []
+        parent_reward = None
         
         if parent_state_id:
             parent_state = self.get_state(parent_state_id, reconstruct_if_missing=True)
-            parent_modified = parent_state.modified_components.copy()
+            # Deep copy the entire snapshot (not just reference)
+            parent_modified = json.loads(json.dumps(parent_state.modified_components))
             action_path = parent_state.action_path.copy()
+            parent_reward = parent_state.reward
             if action_id:
                 action_path.append(action_id)
         elif action_id:
             action_path = [action_id]
         
-        # Merge with new modifications
+        # Get new modifications from this action only
         if modified_components is None:
-            # Detect from database
+            # Detect what changed in this action (compare current DB with parent state)
             modified_components = self.detect_modified_components(api_slug, parent_state_id)
         
-        # Merge parent + new modifications
-        merged_components = parent_modified.copy()
-        for component_name, records in modified_components.items():
-            # For each component, merge records (update existing, add new)
+        # Apply new changes to the parent snapshot
+        # Start with a deep copy of parent snapshot to ensure independence
+        # This ensures each state is a complete snapshot, not dependent on database state
+        merged_components = json.loads(json.dumps(parent_modified))
+        
+        # Debug: Log snapshot creation
+        if parent_state_id:
+            print(
+                f"[StateManager] Creating state snapshot: parent has {len(parent_modified)} components, "
+                f"new changes affect {len(modified_components)} components",
+                file=sys.stderr
+            )
+        
+        for component_name, new_records in modified_components.items():
+            # For each component, update the snapshot
             if component_name not in merged_components:
                 merged_components[component_name] = []
             
-            # Create a map of existing records by ID
+            # Create a map of existing records by ID in the snapshot
             existing_map = {
                 str(r.get("id", r.get("record_key", ""))): r
                 for r in merged_components[component_name]
             }
             
-            # Update/add records
-            for record in records:
+            # Update/add records from this action
+            for record in new_records:
                 record_id = str(record.get("id", record.get("record_key", "")))
-                existing_map[record_id] = record
+                # Deep copy the record to avoid reference issues
+                existing_map[record_id] = json.loads(json.dumps(record))
             
             merged_components[component_name] = list(existing_map.values())
         
-        # Generate state ID
+        # Generate state ID based on the complete snapshot
         state_id = self._generate_state_id(merged_components)
         
         # Check if state already exists
         existing = self.redis.get(self._state_key(state_id))
         if existing:
+            # Update reward if provided
+            if reward is not None:
+                existing_state = json_to_model(State, existing)
+                existing_state.reward = reward
+                self._cache_state(existing_state, add_parent_link=False)
+                self._persist_state(existing_state)
             return state_id
         
-        # Create state object
+        # Create state object with complete snapshot
         state = State(
             state_id=state_id,
             api_slug=api_slug,
             parent_state_id=parent_state_id,
             action_path=action_path,
-            modified_components=merged_components,
+            modified_components=merged_components,  # Complete snapshot
+            reward=reward if reward is not None else parent_reward,  # Use provided reward or inherit from parent
         )
         
         self._cache_state(state, add_parent_link=bool(parent_state_id))
         self._persist_state(state)
         
-        print(f"[StateManager] Created state {state_id} for {api_slug}", file=sys.stderr)
+        print(f"[StateManager] Created state {state_id} for {api_slug} (snapshot of {len(merged_components)} components)", file=sys.stderr)
         return state_id
     
     def get_state(self, state_id: str, reconstruct_if_missing: bool = True) -> State:
@@ -195,6 +222,7 @@ class StateManager:
             parent_state_id=record.parent_state_id,
             action_path=list(record.action_path or []),
             modified_components=dict(record.modified_components or {}),
+            reward=getattr(record, 'reward', None),  # Get reward if column exists
             created_at=record.created_at,
         )
         self._cache_state(state)
@@ -219,16 +247,21 @@ class StateManager:
                 existing.parent_state_id = state.parent_state_id
                 existing.action_path = list(state.action_path)
                 existing.modified_components = dict(state.modified_components)
+                # Update reward if column exists
+                if hasattr(existing, 'reward'):
+                    existing.reward = state.reward
             else:
-                session.add(
-                    RLStateRecord(
-                        state_id=state.state_id,
-                        api_slug=state.api_slug,
-                        parent_state_id=state.parent_state_id,
-                        action_path=list(state.action_path),
-                        modified_components=dict(state.modified_components),
-                    )
-                )
+                record_data = {
+                    "state_id": state.state_id,
+                    "api_slug": state.api_slug,
+                    "parent_state_id": state.parent_state_id,
+                    "action_path": list(state.action_path),
+                    "modified_components": dict(state.modified_components),
+                }
+                # Add reward if column exists
+                if hasattr(RLStateRecord, 'reward'):
+                    record_data["reward"] = state.reward
+                session.add(RLStateRecord(**record_data))
     
     def detect_modified_components(
         self, api_slug: str, parent_state_id: Optional[str] = None
@@ -268,7 +301,7 @@ class StateManager:
             parent_state = self.get_state(parent_state_id, reconstruct_if_missing=True)
             parent_components = parent_state.modified_components
             
-            # Find differences
+            # Find differences - only return records that actually changed
             modified = {}
             for component_name, current_records in current_components.items():
                 parent_records = parent_components.get(component_name, [])
@@ -283,21 +316,24 @@ class StateManager:
                     for r in parent_records
                 }
                 
-                # Check for changes
-                changed = False
+                # Find only the records that changed (new, modified, or deleted)
+                changed_records = []
+                
+                # Check for new or modified records
                 for record_id, record in current_map.items():
-                    if record_id not in parent_map or parent_map[record_id] != record:
-                        changed = True
-                        break
+                    if record_id not in parent_map:
+                        # New record
+                        changed_records.append(record)
+                    elif parent_map[record_id] != record:
+                        # Modified record
+                        changed_records.append(record)
                 
-                # Check for deletions
-                for record_id in parent_map:
-                    if record_id not in current_map:
-                        changed = True
-                        break
+                # Note: We don't include deleted records in modified_components
+                # because they no longer exist. The state will reflect their absence
+                # by not including them in the merged state.
                 
-                if changed:
-                    modified[component_name] = current_records
+                if changed_records:
+                    modified[component_name] = changed_records
         else:
             # No parent - all current components are modifications
             modified = current_components

@@ -1,9 +1,14 @@
 {
   "api_slug": "stripe",
-  "description": "Create a Stripe account (any ID)",
+  "description": "Create a Stripe account and then add a customer",
   "goal_state": {
     "target_components": {
       "account": [
+        {
+          "id": "*"
+        }
+      ],
+      "customer": [
         {
           "id": "*"
         }

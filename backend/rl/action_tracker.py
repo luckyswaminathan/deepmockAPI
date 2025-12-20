@@ -79,7 +79,14 @@ class ActionTracker:
         current_state = self.state_manager.get_state(state_id, reconstruct_if_missing=True)
         api_slug = current_state.api_slug
         
-        # Detect what changed (compare current DB state with parent state)
+        # IMPORTANT: To ensure states are independent snapshots, we need to:
+        # 1. Restore parent state to database (if parent exists)
+        # 2. Then detect what changed from THIS action only
+        # However, restoring state before every action would be expensive.
+        # Instead, we compare current DB to parent state snapshot, which should work
+        # as long as the parent state snapshot is complete.
+        
+        # Detect what changed (compare current DB state with parent state snapshot)
         modified_components = self.state_manager.detect_modified_components(
             api_slug, parent_state_id=state_id
         )

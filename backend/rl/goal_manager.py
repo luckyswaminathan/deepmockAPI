@@ -155,22 +155,24 @@ class GoalManager:
             # Check if any current record matches any target record
             # Support wildcard IDs (e.g., "cus_*" matches any customer ID)
             exact_matches = 0
-            matched_current_records = set()
+            matched_current_record_ids = set()  # Track by record ID, not Python id()
             
             for target_record in target_records:
                 target_id = str(target_record.get("id", target_record.get("record_key", "")))
                 
                 # Try to find matching current record
                 for current_record in current_records:
+                    # Get the record's actual ID (not Python's id())
+                    current_record_id = str(current_record.get("id", current_record.get("record_key", "")))
+                    
                     # Skip if already matched
-                    current_record_key = id(current_record)
-                    if current_record_key in matched_current_records:
+                    if current_record_id in matched_current_record_ids:
                         continue
                     
                     # Check if records match (handles wildcards)
                     if self._records_match(current_record, target_record):
                         exact_matches += 1
-                        matched_current_records.add(current_record_key)
+                        matched_current_record_ids.add(current_record_id)
                         break  # One match per target record
             
             if exact_matches == len(target_records):

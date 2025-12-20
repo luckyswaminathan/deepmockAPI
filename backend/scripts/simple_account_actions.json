@@ -6,6 +6,14 @@
       "type": "express",
       "country": "US"
     }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/customers",
+    "body": {
+      "email": "customer@example.com",
+      "name": "Test Customer"
+    }
   }
 ]
 

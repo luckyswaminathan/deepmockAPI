@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import sys
 from datetime import datetime
 from uuid import uuid4
 
@@ -164,6 +165,17 @@ async def execute_action(episode_id: str, payload: ExecuteActionRequest, request
     goal = _goal_manager.get_goal(episode.goal_id)
     api_slug = goal.api_slug
     session_id = _ensure_episode_session(episode, api_slug)
+    
+    # IMPORTANT: Each action in an episode should start from the START state
+    # Restore the start state to the database before executing the action
+    # This ensures each action is evaluated independently from the base state
+    start_state_id = goal.start_state_id
+    try:
+        _state_manager.restore_state(start_state_id)
+        print(f"[RL] Restored start state {start_state_id} before action", file=sys.stderr)
+    except Exception as e:
+        print(f"[RL] Warning: Failed to restore start state: {e}", file=sys.stderr)
+        # Continue anyway - the state restoration might not be critical
 
     target_path = payload.path or "/"
     if not target_path.startswith("/"):
@@ -173,7 +185,8 @@ async def execute_action(episode_id: str, payload: ExecuteActionRequest, request
 
     headers = dict(payload.headers or {})
     headers.setdefault("X-RL-Session-Id", session_id)
-    headers.setdefault("X-RL-State-Id", episode.current_state_id)
+    # Use start state for state restoration header (already restored above, but header ensures consistency)
+    headers.setdefault("X-RL-State-Id", start_state_id)
 
     method = payload.method.upper()
     try:
@@ -215,10 +228,22 @@ async def execute_action(episode_id: str, payload: ExecuteActionRequest, request
         response_body = response.text
 
     action_id = response.headers.get("X-RL-Action-Id")
-    next_state_id = response.headers.get("X-RL-Next-State-Id") or episode.current_state_id
+    # Each action should create a state from the START state, not from previous action's state
+    # This ensures states are independent snapshots from the base state
+    start_state_id = goal.start_state_id
+    
+    # Debug: Print state information
+    start_state = _state_manager.get_state(start_state_id, reconstruct_if_missing=True)
+    print(
+        f"[RL] Action {method} {target_path}: "
+        f"parent_state={start_state_id} (has {len(start_state.modified_components)} components: {list(start_state.modified_components.keys())})",
+        file=sys.stderr
+    )
+    
     if not action_id:
+        # Record action starting from the START state (not current episode state)
         action_id, next_state_id = _action_tracker.record_action(
-            state_id=episode.current_state_id,
+            state_id=start_state_id,  # Always use start state as parent
             method=method,
             path=target_path,
             params=payload.params or {},
@@ -226,8 +251,21 @@ async def execute_action(episode_id: str, payload: ExecuteActionRequest, request
             response_status=response.status_code,
             response_body=response_body if isinstance(response_body, dict) else None,
         )
+    else:
+        next_state_id = response.headers.get("X-RL-Next-State-Id") or start_state_id
 
-    previous_state_id = episode.current_state_id
+    # Debug: Print next state information
+    next_state = _state_manager.get_state(next_state_id, reconstruct_if_missing=True)
+    print(
+        f"[RL] Created next_state={next_state_id} (parent={next_state.parent_state_id}, "
+        f"has {len(next_state.modified_components)} components: {list(next_state.modified_components.keys())})",
+        file=sys.stderr
+    )
+
+    # For reward calculation, compare to start state (each action is independent)
+    previous_state_id = start_state_id
+    
+    # Compute reward for this state transition
     reward, done, reason = _reward_calculator.compute_reward(
         goal_id=episode.goal_id,
         current_state_id=next_state_id,
@@ -235,6 +273,17 @@ async def execute_action(episode_id: str, payload: ExecuteActionRequest, request
         response_status=response.status_code,
         response_body=response_body if isinstance(response_body, dict) else None,
     )
+    
+    # Update the state with the computed reward (snapshot the reward)
+    # The state was already created by record_action, so we update it with reward
+    try:
+        next_state = _state_manager.get_state(next_state_id, reconstruct_if_missing=True)
+        next_state.reward = reward
+        _state_manager._cache_state(next_state, add_parent_link=False)
+        _state_manager._persist_state(next_state)
+    except Exception as e:
+        # If state update fails, log but don't fail the request
+        print(f"[RL] Failed to update state {next_state_id} with reward: {e}", file=sys.stderr)
 
     episode.current_state_id = next_state_id
     episode.action_history.append(action_id)

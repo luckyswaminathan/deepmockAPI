@@ -60,26 +60,33 @@ class RLMiddleware(BaseHTTPMiddleware):
             try:
                 self.state_manager.restore_state(restore_state_id)
                 print(f"[RLMiddleware] Restored state {restore_state_id} for {api_slug}", file=sys.stderr)
+                # IMPORTANT: Use the restored state as current_state_id, not session state
+                # This ensures each action starts from the specified state (e.g., start state)
+                current_state_id = restore_state_id
             except Exception as e:
                 print(f"[RLMiddleware] Failed to restore state {restore_state_id}: {e}", file=sys.stderr)
+                current_state_id = None
+        else:
+            current_state_id = None
         
         # Get or create session for automatic tracking
         session_id = request.headers.get("X-RL-Session-Id")
-        current_state_id = None
         
-        if session_id:
-            # Use provided session
-            current_state_id = self._get_session_current_state(session_id)
-        else:
-            # Auto-create anonymous session for this API
-            session_id = self._get_or_create_api_session(api_slug)
-            current_state_id = self._get_session_current_state(session_id)
-        
-        # If still no state, create initial state for this API
-        if not current_state_id:
-            current_state_id = self.state_manager.get_initial_state(api_slug)
-            # Update session with initial state
-            self._update_session_state(session_id, current_state_id, None)
+        # Only use session state if we didn't restore from header
+        if current_state_id is None:
+            if session_id:
+                # Use provided session
+                current_state_id = self._get_session_current_state(session_id)
+            else:
+                # Auto-create anonymous session for this API
+                session_id = self._get_or_create_api_session(api_slug)
+                current_state_id = self._get_session_current_state(session_id)
+            
+            # If still no state, create initial state for this API
+            if not current_state_id:
+                current_state_id = self.state_manager.get_initial_state(api_slug)
+                # Update session with initial state
+                self._update_session_state(session_id, current_state_id, None)
         
         # Extract request data
         method = request.method

@@ -10,13 +10,18 @@ from pydantic import BaseModel, Field
 
 
 class State(BaseModel):
-    """Represents a state in the RL state space."""
+    """Represents a state in the RL state space.
+    
+    Each state is a complete snapshot of the database at that point.
+    States are created by copying the parent state's snapshot and applying new changes.
+    """
     
     state_id: str = Field(default_factory=lambda: f"state_{uuid4().hex[:16]}")
     api_slug: str
     parent_state_id: Optional[str] = None
     action_path: List[str] = Field(default_factory=list)  # List of action_ids
-    modified_components: Dict[str, List[Dict[str, Any]]] = Field(default_factory=dict)
+    modified_components: Dict[str, List[Dict[str, Any]]] = Field(default_factory=dict)  # Complete snapshot
+    reward: Optional[float] = None  # Reward at this state (computed after action)
     created_at: datetime = Field(default_factory=datetime.utcnow)
     metadata: Dict[str, Any] = Field(default_factory=dict)
 
