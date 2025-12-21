@@ -1,0 +1,63 @@
+[
+  {
+    "method": "POST",
+    "path": "/v1/customers",
+    "body": {
+      "id": "cus_demo_stripe",
+      "email": "subscriber@example.com",
+      "name": "Demo Subscriber",
+      "description": "High-value subscription customer"
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/payment_methods",
+    "body": {
+      "id": "pm_demo_card",
+      "type": "card",
+      "card": {
+        "brand": "visa",
+        "last4": "4242",
+        "exp_month": 12,
+        "exp_year": 2030
+      },
+      "customer": "cus_demo_stripe"
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/payment_methods/pm_demo_card/attach",
+    "body": {
+      "customer": "cus_demo_stripe",
+      "default_for_currency": "usd"
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/customers/cus_demo_stripe/subscriptions",
+    "body": {
+      "id": "sub_demo_premium",
+      "status": "active",
+      "items": {
+        "data": [
+          {
+            "price": "price_basic",
+            "quantity": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/invoices",
+    "body": {
+      "id": "in_demo_subscription",
+      "customer": "cus_demo_stripe",
+      "subscription": "sub_demo_premium",
+      "status": "paid",
+      "amount_paid": 1200,
+      "currency": "usd"
+    }
+  }
+]

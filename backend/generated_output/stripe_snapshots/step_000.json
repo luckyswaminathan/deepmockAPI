@@ -1,0 +1,33 @@
+{
+  "timestamp": "2025-12-21T07:27:35.375236+00:00",
+  "episode_id": "episode_5c5a88e348544ddd",
+  "step": 0,
+  "state_id": "state_44136fa355b3678a",
+  "state": {
+    "state_id": "state_44136fa355b3678a",
+    "api_slug": "stripe",
+    "parent_state_id": null,
+    "action_path": [],
+    "modified_components": {},
+    "created_at": "2025-12-21T07:26:23.247151"
+  },
+  "observation": {
+    "required": [
+      "customer",
+      "payment_method",
+      "subscription",
+      "invoice"
+    ],
+    "satisfied": [],
+    "known_ids": {},
+    "last_k_components": [],
+    "last_action_id": null,
+    "last_status": null,
+    "steps_remaining": 4,
+    "top_k_routes": null
+  },
+  "action": null,
+  "result": {
+    "note": "start"
+  }
+}

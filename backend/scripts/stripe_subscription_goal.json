@@ -1,0 +1,51 @@
+{
+  "api_slug": "stripe",
+  "description": "Create a customer with an attached card, active subscription, and paid invoice.",
+  "goal_state": {
+    "target_components": {
+      "customer": [
+        {
+          "id": "cus_demo_stripe",
+          "email": "subscriber@example.com",
+          "name": "Demo Subscriber"
+        }
+      ],
+      "payment_method": [
+        {
+          "id": "pm_demo_card",
+          "customer": "cus_demo_stripe",
+          "type": "card",
+          "card": {
+            "brand": "visa",
+            "last4": "4242"
+          }
+        }
+      ],
+      "subscription": [
+        {
+          "id": "sub_demo_premium",
+          "customer": "cus_demo_stripe",
+          "status": "active",
+          "items": {
+            "data": [
+              {
+                "price": "price_basic",
+                "quantity": 1
+              }
+            ]
+          }
+        }
+      ],
+      "invoice": [
+        {
+          "id": "in_demo_subscription",
+          "customer": "cus_demo_stripe",
+          "subscription": "sub_demo_premium",
+          "status": "paid",
+          "amount_paid": 1200,
+          "currency": "usd"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "timestamp": "2025-12-21T07:27:35.429937+00:00",
+  "episode_id": "episode_5c5a88e348544ddd",
+  "step": 1,
+  "state_id": "state_1974c556cb66414f",
+  "state": {
+    "state_id": "state_1974c556cb66414f",
+    "api_slug": "stripe",
+    "parent_state_id": "state_44136fa355b3678a",
+    "action_path": [
+      "action_09e64c5f57964db9"
+    ],
+    "modified_components": {
+      "customer": [
+        {
+          "id": "cus_demo_stripe",
+          "email": "subscriber@example.com",
+          "name": "Demo Subscriber",
+          "description": "High-value subscription customer"
+        }
+      ]
+    },
+    "created_at": "2025-12-21T07:26:23.442701"
+  },
+  "observation": {
+    "required": [
+      "customer",
+      "payment_method",
+      "subscription",
+      "invoice"
+    ],
+    "satisfied": [
+      "customer"
+    ],
+    "known_ids": {
+      "customer": [
+        "cus_demo..."
+      ]
+    },
+    "last_k_components": [
+      "customer"
+    ],
+    "last_action_id": "action_09e64c5f57964db9",
+    "last_status": 200,
+    "steps_remaining": 3,
+    "top_k_routes": null
+  },
+  "action": {
+    "method": "POST",
+    "path": "/v1/customers",
+    "body": {
+      "id": "cus_demo_stripe",
+      "email": "subscriber@example.com",
+      "name": "Demo Subscriber",
+      "description": "High-value subscription customer"
+    }
+  },
+  "result": {
+    "action_id": "action_70270dda3e454c35",
+    "next_state_id": "state_1974c556cb66414f",
+    "reward": 0.24,
+    "done": false,
+    "reason": "satisfied: customer",
+    "response_status": 200,
+    "response_body": {
+      "id": "cus_demo_stripe",
+      "email": "subscriber@example.com",
+      "name": "Demo Subscriber",
+      "description": "High-value subscription customer"
+    }
+  }
+}
