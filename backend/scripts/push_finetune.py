@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import sys
 from pathlib import Path
@@ -47,6 +48,25 @@ def _upload_file(
         return None
     if not path.exists():
         raise SystemExit(f"Dataset file not found: {path}")
+    
+    # Validate file is not empty and has valid JSONL content
+    try:
+        with path.open("r", encoding="utf-8") as handle:
+            lines = [line.strip() for line in handle if line.strip()]
+            if not lines:
+                raise SystemExit(
+                    f"Dataset file {path} is empty. "
+                    f"For SFT files, ensure examples meet the reward threshold (try --sft-min-reward 0 or lower)."
+                )
+            # Validate first line is valid JSON
+            try:
+                json.loads(lines[0])
+            except json.JSONDecodeError as e:
+                raise SystemExit(f"Dataset file {path} contains invalid JSON on first line: {e}")
+    except UnicodeDecodeError:
+        # If it's not text, assume it's binary and skip validation
+        pass
+    
     if dry_run:
         print(f"[finetune] DRY-RUN upload {path} ({purpose})")
         return f"dryrun-{path.stem}"

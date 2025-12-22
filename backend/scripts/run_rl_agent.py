@@ -184,9 +184,11 @@ def _export_episode_datasets(
     ppo_written = 0
     try:
         if not skip_sft:
-            sft_handle = sft_path.open("w", encoding="utf-8")
+            # Append to accumulate examples across multiple runs
+            sft_handle = sft_path.open("a", encoding="utf-8")
         if not skip_ppo:
-            ppo_handle = ppo_path.open("w", encoding="utf-8")
+            # Append to accumulate examples across multiple runs
+            ppo_handle = ppo_path.open("a", encoding="utf-8")
     except OSError as exc:
         print(f"[agent] Failed to open dataset files: {exc}", file=sys.stderr)
         return None, None
@@ -352,8 +354,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--sft-min-reward",
         type=float,
-        default=0.7,
-        help="Minimum reward required to include a step in the SFT dataset (unless done).",
+        default=0.0,
+        help="Minimum reward required to include a step in the SFT dataset (unless done). Default: 0.0 (include all).",
     )
     parser.add_argument(
         "--sft-done-only",
