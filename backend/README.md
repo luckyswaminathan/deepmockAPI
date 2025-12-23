@@ -376,3 +376,20 @@ obs, reward, terminated, truncated, info = env.step(action)
 ```
 
 Actions are auto-discovered from the OpenAPI schema, or you can pass a custom list. When `use_action_mask` is on, invalid actions return an immediate penalty instead of hitting the backend.
+
+Train with RLlib
+----------------
+Use RLlib’s PPO implementation to exercise `DeepMockGymEnv` end-to-end. Install RLlib and point the loop at a running backend (with `RL_ENABLED=true` and the target API generated):
+
+```bash
+pip install "ray[rllib]"
+python -m rl.rllib_loop \
+  --backend-url http://localhost:8000 \
+  --api-slug stripe \
+  --goal-file scripts/simple_account_goal.json \
+  --actions-file scripts/simple_account_actions.json \
+  --num-iterations 3 \
+  --num-workers 0
+```
+
+The loop registers a `deepmock-gym` environment with RLlib, trains for the requested iterations, runs evaluation episodes when enabled, and saves checkpoints under `rllib_checkpoints/` by default.
