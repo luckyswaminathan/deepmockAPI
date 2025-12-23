@@ -2,6 +2,7 @@
 
 __all__ = [
     "github",
+    "sample_api",
     "stripe",
     "twilio",
 ]

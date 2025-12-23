@@ -1,0 +1,28 @@
+[
+  {
+    "method": "GET",
+    "operation_id": null,
+    "path": "/orders",
+    "path_parameters": [],
+    "query_parameters": [],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/OrderList",
+    "summary": "List orders",
+    "tags": []
+  },
+  {
+    "method": "GET",
+    "operation_id": null,
+    "path": "/orders/{orderId}",
+    "path_parameters": [
+      "orderId"
+    ],
+    "query_parameters": [
+      "orderId"
+    ],
+    "request_body_ref": null,
+    "response_body_ref": "#/components/schemas/Order",
+    "summary": "Get order",
+    "tags": []
+  }
+]

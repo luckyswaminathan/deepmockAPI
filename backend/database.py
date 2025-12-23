@@ -6,10 +6,10 @@ from pathlib import Path
 from typing import Any, Iterator, Optional
 
 from dotenv import load_dotenv
-from sqlalchemy import Column, DateTime, Integer, String, UniqueConstraint, func
+from sqlalchemy import Column, DateTime, Integer, String, TypeDecorator, UniqueConstraint, func
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.engine import Engine, make_url
-from sqlalchemy.types import JSON
+from sqlalchemy.types import JSON, TypeEngine
 from sqlmodel import Field, Session, SQLModel, create_engine
 
 
@@ -45,13 +45,26 @@ def _normalize_sqlite_url(url: str) -> str:
     return f"sqlite:///{db_path}"
 
 
+class AdaptiveJSON(TypeDecorator):
+    """JSON type that adapts to SQLite (JSON) or PostgreSQL (JSONB) at runtime."""
+    
+    impl = JSON
+    cache_ok = True
+    
+    def load_dialect_impl(self, dialect):
+        if dialect.name == "postgresql":
+            return dialect.type_descriptor(JSONB())
+        else:
+            return dialect.type_descriptor(JSON())
+
+
 def _schema_type() -> Any:
-    # Use _env_database_url() directly to avoid circular dependency
-    # This is called during class definition, before get_database_url() is fully available
-    url = _env_database_url() or ""
-    if url.startswith("sqlite") or not url:
-        return JSON
-    return JSONB
+    """Return appropriate JSON type based on database dialect.
+    
+    Returns AdaptiveJSON which will use JSON for SQLite and JSONB for PostgreSQL
+    based on the actual database dialect at table creation time.
+    """
+    return AdaptiveJSON()
 
 
 class ApiRegistry(SQLModel, table=True):

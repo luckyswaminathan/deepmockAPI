@@ -1,5 +1,21 @@
+import sys
+from pathlib import Path
+
 import httpx
 import pytest
+
+# Add backend directory to Python path
+backend_dir = Path(__file__).resolve().parents[1]
+if str(backend_dir) not in sys.path:
+    sys.path.insert(0, str(backend_dir))
+
+try:
+    import gymnasium as _gym  # noqa: F401
+except ImportError:
+    try:
+        import gym as _gym  # type: ignore  # noqa: F401
+    except ImportError:
+        pytest.skip("gym/gymnasium not installed; skipping gym env tests.", allow_module_level=True)
 
 from rl.gym_env import DeepMockGymEnv
 

@@ -5,15 +5,21 @@ from __future__ import annotations
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
 import httpx
+import numpy as np
 
 try:  # Prefer gymnasium but gracefully fall back to classic gym
-    import gymnasium as gym
-    from gymnasium import spaces
+    import gymnasium as gym  # type: ignore
+    from gymnasium import spaces  # type: ignore
+    _GYM_AVAILABLE = True
 except ImportError:  # pragma: no cover - only used if gymnasium is unavailable
-    import gym  # type: ignore
-    from gym import spaces  # type: ignore
-
-import numpy as np
+    try:
+        import gym  # type: ignore
+        from gym import spaces  # type: ignore
+        _GYM_AVAILABLE = True
+    except ImportError:  # pragma: no cover - neither gym nor gymnasium installed
+        gym = None  # type: ignore
+        spaces = None  # type: ignore
+        _GYM_AVAILABLE = False
 
 
 def _normalize_path(api_slug: str, path: str) -> str:
@@ -88,6 +94,11 @@ class DeepMockGymEnv(gym.Env):
             client: Optional httpx.Client; otherwise a new one is created.
             timeout: Timeout (seconds) for HTTP calls when constructing the default client.
         """
+        if not _GYM_AVAILABLE:
+            raise ImportError(
+                "gymnasium or gym is required for DeepMockGymEnv. "
+                "Install with: pip install gymnasium"
+            )
         super().__init__()
         self.backend_url = backend_url.rstrip("/")
         self.api_slug = api_slug

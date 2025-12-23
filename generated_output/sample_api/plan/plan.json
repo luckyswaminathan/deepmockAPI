@@ -1,0 +1,55 @@
+{
+  "api_slug": "sample_api",
+  "generated_at": "2025-12-23T01:05:51.684162+00:00",
+  "routes": [
+    {
+      "component": "OrderList",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "OrderList",
+          "filters": [],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/OrderList"
+          ],
+          "type": "read_many"
+        }
+      ],
+      "path": "/orders",
+      "status": "planned",
+      "summary": "List orders",
+      "warnings": []
+    },
+    {
+      "component": "Order",
+      "method": "GET",
+      "operations": [
+        {
+          "component": "Order",
+          "filters": [
+            {
+              "field": "orderId",
+              "operator": "eq",
+              "value_source": "path.orderId"
+            }
+          ],
+          "joins": [],
+          "notes": [
+            "Response body references #/components/schemas/Order",
+            "Query parameters: orderId"
+          ],
+          "type": "read_one"
+        }
+      ],
+      "path": "/orders/{orderId}",
+      "status": "planned",
+      "summary": "Get order",
+      "warnings": []
+    }
+  ],
+  "validation": {
+    "errors": [],
+    "warnings": []
+  }
+}
