@@ -355,3 +355,24 @@ Behavior:
 - `--dry-run` prints the plan without hitting the API—handy for CI rehearsals.
 
 This closes the “collect → export → fine-tune” loop without leaving the repo.
+
+Gym-Compatible RL Environment
+-----------------------------
+You can interact with the RL endpoints using a Gym/Gymnasium environment via `rl.gym_env.DeepMockGymEnv`. Start the backend with `RL_ENABLED=true` (and Redis running), then:
+
+```python
+from rl.gym_env import DeepMockGymEnv
+
+env = DeepMockGymEnv(
+    backend_url="http://localhost:8000",
+    api_slug="stripe",
+    goal={"goal_state": {"target_components": {"customer": [{}]}}},
+    use_action_mask=True,
+)
+
+obs, info = env.reset()
+action = env.action_space.sample()
+obs, reward, terminated, truncated, info = env.step(action)
+```
+
+Actions are auto-discovered from the OpenAPI schema, or you can pass a custom list. When `use_action_mask` is on, invalid actions return an immediate penalty instead of hitting the backend.

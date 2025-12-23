@@ -6,6 +6,7 @@ from .action_tracker import ActionTracker
 from .goal_manager import GoalManager
 from .reward_calculator import RewardCalculator
 from .middleware import RLMiddleware
+from .gym_env import DeepMockGymEnv
 from .models import State, Action, Goal, Episode
 
 __all__ = [
@@ -16,9 +17,9 @@ __all__ = [
     "GoalManager",
     "RewardCalculator",
     "RLMiddleware",
+    "DeepMockGymEnv",
     "State",
     "Action",
     "Goal",
     "Episode",
 ]
-

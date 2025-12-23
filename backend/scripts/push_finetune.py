@@ -40,7 +40,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--ppo-model", help="Model (usually the SFT result) to continue RL fine-tuning.")
     parser.add_argument("--ppo-algorithm", default="ppo", help="RL algorithm name to send to the API.")
     parser.add_argument("--purpose-sft", default="fine-tune", help="Purpose used when uploading the SFT file.")
-    parser.add_argument("--purpose-ppo", default="rl", help="Purpose used when uploading the PPO dataset.")
+    parser.add_argument(
+        "--purpose-ppo",
+        default="fine-tune",
+        help="Purpose used when uploading the PPO dataset (use 'fine-tune' to satisfy OpenAI file upload validation).",
+    )
     parser.add_argument("--dry-run", action="store_true", help="Print the steps without calling the API.")
     return parser.parse_args(argv)
 
@@ -170,6 +174,14 @@ def _create_rl_job(
         timeout=60,
     )
     if resp.status_code >= 400:
+        # If the RL endpoint isn't available, surface a clear message but don't crash.
+        if resp.status_code == 404:
+            print(
+                "[finetune] RL fine-tuning endpoint is not available for this account/region "
+                f"(404 from {api_base}/v1/rl/fine_tuning/jobs). Skipping PPO upload.",
+                file=sys.stderr,
+            )
+            return None
         raise SystemExit(f"Failed to start RL job: {resp.status_code} {resp.text}")
     data = resp.json()
     job_id = data.get("id")
