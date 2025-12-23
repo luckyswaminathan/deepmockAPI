@@ -111,7 +111,26 @@ class DeepMockGymEnv(gym.Env):
         self._owned_client = client is None
         self.client = client or httpx.Client(base_url=self.backend_url, timeout=timeout)
 
-        self.actions = self._normalize_actions(actions or self._load_actions_from_openapi(openapi_path))
+        # Always discover actions from OpenAPI, then optionally merge with provided actions
+        discovered_actions = self._load_actions_from_openapi(openapi_path)
+        
+        if actions:
+            # Merge provided actions with discovered ones (provided actions take precedence for duplicates)
+            # Create a lookup by action_id for discovered actions
+            discovered_by_id = {
+                (a.get("method", "").upper(), a.get("path", "")): a
+                for a in discovered_actions
+            }
+            # Add/override with provided actions
+            for action in actions:
+                key = (action.get("method", "").upper(), action.get("path", ""))
+                discovered_by_id[key] = action
+            # Convert back to list
+            merged_actions = list(discovered_by_id.values())
+            self.actions = self._normalize_actions(merged_actions)
+        else:
+            self.actions = self._normalize_actions(discovered_actions)
+        
         if not self.actions:
             raise ValueError("No actions discovered; provide an action list or ensure OpenAPI is reachable.")
 
@@ -334,6 +353,10 @@ class DeepMockGymEnv(gym.Env):
         return processed, info
 
     def _load_actions_from_openapi(self, openapi_path: str) -> List[Dict[str, Any]]:
+        """Load all mutating actions (POST/PUT/PATCH/DELETE) from OpenAPI spec.
+        
+        Includes all routes for the API slug, including those with path parameters.
+        """
         resp = self.client.get(openapi_path)
         resp.raise_for_status()
         schema = resp.json()
@@ -341,11 +364,18 @@ class DeepMockGymEnv(gym.Env):
 
         actions: List[Dict[str, Any]] = []
         prefix = f"/generated/{self.api_slug}"
+        # Only include mutating methods (exclude GET for RL - we want actions that modify state)
+        mutating_methods = {"post", "put", "patch", "delete"}
+        
         for path, methods in paths.items():
             if not path.startswith(prefix):
                 continue
+            if not isinstance(methods, dict):
+                continue
             for method, meta in methods.items():
-                if method.lower() not in {"get", "post", "put", "patch", "delete"}:
+                if method.lower() not in mutating_methods:
+                    continue
+                if not isinstance(meta, dict):
                     continue
                 actions.append(
                     {
