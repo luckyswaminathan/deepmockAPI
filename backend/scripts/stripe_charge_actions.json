@@ -1,0 +1,47 @@
+[
+  {
+    "method": "POST",
+    "path": "/v1/customers",
+    "body": {
+      "id": "cus_charge_demo",
+      "email": "charge@example.com",
+      "name": "Charge Demo"
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/payment_methods",
+    "body": {
+      "id": "pm_charge_demo",
+      "type": "card",
+      "card": {
+        "brand": "visa",
+        "last4": "4242",
+        "exp_month": 12,
+        "exp_year": 2030
+      },
+      "customer": "cus_charge_demo"
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/payment_methods/pm_charge_demo/attach",
+    "body": {
+      "customer": "cus_charge_demo",
+      "default_for_currency": "usd"
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/charges",
+    "body": {
+      "id": "ch_demo_success",
+      "customer": "cus_charge_demo",
+      "amount": 2500,
+      "currency": "usd",
+      "status": "succeeded",
+      "paid": true,
+      "payment_method": "pm_charge_demo"
+    }
+  }
+]

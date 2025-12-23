@@ -1,0 +1,58 @@
+[
+  {
+    "method": "POST",
+    "path": "/v1/customers",
+    "body": {
+      "id": "cus_refund_demo",
+      "email": "refund@example.com",
+      "name": "Refund Demo"
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/payment_methods",
+    "body": {
+      "id": "pm_refund_demo",
+      "type": "card",
+      "card": {
+        "brand": "visa",
+        "last4": "4242",
+        "exp_month": 11,
+        "exp_year": 2030
+      },
+      "customer": "cus_refund_demo"
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/payment_methods/pm_refund_demo/attach",
+    "body": {
+      "customer": "cus_refund_demo",
+      "default_for_currency": "usd"
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/charges",
+    "body": {
+      "id": "ch_refund_demo",
+      "customer": "cus_refund_demo",
+      "amount": 1800,
+      "currency": "usd",
+      "status": "succeeded",
+      "paid": true,
+      "payment_method": "pm_refund_demo"
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/v1/refunds",
+    "body": {
+      "id": "re_refund_demo",
+      "charge": "ch_refund_demo",
+      "amount": 1800,
+      "currency": "usd",
+      "status": "succeeded"
+    }
+  }
+]

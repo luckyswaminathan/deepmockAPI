@@ -1,0 +1,36 @@
+{
+  "api_slug": "stripe",
+  "description": "Create a customer, attach a card, and succeed a charge.",
+  "goal_state": {
+    "target_components": {
+      "customer": [
+        {
+          "id": "cus_charge_demo",
+          "email": "charge@example.com",
+          "name": "Charge Demo"
+        }
+      ],
+      "payment_method": [
+        {
+          "id": "pm_charge_demo",
+          "customer": "cus_charge_demo",
+          "type": "card",
+          "card": {
+            "brand": "visa",
+            "last4": "4242"
+          }
+        }
+      ],
+      "charge": [
+        {
+          "id": "ch_demo_success",
+          "customer": "cus_charge_demo",
+          "amount": 2500,
+          "currency": "usd",
+          "status": "succeeded",
+          "paid": true
+        }
+      ]
+    }
+  }
+}

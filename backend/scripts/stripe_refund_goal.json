@@ -1,0 +1,45 @@
+{
+  "api_slug": "stripe",
+  "description": "Create a customer, successful charge, and corresponding refund.",
+  "goal_state": {
+    "target_components": {
+      "customer": [
+        {
+          "id": "cus_refund_demo",
+          "email": "refund@example.com",
+          "name": "Refund Demo"
+        }
+      ],
+      "payment_method": [
+        {
+          "id": "pm_refund_demo",
+          "customer": "cus_refund_demo",
+          "type": "card",
+          "card": {
+            "brand": "visa",
+            "last4": "4242"
+          }
+        }
+      ],
+      "charge": [
+        {
+          "id": "ch_refund_demo",
+          "customer": "cus_refund_demo",
+          "amount": 1800,
+          "currency": "usd",
+          "status": "succeeded",
+          "paid": true
+        }
+      ],
+      "refund": [
+        {
+          "id": "re_refund_demo",
+          "charge": "ch_refund_demo",
+          "amount": 1800,
+          "currency": "usd",
+          "status": "succeeded"
+        }
+      ]
+    }
+  }
+}

@@ -21,6 +21,21 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--sft-file", type=Path, help="Path to the SFT JSONL file to upload.")
     parser.add_argument("--sft-model", default="gpt-4.1-mini", help="Base model for SFT fine-tuning.")
     parser.add_argument("--sft-suffix", help="Optional suffix for the resulting SFT model name.")
+    parser.add_argument(
+        "--sft-n-epochs",
+        type=int,
+        help="Override SFT epochs (default provider auto). Use small values to reduce cost, e.g., 1-3.",
+    )
+    parser.add_argument(
+        "--sft-batch-size",
+        type=int,
+        help="Override SFT batch size (default provider auto).",
+    )
+    parser.add_argument(
+        "--sft-lr-mult",
+        type=float,
+        help="Override SFT learning rate multiplier (default provider auto).",
+    )
     parser.add_argument("--ppo-file", type=Path, help="Path to the PPO/RL JSONL dataset.")
     parser.add_argument("--ppo-model", help="Model (usually the SFT result) to continue RL fine-tuning.")
     parser.add_argument("--ppo-algorithm", default="ppo", help="RL algorithm name to send to the API.")
@@ -90,6 +105,9 @@ def _create_sft_job(
     training_file: str,
     model: str,
     suffix: Optional[str],
+    n_epochs: Optional[int],
+    batch_size: Optional[int],
+    lr_mult: Optional[float],
     api_base: str,
     api_key: str,
     dry_run: bool,
@@ -100,6 +118,16 @@ def _create_sft_job(
     payload = {"training_file": training_file, "model": model}
     if suffix:
         payload["suffix"] = suffix
+    # Optional hyperparameter overrides
+    hparams = {}
+    if n_epochs is not None:
+        hparams["n_epochs"] = n_epochs
+    if batch_size is not None:
+        hparams["batch_size"] = batch_size
+    if lr_mult is not None:
+        hparams["learning_rate_multiplier"] = lr_mult
+    if hparams:
+        payload["hyperparameters"] = hparams
     resp = requests.post(
         f"{api_base}/v1/fine_tuning/jobs",
         headers={
@@ -172,6 +200,9 @@ def main(argv: list[str] | None = None) -> int:
             training_file=sft_file_id,
             model=args.sft_model,
             suffix=args.sft_suffix,
+            n_epochs=args.sft_n_epochs,
+            batch_size=args.sft_batch_size,
+            lr_mult=args.sft_lr_mult,
             api_base=args.api_base,
             api_key=api_key,
             dry_run=args.dry_run,
